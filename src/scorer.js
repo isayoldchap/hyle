@@ -11,7 +11,7 @@ const scoreRight = (pattern) => {
 }
 
 const scoreSingle = (pattern) => {
-  if (pattern.length < 2) {
+  if (pattern.length < 2 || pattern.indexOf(' ') >= 0) {
     return 0;
   }
   if (pattern === reversePattern(pattern)) {

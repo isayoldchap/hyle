@@ -5,10 +5,9 @@ import {createStore} from 'redux';
 import './css/index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
+import gameReducer from './reducers/gameReducer';
 
-
-import allReducer from './reducers/allReducer';
-const store = createStore(allReducer);
+const store = createStore(gameReducer);
 
 window.store = store;
 

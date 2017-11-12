@@ -8,20 +8,20 @@ import {squaresSelector, sizeSelector} from '../selectors/boardSelectors'
 class Board extends React.Component {
 
   componentDidMount() {
-    const {squareHeight = 50, dispatch} = this.props;
+    const {squareHeight, dispatch} = this.props;
     document.getElementById('board').addEventListener("click", (event) => {
-      const row = Math.ceil(event.offsetX / squareHeight);
-      const col = Math.ceil(event.offsetY / squareHeight);
+      const row = Math.ceil(event.offsetY / squareHeight);
+      const col = Math.ceil(event.offsetX / squareHeight);
       dispatch(this.createSquareClickAction(row, col));
     });
   }
 
 	render() {
-    const {size = 8, squareHeight = 50, boardSquares = [], score = 0} = this.props;
-
-    const squareContent = boardSquares.map(each =>{
-       const key = each.row + "," + each.column;
-       return <BoardSquare {... each} width={squareHeight} height={squareHeight}/>
+    const {size, squareHeight, boardSquares = [], score = 0, orderHalfMove} = this.props;
+    const squareContent = boardSquares.map(each => {
+       const squareSelected = orderHalfMove ?
+        (orderHalfMove.x === each.col && orderHalfMove.y === each.row) : false;
+       return <BoardSquare {... each} width={squareHeight} height={squareHeight} showSelection={squareSelected}/>
     });
 
     return (
@@ -50,9 +50,10 @@ const mapStateToProps = (state) => {
   const newProps = {
     size: sizeSelector(state),
     boardSquares: squaresSelector(state),
-    score: scoreSelector(state)
+    score: scoreSelector(state),
+    orderHalfMove: state.orderHalfMove
   };
   return newProps;
-}
+};
 
 export default connect(mapStateToProps)(Board);
