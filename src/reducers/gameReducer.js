@@ -100,11 +100,15 @@ const orderEndMoveReducer = (state, action) => {
         const updatedBoard = moveTile(state, startMove, endMove);
         return Object.assign({},
           state,
-          {board: updatedBoard, turn: Roles.Chaos, orderHalfMove: undefined}
+          {board: updatedBoard},
+          {turn: Roles.Chaos},
+          {orderHalfMove: undefined},
+          {moveNumber: state.moveNumber + 1}
         );
       }
     case 'pass':
-      return Object.assign({}, state, {turn: Roles.Chaos, orderHalfMove: undefined});
+      return Object.assign({}, state,
+         {turn: Roles.Chaos, orderHalfMove: undefined, moveNumber: state.moveNumber + 1});
     default:
       return state;
   }
@@ -116,7 +120,7 @@ const roleReducer = (role, orderHalfMove) => {
   else return orderEndMoveReducer;
 };
 
-const gameReducer = (state = initializeGame(5), action) => {
+const gameReducer = (state = initializeGame(4), action) => {
   const selectedReducer = roleReducer(state.turn, state.orderHalfMove);
   return selectedReducer(state, action);
 };
