@@ -2,7 +2,6 @@ game : {
   board: {
 
   },
-  round: 1,
   player1: {
     name: 'player1',
     rating: 1600,
@@ -16,6 +15,12 @@ game : {
   history: [],
   orderHalfMove: {x: 2, y: 5},
   moveNumber: 4,
+  rounds: [
+    {
+      player1: 32,
+      player2: 41
+    }
+  ]
   turn: 'chaos',
   remainingPieceSequence: [],
   scores: [],

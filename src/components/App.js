@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Board from './Board';
 import CurrentTurnComponent from './CurrentTurnComponent';
+import MatchScoreComponent from './MatchScoreComponent';
 import RemainingPiecesComponent from './RemainingPiecesComponent';
+
 import '../css/App.css';
 import '../css/bootstrap.css'
 import '../css/bootstrap-theme.css'
@@ -21,12 +23,17 @@ class App extends Component {
 
         <div className="grid">
           <div className="row board">
-            <div className="col-md-6">
+            <div className="col-md-9">
               <Board squareHeight="80"/>
             </div>
           </div>
           <div className="row">
-            <CurrentTurnComponent />
+            <div className="col-md-3 col-sm-3" >
+              <CurrentTurnComponent />
+            </div>
+            <div className="col-md-3 col-sm-3">
+              <MatchScoreComponent />
+            </div>
           </div>
         </div>
       </div>
@@ -37,6 +44,6 @@ class App extends Component {
 const mapStateToProps = (state) => {
   const computedProps = Object.assign({}, {turn: state.turn});
   return computedProps;
-}
+};
 
 export default connect(mapStateToProps)(App);

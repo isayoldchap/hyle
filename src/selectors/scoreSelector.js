@@ -1,6 +1,5 @@
-import {scorePattern} from '../scorer';
-import {allRowsAndColumns} from '../reducers/boardReducer';
-import {boardSelector} from './boardSelectors';
+import {scoreCombo} from '../scorer';
+import {allRowsAndColumns, boardSelector} from '../ducks/boardDuck';
 
 export const scoreSelector = (state) => {
   const board = boardSelector(state);
@@ -8,7 +7,7 @@ export const scoreSelector = (state) => {
 
   const combinedScore = allScoreablePatterns.reduce((score, sequence) => {
     const patternToScore = sequence.map(characterForCell).join("");
-    return score + scorePattern(patternToScore.trim());
+    return score + scoreCombo(patternToScore.trim());
   }, 0);
 
   return combinedScore;

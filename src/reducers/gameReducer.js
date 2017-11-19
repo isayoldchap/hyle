@@ -1,5 +1,4 @@
-import {initializeBoard, placeTile, moveTile} from './boardReducer';
-import {emptySquaresSelector, allLegalMovesFromLocation, allLegalMovesFromSquare} from '../selectors/boardSelectors';
+import {initializeBoard, placeTile, moveTile, emptySquaresSelector, allLegalMovesFromLocation, allLegalMovesFromSquare} from '../ducks/boardDuck';
 import {nextTile} from '../selectors/gameSelector';
 import generateGamePieceSequence from '../util/SequenceGenerator';
 
@@ -31,6 +30,8 @@ const initializeGame = (boardSize) => {
     colors: colors,
     board: initialBoard,
     round: 1,
+    round1Score: 23,
+    round2Score: 42,
     moveNumber:1,
     remainingPieces: pieceSequence,
     turn: Roles.Chaos,

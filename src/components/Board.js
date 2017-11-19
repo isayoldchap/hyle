@@ -3,7 +3,7 @@ import BoardSquare from './BoardSquare';
 import ScoreComponent from './ScoreComponent';
 import {connect} from 'react-redux';
 import {scoreSelector} from '../selectors/scoreSelector';
-import {squaresSelector, sizeSelector} from '../selectors/boardSelectors'
+import {squaresSelector, sizeSelector} from '../ducks/boardDuck'
 
 class Board extends React.Component {
 
