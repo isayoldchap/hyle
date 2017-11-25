@@ -1,7 +1,11 @@
 import {scoreCombo} from '../scorer';
 import {allRowsAndColumns, boardSelector} from '../ducks/boardDuck';
 
-export const scoreSelector = (state) => {
+const characterForCell = (cell) => {
+  return cell.color ? cell.color.substring(0,1) : ' ';
+};
+
+const scoreSelector = (state) => {
   const board = boardSelector(state);
   const allScoreablePatterns = allRowsAndColumns(board);
 
@@ -11,8 +15,6 @@ export const scoreSelector = (state) => {
   }, 0);
 
   return combinedScore;
-}
-
-const characterForCell = (cell) => {
-  return cell.color ? cell.color.substring(0,1) : ' ';
 };
+
+export default scoreSelector;

@@ -60,8 +60,8 @@ const makeCell = (row, column, color = undefined) => {
   return {
     row: row,
     col: column,
-    color: color,
-    key: row + ":" + column
+    key: row + ":" + column,
+    color: color
   }
 };
 
@@ -145,8 +145,8 @@ export const occupiedSquareSelector = (state) => {
 };
 
 export const legalOrderMoveSelector = (state) => {
-  const allPossibleStartMoves = occupiedSquareSelector(state);
-  const allLegalMoves = allPossibleStartMoves.reduce((allMoves, startSquare) => {
+  const occupiedSquares = occupiedSquareSelector(state);
+  const allLegalMoves = occupiedSquares.reduce((allMoves, startSquare) => {
     const allFromSquare = allMovesFromSquare(startSquare, state);
     return allMoves.concat(allFromSquare);
   },[]);
@@ -154,15 +154,19 @@ export const legalOrderMoveSelector = (state) => {
   return allLegalMoves;
 };
 
-// this one is good
 export const allLegalMovesFromSquare = (state, startSquare) => {
   const xyLocation = transformSquareToLocation(startSquare);
   return allLegalMovesFromLocation(state, xyLocation);
 };
 
+export const allMovesFromSquare = (startSquare, board) => {
+  const startLocation = transformSquareToLocation(startSquare);
+  return allMovesFromLocation(startLocation, board);
+};
+
 export const allLegalMovesFromLocation = (state, startLocation) => {
   const startSquare = squareAtLocationSelector(state, startLocation);
-  if (startSquare.color === undefined) return [];
+  if (startSquare === undefined || startSquare.color === undefined) return [];
   else return allMovesFromLocation(startLocation, state);
 };
 
@@ -175,10 +179,6 @@ export const allMovesFromLocation = (startLocation, state) => {
   return allFromSquare;
 };
 
-export const allMovesFromSquare = (startSquare, board) => {
-  const startLocation = transformSquareToLocation(startSquare);
-  return allMovesFromLocation(startLocation, board);
-};
 
 export const transformSquareToLocation = (square) => {
   return {

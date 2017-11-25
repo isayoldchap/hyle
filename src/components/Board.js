@@ -1,9 +1,10 @@
 import React from 'react';
 import BoardSquare from './BoardSquare';
 import ScoreComponent from './ScoreComponent';
+import scoreSelector from '../selectors/scoreSelector';
 import {connect} from 'react-redux';
-import {scoreSelector} from '../selectors/scoreSelector';
 import {squaresSelector, sizeSelector} from '../ducks/boardDuck'
+import {createSquareClickAction} from '../actioncreators/boardActions'
 
 class Board extends React.Component {
 
@@ -12,7 +13,7 @@ class Board extends React.Component {
     document.getElementById('board').addEventListener("click", (event) => {
       const row = Math.ceil(event.offsetY / squareHeight);
       const col = Math.ceil(event.offsetX / squareHeight);
-      dispatch(this.createSquareClickAction(row, col));
+      dispatch(createSquareClickAction(row, col));
     });
   }
 
@@ -34,16 +35,6 @@ class Board extends React.Component {
       </div>
     );
 	}
-
-  createSquareClickAction (row, col) {
-    return {
-      type: 'squareClicked',
-      payload: {
-        row: row,
-        col: col
-      }
-    };
-  }
 }
 
 const mapStateToProps = (state) => {

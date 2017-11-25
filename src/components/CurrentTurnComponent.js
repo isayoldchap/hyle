@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Roles} from '../reducers/gameReducer';
+import {createPassAction} from '../actioncreators/boardActions';
 import NextTileComponent from './NextTileComponent';
 
 class CurrentTurnComponent extends React.Component {
@@ -22,15 +23,11 @@ class CurrentTurnComponent extends React.Component {
           <div className="row">
             <p className="col-lg-4">Move #: {moveNumber}</p>
             <p className="col-lg-4">Make a move or</p>
-            <button className="col-lg-4" onClick={() => dispatch(this.createPassAction())}>Pass</button>
+            <button className="col-lg-4" onClick={() => dispatch(createPassAction())}>Pass</button>
           </div>
         </div>
       );
     } else return <p>what</p>;
-  }
-
-  createPassAction(){
-    return {type: "pass", payload: undefined};
   }
 }
 

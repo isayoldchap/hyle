@@ -7,12 +7,12 @@ class MatchScoreComponent extends React.Component {
     return <div className="grid">
       <div className="row">
         <div className="col-md-3">
-          <p>Round 1: 23</p>
+          <p>Round 1:</p>
         </div>
       </div>
       <div className="row">
         <div className="col-md-3">
-          <p>Round 2: 45</p>
+          <p>Round 2:</p>
         </div>
       </div>
     </div>

@@ -1,10 +1,44 @@
-import {initializeBoard, squaresOnBoardSelector, legalChaosMovesSelector, legalOrderMoveSelector, placeTile} from '../../src/ducks/boardDuck.js'
+import {initializeBoard, squaresOnBoardSelector, legalChaosMovesSelector, legalOrderMoveSelector, placeTile, sizeSelector, allMovesFromSquare, allLegalMovesFromSquare } from '../../src/ducks/boardDuck.js'
 import {assert} from 'chai';
 
 describe("A board", () => {
+  const myBoard = initializeBoard(5);
+
   it ("should initialize to the size provided", () => {
-    const myBoard = initializeBoard(5);
-    assert.equal(myBoard.length, 5);
+    const gameState = {
+      board: myBoard
+    };
+    assert.equal(sizeSelector(gameState), 5);
+  });
+
+  it ("should have 25 squares", () => {
+    const squares = squaresOnBoardSelector(myBoard);
+    assert.equal(squares.length, 25);
+  });
+});
+
+describe("Order Move Logic", () => {
+  const myBoard = [
+    [
+      { row: 1, col: 1, key: '1:1', color: "blue" },
+      { row: 1, col: 2, key: '1:2', color: undefined }
+    ],
+    [
+      { row: 2, col: 1, key: '2:1', color: undefined },
+      { row: 2, col: 2, key: '2:2', color: undefined }
+    ]
+  ];
+
+  it ("should calc all the moves from the start square", () => {
+    const startSquare = {row: 1, col: 1};
+    const legalMoves = allMovesFromSquare(startSquare, {board: myBoard});
+    assert.equal(legalMoves.length, 2);
+  });
+
+  it ("should calc all the legal moves from the start square", () => {
+    const startSquare = {row: 1, col: 1};
+    const legalMoves = allLegalMovesFromSquare({board: myBoard}, startSquare);
+    assert.equal(legalMoves.length, 2);
   });
 });
 

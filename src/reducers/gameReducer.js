@@ -1,11 +1,12 @@
 import {initializeBoard, placeTile, moveTile, emptySquaresSelector, allLegalMovesFromLocation, allLegalMovesFromSquare} from '../ducks/boardDuck';
 import {nextTile} from '../selectors/gameSelector';
 import generateGamePieceSequence from '../util/SequenceGenerator';
+import {BoardActionTypes} from '../actioncreators/boardActions';
 
 export const Roles = {
   Chaos: 'chaos',
   Order: 'order'
-}
+};
 
 export const AllColors = [
   'Red',
@@ -30,8 +31,8 @@ const initializeGame = (boardSize) => {
     colors: colors,
     board: initialBoard,
     round: 1,
-    round1Score: 23,
-    round2Score: 42,
+    round1Score: 0,
+    round2Score: 0,
     moveNumber:1,
     remainingPieces: pieceSequence,
     turn: Roles.Chaos,
@@ -44,18 +45,20 @@ const initializeGame = (boardSize) => {
       name: 'Player 2',
     }
   };
-}
+};
 
 const chaosReducer = (state, action) => {
   switch (action.type) {
-    case 'squareClicked':
+    case BoardActionTypes.SQUARE_CLICKED:
       const emptySquares = emptySquaresSelector(state)
       const matchingSquare = emptySquares.find((square) => {
-        return square.row === action.payload.row && square.col === action.payload.col;
+        return square.row === action.payload.y && square.col === action.payload.x;
       });
 
-      if (!matchingSquare) return state;
-      else {
+      if (!matchingSquare) {
+        console.log("No matching square in response to action ", action);
+        return state;
+      } else {
         const nextColor = nextTile(state);
         const updatedBoard = placeTile(state, matchingSquare.row, matchingSquare.col, nextColor);
         const newState = Object.assign(
@@ -73,14 +76,19 @@ const chaosReducer = (state, action) => {
 
 const orderStartMoveReducer = (state, action) => {
   switch (action.type) {
-    case 'squareClicked':
-      const legalOrderMoves = allLegalMovesFromSquare(state, action.payload);
+    case BoardActionTypes.SQUARE_CLICKED:
+      const legalOrderMoves = allLegalMovesFromLocation(state, action.payload);
       if (legalOrderMoves.length > 0) {
-        const halfMove = {x: action.payload.col, y: action.payload.row};
+        const halfMove =  action.payload;
         return Object.assign({}, state, {orderHalfMove: halfMove});
       } else return state;
-    case 'pass':
-      return Object.assign({}, state, {turn: Roles.Chaos, orderHalfMove: undefined});
+    case BoardActionTypes.PASS:
+      return Object.assign({}, state,
+         {
+           turn: Roles.Chaos,
+           orderHalfMove: undefined,
+           moveNumber: state.moveNumber + 1
+         });
     default:
       return state;
   }
@@ -88,9 +96,9 @@ const orderStartMoveReducer = (state, action) => {
 
 const orderEndMoveReducer = (state, action) => {
   switch (action.type) {
-    case 'squareClicked':
+    case BoardActionTypes.SQUARE_CLICKED:
       const startMove = state.orderHalfMove;
-      const endMove = {x: action.payload.col, y: action.payload.row};
+      const endMove = action.payload;
       const legalMoves = allLegalMovesFromLocation(state, startMove);
       const foundMove = legalMoves.find(move => {
         return move.end.x === endMove.x && move.end.y === endMove.y;
@@ -107,9 +115,13 @@ const orderEndMoveReducer = (state, action) => {
           {moveNumber: state.moveNumber + 1}
         );
       }
-    case 'pass':
+    case BoardActionTypes.PASS:
       return Object.assign({}, state,
-         {turn: Roles.Chaos, orderHalfMove: undefined, moveNumber: state.moveNumber + 1});
+         {
+           turn: Roles.Chaos,
+           orderHalfMove: undefined,
+           moveNumber: state.moveNumber + 1
+         });
     default:
       return state;
   }

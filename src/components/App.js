@@ -41,9 +41,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const computedProps = Object.assign({}, {turn: state.turn});
-  return computedProps;
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

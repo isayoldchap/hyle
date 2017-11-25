@@ -10,6 +10,7 @@ describe("A scorer", () => {
 
   it ("should score combinations properly", () => {
     assert.equal(scoreCombo("XXX"), 7);
+    assert.equal(scoreCombo("XXOXX"), 12);
     assert.equal(scoreCombo("OOOO"), 16);
     assert.equal(scoreCombo("XXXXX"), 30);
   });
