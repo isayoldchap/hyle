@@ -1,6 +1,6 @@
 
-export const renderPieceOnCanvas = (canvas, x, y, size, color, outline=false, highlight=false) => {
-  const ctx = canvas.getContext('2d');
+export const renderPieceOnCanvas = (canvas, x, y, size, color, outline=false, highlight=false, label = undefined) => {
+  const ctx = canvas.getContext('2d', {alpha: false});
   const pieceColor = color === undefined ? 'white' : color;
   const width = size;
   const height = size;
@@ -24,4 +24,13 @@ export const renderPieceOnCanvas = (canvas, x, y, size, color, outline=false, hi
   ctx.fillStyle = grd;
   ctx.fill();
   ctx.closePath();
+
+  if (label != undefined) {
+    ctx.font = '36px arial';
+    ctx.fillStyle = "white";
+    const measurement = ctx.measureText(label);
+    const txtWidth = measurement.width;
+
+    ctx.fillText(label, x + (width / 2) - (txtWidth/2), y + (width/2) + 12);
+  }
 }

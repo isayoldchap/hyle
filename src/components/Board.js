@@ -1,6 +1,7 @@
 import React from 'react';
 import BoardSquare from './BoardSquare';
 import ScoreComponent from './ScoreComponent';
+import RemainingPiecesComponent, {RemainingPiecesComponentOrientation} from './RemainingPiecesComponent';
 import scoreSelector from '../selectors/scoreSelector';
 import {connect} from 'react-redux';
 import {squaresSelector, sizeSelector} from '../ducks/boardDuck'
@@ -27,6 +28,7 @@ class Board extends React.Component {
 
     return (
       <div>
+        <RemainingPiecesComponent orientation={RemainingPiecesComponentOrientation.VERTICAL}/>
     	  <canvas id="board" width={squareHeight*size} height={squareHeight*size}></canvas>
         {squareContent}
         <div>

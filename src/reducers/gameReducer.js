@@ -107,6 +107,7 @@ const orderEndMoveReducer = (state, action) => {
         return Object.assign({}, state, {orderHalfMove: undefined});
       } else {
         const updatedBoard = moveTile(state, startMove, endMove);
+        console.log("Updated Board", state);
         return Object.assign({},
           state,
           {board: updatedBoard},

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import './css/index.css';
-import App from './components/App';
+import Root from './components/Root';
 import registerServiceWorker from './registerServiceWorker';
 import gameReducer from './reducers/gameReducer';
 
@@ -13,7 +13,7 @@ window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Root />
   </Provider>, document.getElementById('root')
 );
 
