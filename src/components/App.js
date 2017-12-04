@@ -7,9 +7,7 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">ENTROPY</h1>
-          <p className="App-intro">
-            Welcome to the classic strategy game of order and chaos!
-          </p>
+          <p className="App-intro"></p>
         </header>
       </div>
     );

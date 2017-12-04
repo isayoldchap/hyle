@@ -3,7 +3,9 @@ import React from 'react';
 class NewGameComponent extends React.Component {
 
   render() {
-    return [<p>This is a new game</p>];
+    return <div>
+              <p>This is the new game screen</p>
+           </div>
   }
 }
 

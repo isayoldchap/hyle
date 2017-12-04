@@ -3,8 +3,8 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 125px;
+  background-color: teal;
+  height: 100px;
   padding: 20px;
   color: white;
 }
@@ -20,5 +20,5 @@
 .App-intro {
   font-size: large;
   vertical-align: text-bottom;
-  text-alifn: bottom;
+  text-align: bottom;
 }

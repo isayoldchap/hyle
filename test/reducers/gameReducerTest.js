@@ -3,6 +3,7 @@ import gameReducer, {Roles} from '../../src/reducers/gameReducer';
 import {legalChaosMovesSelector} from '../../src/ducks/boardDuck';
 import {roundNumber, moveNumber, turn, remainingPieces, nextTile} from '../../src/selectors/gameSelector';
 import {createSquareClickAction, createPassAction} from '../../src/actioncreators/boardActions';
+import {newGame} from '../../src/actioncreators/gameActions';
 import {assert} from 'chai';
 import {createStore} from 'redux';
 
@@ -65,7 +66,6 @@ describe ("A game reducer", () => {
     const initialState = store.getState();
 
     store.dispatch(createSquareClickAction(2,2));
-    store.dispatch(createSquareClickAction(2,2));
     store.dispatch(createSquareClickAction(16,5));
 
     const after2Moves = store.getState();
@@ -75,8 +75,9 @@ describe ("A game reducer", () => {
     });
   });
 
-  describe("An initial board state", () => {
+  describe("An initial board state for 4x4 game", () => {
     const store = createStore(gameReducer);
+    store.dispatch(newGame({boardSize:4}));
     const initialState = store.getState();
 
     it ("should have a score of zero ", () => {

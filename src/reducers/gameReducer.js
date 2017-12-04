@@ -2,6 +2,7 @@ import {initializeBoard, placeTile, moveTile, emptySquaresSelector, allLegalMove
 import {nextTile} from '../selectors/gameSelector';
 import generateGamePieceSequence from '../util/SequenceGenerator';
 import {BoardActionTypes} from '../actioncreators/boardActions';
+import {newGame, GameActionTypes} from '../actioncreators/gameActions';
 
 export const Roles = {
   Chaos: 'chaos',
@@ -13,14 +14,25 @@ export const AllColors = [
   'Green',
   'Orange',
   'Blue',
+  'Magenta',
   'Cyan',
   'Brown',
-  'Magenta',
+  'Silver',
   'Gray',
   'Yellow',
   'Navy',
   'Black'
 ];
+
+const newGameReducer = (state, action) => {
+  if (action.type !== GameActionTypes.NEW_GAME){
+    return state;
+  }
+
+  const gameOptions = action.payload;
+  const boardSize = gameOptions.boardSize;
+  return Object.assign({}, state, initializeGame(boardSize));
+};
 
 const initializeGame = (boardSize) => {
   const initialBoard = initializeBoard(boardSize);
@@ -55,10 +67,7 @@ const chaosReducer = (state, action) => {
         return square.row === action.payload.y && square.col === action.payload.x;
       });
 
-      if (!matchingSquare) {
-        console.log("No matching square in response to action ", action);
-        return state;
-      } else {
+      if (!matchingSquare) return state;
         const nextColor = nextTile(state);
         const updatedBoard = placeTile(state, matchingSquare.row, matchingSquare.col, nextColor);
         const newState = Object.assign(
@@ -68,7 +77,6 @@ const chaosReducer = (state, action) => {
           {turn: Roles.Order},
           {remainingPieces: state.remainingPieces.slice(1)});
         return newState;
-      }
     default:
       return state;
     }
@@ -107,7 +115,6 @@ const orderEndMoveReducer = (state, action) => {
         return Object.assign({}, state, {orderHalfMove: undefined});
       } else {
         const updatedBoard = moveTile(state, startMove, endMove);
-        console.log("Updated Board", state);
         return Object.assign({},
           state,
           {board: updatedBoard},
@@ -135,8 +142,13 @@ const roleReducer = (role, orderHalfMove) => {
 };
 
 const gameReducer = (state = initializeGame(4), action) => {
-  const selectedReducer = roleReducer(state.turn, state.orderHalfMove);
-  return selectedReducer(state, action);
+  switch (action.type) {
+    case GameActionTypes.NEW_GAME:
+      return newGameReducer(state, action);
+    default:
+      const selectedReducer = roleReducer(state.turn, state.orderHalfMove);
+      return selectedReducer(state, action);
+  }
 };
 
 export default gameReducer;

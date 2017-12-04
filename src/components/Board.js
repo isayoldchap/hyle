@@ -28,12 +28,10 @@ class Board extends React.Component {
 
     return (
       <div>
-        <RemainingPiecesComponent orientation={RemainingPiecesComponentOrientation.VERTICAL}/>
+        <RemainingPiecesComponent width={squareHeight} orientation={RemainingPiecesComponentOrientation.HORIZONTAL}/>
     	  <canvas id="board" width={squareHeight*size} height={squareHeight*size}></canvas>
         {squareContent}
-        <div>
-          <ScoreComponent score={score} />
-        </div>
+        <ScoreComponent score={score} />
       </div>
     );
 	}
