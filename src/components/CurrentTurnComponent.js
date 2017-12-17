@@ -7,27 +7,37 @@ import NextTileComponent from './NextTileComponent';
 class CurrentTurnComponent extends React.Component {
 
   render() {
-    const {turn, dispatch, moveNumber} = this.props;
+    const {turn} = this.props;
     if (turn === Roles.Chaos) {
-      return (
-        <div className="grid">
-          <div className="row">
-            <p className="col-md-3">Move number: {moveNumber}</p>
-            <NextTileComponent className="col-md-3" height="75" width="75"/>
-          </div>
-        </div>
-      );
+      return this.renderChaos();
     } else if (turn === Roles.Order){
-      return (
-        <div className="grid">
-          <div className="row">
-            <p className="col-lg-4">Move #: {moveNumber}</p>
-            <p className="col-lg-4">Make a move or</p>
-            <button className="col-lg-4" onClick={() => dispatch(createPassAction())}>Pass</button>
-          </div>
+      return this.renderOrder();
+    } else return undefined;
+  }
+
+  renderChaos() {
+    const {dispatch, moveNumber} = this.props;
+    return (
+      <div className="grid">
+        <div className="row">
+          <p className="col-md-3">Move number: {moveNumber}</p>
+          <NextTileComponent className="col-md-3" height="75" width="75"/>
         </div>
-      );
-    } else return <p>what</p>;
+      </div>
+    );
+  }
+
+  renderOrder() {
+    const {dispatch, moveNumber} = this.props;
+    return (
+      <div className="grid">
+        <div className="row">
+          <p className="col-lg-4">Move #: {moveNumber}</p>
+          <p className="col-lg-4">Make a move or</p>
+          <button className="col-lg-4" onClick={() => dispatch(createPassAction())}>Pass</button>
+        </div>
+      </div>
+    );
   }
 }
 
