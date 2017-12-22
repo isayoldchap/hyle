@@ -2,10 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux';
 import {remainingColorCounts, colors} from '../selectors/gameSelector';
 import {renderPieceOnCanvas} from '../util/pieceRenderingUtil';
+import {withSize} from './WithSize';
 
 class RemainingPiecesComponent extends React.Component {
   render() {
-    const {width = 50, colorCounts = [], orientation=RemainingPiecesComponentOrientation.HORIZONTAL} = this.props;
+    const {width, colorCounts, orientation} = this.props;
     const canvasContent = (orientation === RemainingPiecesComponentOrientation.VERTICAL) ? <canvas id="remaining pieces" width={width} height={width*colorCounts.length} /> : <canvas id="remaining pieces" width={width*colorCounts.length} height={width} />;
 
     return (
@@ -24,7 +25,7 @@ class RemainingPiecesComponent extends React.Component {
   }
 
   repaintRemainingComponents(){
-    const {width = 50, colorCounts = [], orientation = RemainingPiecesComponentOrientation.HORIZONTAL} = this.props;
+    const {width, colorCounts, orientation} = this.props;
     const canvas = document.getElementById("remaining pieces");
     colorCounts.forEach((colorCount, index) => {
       if (orientation === RemainingPiecesComponentOrientation.VERTICAL) {
@@ -56,4 +57,16 @@ export const RemainingPiecesComponentOrientation = {
   VERTICAL : "vertical"
 };
 
-export default connect(mapStateToProps)(RemainingPiecesComponent);
+// RemainingPiecesComponent.propTypes = {
+//   width: React.PropTypes.number,
+//   colorCounts: React.PropTypes.array,
+//   orientation: React.PropTypes.string
+// };
+
+// RemainingPiecesComponent.defaultProps = {
+//   width : 50, 
+//   colorCounts : [], 
+//   orientation : RemainingPiecesComponentOrientation.HORIZONTAL
+// };
+
+export default connect(mapStateToProps) (RemainingPiecesComponent);

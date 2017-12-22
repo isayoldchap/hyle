@@ -1,25 +1,20 @@
 import React from 'react';
 import BoardSquare from './BoardSquare';
-import ScoreComponent from './ScoreComponent';
-import RemainingPiecesComponent, {RemainingPiecesComponentOrientation} from './RemainingPiecesComponent';
-import scoreSelector from '../selectors/scoreSelector';
-import {connect} from 'react-redux';
-import {squaresSelector, sizeSelector} from '../ducks/boardDuck'
-import {createSquareClickAction} from '../actioncreators/boardActions'
+import {withSize} from './WithSize';
 
 class Board extends React.Component {
 
   componentDidMount() {
-    const {squareHeight, dispatch} = this.props;
+    const {squareHeight, squareClickHandler} = this.props;
     document.getElementById('board').addEventListener("click", (event) => {
       const row = Math.ceil(event.offsetY / squareHeight);
       const col = Math.ceil(event.offsetX / squareHeight);
-      dispatch(createSquareClickAction(row, col));
+      squareClickHandler(row, col);
     });
   }
 
 	render() {
-    const {size, squareHeight, boardSquares = [], score = 0, orderHalfMove} = this.props;
+    const {size, squareHeight, boardSquares, orderHalfMove} = this.props;
     const squareContent = boardSquares.map(each => {
        const squareSelected = orderHalfMove ?
         (orderHalfMove.x === each.col && orderHalfMove.y === each.row) : false;
@@ -27,24 +22,19 @@ class Board extends React.Component {
     });
 
     return (
-      <div>
-        <RemainingPiecesComponent width={squareHeight} orientation={RemainingPiecesComponentOrientation.HORIZONTAL}/>
+      <div>        
     	  <canvas id="board" width={squareHeight*size} height={squareHeight*size}></canvas>
         {squareContent}
-        <ScoreComponent score={score} />
       </div>
     );
 	}
 }
 
-const mapStateToProps = (state) => {
-  const newProps = {
-    size: sizeSelector(state),
-    boardSquares: squaresSelector(state),
-    score: scoreSelector(state),
-    orderHalfMove: state.orderHalfMove
-  };
-  return newProps;
+Board.defaultProps = {
+  size: 5,
+  squareHeight: 75,
+  boardSquares: [],
+  orderHalfMove: undefined
 };
 
-export default connect(mapStateToProps)(Board);
+export default Board;

@@ -1,13 +1,27 @@
 import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
 import {Roles} from '../reducers/gameReducer';
 import {createPassAction} from '../actioncreators/boardActions';
 import NextTileComponent from './NextTileComponent';
+import Paper from 'material-ui/Paper';
 
 class CurrentTurnComponent extends React.Component {
 
   render() {
+    const {moveNumber} = this.props;
+    return (
+      <div>
+        <p>Move number: {moveNumber}</p>
+        {this.renderRoleSpecificContent()}
+      </div>
+    );
+  }
+
+  renderRoleSpecificContent() {
     const {turn} = this.props;
+
     if (turn === Roles.Chaos) {
       return this.renderChaos();
     } else if (turn === Roles.Order){
@@ -18,11 +32,9 @@ class CurrentTurnComponent extends React.Component {
   renderChaos() {
     const {dispatch, moveNumber} = this.props;
     return (
-      <div className="grid">
-        <div className="row">
-          <p className="col-md-3">Move number: {moveNumber}</p>
-          <NextTileComponent className="col-md-3" height="75" width="75"/>
-        </div>
+      <div>
+        <h3>Chaos</h3>
+        <NextTileComponent height="75" width="75"/>
       </div>
     );
   }
@@ -30,12 +42,14 @@ class CurrentTurnComponent extends React.Component {
   renderOrder() {
     const {dispatch, moveNumber} = this.props;
     return (
-      <div className="grid">
-        <div className="row">
-          <p className="col-lg-4">Move #: {moveNumber}</p>
-          <p className="col-lg-4">Make a move or</p>
-          <button className="col-lg-4" onClick={() => dispatch(createPassAction())}>Pass</button>
-        </div>
+      <div>
+        <h3>Order</h3>
+        <p>Make a move or </p>
+        <RaisedButton
+          label="Pass"
+          primary={true}
+          onClick={() => dispatch(createPassAction())}
+        />
       </div>
     );
   }

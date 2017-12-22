@@ -73,10 +73,10 @@ class NewGameDialog extends React.Component {
 	            <SelectField  value={this.state.boardSize} 
 	                          onChange={this.handleChange.bind(this)}
 	                          floatingLabelText="Preferred Board Size">
-	              <MenuItem value={3} label="3 x 3" primaryText="Small" />
+	              <MenuItem value={3} label="3 x 3" primaryText="Tiny" />
+	              <MenuItem value={4} label="4 x 4" primaryText="Small" />
 	              <MenuItem value={5} label="5 x 5" primaryText="Medium" />
 	              <MenuItem value={7} label="7 x 7" primaryText="Large" />
-	              <MenuItem value={9} label="9 x 9" primaryText="Insanity" />
 	            </SelectField>
 
 	            <Toggle

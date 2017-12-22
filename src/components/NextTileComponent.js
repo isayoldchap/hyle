@@ -2,15 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {nextTile} from '../selectors/gameSelector';
 import {renderPieceOnCanvas} from '../util/pieceRenderingUtil';
+import Paper from 'material-ui/Paper';
 
 class NextTileComponent extends React.Component {
   render() {
-    const {width = 100, height = 100, visibleSlots=1} = this.props;
+    const {width, height, visibleSlots} = this.props;
     return (
-      <div align="center">
-        <p>Next:</p>
+      <div>
+        <p>Next Piece:</p>
         <canvas width={width} height = {height} id="nextTile"/>
-      </div>
+      </div>  
     );
   }
 
@@ -32,5 +33,11 @@ class NextTileComponent extends React.Component {
 const mapStateToProps = (state, oldProps) => {
   return Object.assign({}, oldProps, {piece: nextTile(state)});
 }
+
+NextTileComponent.defaultProps = {
+  width : 100,
+  height : 100, 
+  visibleSlots : 1
+};
 
 export default connect(mapStateToProps)(NextTileComponent);
