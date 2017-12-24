@@ -1,3 +1,10 @@
+export const renderBackground = (canvas, width, height, color) => {
+  const ctx = canvas.getContext('2d', {alpha: false});
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, width, height);
+}
 
 export const renderPieceOnCanvas = (canvas, x, y, size, color, outline=false, highlight=false, label = undefined) => {
   const ctx = canvas.getContext('2d', {alpha: false});

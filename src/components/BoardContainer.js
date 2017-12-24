@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Board from './Board';
-import scoreSelector from '../selectors/scoreSelector';
 import {squaresSelector, sizeSelector} from '../ducks/boardDuck'
 import {createSquareClickAction} from '../actioncreators/boardActions'
 
@@ -10,7 +9,7 @@ class BoardContainer extends React.Component {
     render() {
         const {size, boardSquares, orderHalfMove, dispatch} = this.props; 
         const squareClickHandler = setupSquareClickHandler(dispatch);
-        return <Board size={size} boardSquares={boardSquares} orderHalfMove={orderHalfMove} squareClickHandler={squareClickHandler} />;
+        return <Board size={size} boardSquares={boardSquares} selectedSquare={orderHalfMove} squareClickHandler={squareClickHandler} />;
     }
 };
 

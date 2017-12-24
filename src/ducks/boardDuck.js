@@ -1,4 +1,3 @@
-import Chance from 'chance';
 import {transformArrayElement, swapArrayElement} from '../util/arrayUtil';
 
 const up    = (cell) => {return {x: cell.x, y: cell.y - 1}};

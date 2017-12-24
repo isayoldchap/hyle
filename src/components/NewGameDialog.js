@@ -1,5 +1,4 @@
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Toggle from 'material-ui/Toggle';
@@ -70,13 +69,13 @@ class NewGameDialog extends React.Component {
 	              actions={actions}>
 	            <p align="center">New Game Options</p>
 
-	            <SelectField  value={this.state.boardSize} 
+	            <SelectField  value={boardSize} 
 	                          onChange={this.handleChange.bind(this)}
 	                          floatingLabelText="Preferred Board Size">
 	              <MenuItem value={3} label="3 x 3" primaryText="Tiny" />
-	              <MenuItem value={4} label="4 x 4" primaryText="Small" />
-	              <MenuItem value={5} label="5 x 5" primaryText="Medium" />
+	              <MenuItem value={5} label="5 x 5" primaryText="Normal" />
 	              <MenuItem value={7} label="7 x 7" primaryText="Large" />
+	              <MenuItem value={9} label="9 x 9" primaryText="X-Large" />
 	            </SelectField>
 
 	            <Toggle

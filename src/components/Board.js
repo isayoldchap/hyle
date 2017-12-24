@@ -1,6 +1,7 @@
 import React from 'react';
 import BoardSquare from './BoardSquare';
 import {withSize} from './WithSize';
+import PropTypes from 'prop-types';
 
 class Board extends React.Component {
 
@@ -14,11 +15,11 @@ class Board extends React.Component {
   }
 
 	render() {
-    const {size, squareHeight, boardSquares, orderHalfMove} = this.props;
+    const {size, squareHeight, boardSquares, selectedSquare} = this.props;
     const squareContent = boardSquares.map(each => {
-       const squareSelected = orderHalfMove ?
-        (orderHalfMove.x === each.col && orderHalfMove.y === each.row) : false;
-       return <BoardSquare {... each} width={squareHeight} height={squareHeight} showSelection={squareSelected}/>
+       const isSquareSelected = selectedSquare ?
+        (selectedSquare.x === each.col && selectedSquare.y === each.row) : false;
+       return <BoardSquare {... each} width={squareHeight} height={squareHeight} showSelection={isSquareSelected}/>
     });
 
     return (
@@ -31,10 +32,13 @@ class Board extends React.Component {
 }
 
 Board.defaultProps = {
-  size: 5,
-  squareHeight: 75,
+  squareHeight: 80,
   boardSquares: [],
-  orderHalfMove: undefined
+  selectedSquare: undefined
+};
+
+Board.propTypes = {
+  size: PropTypes.number
 };
 
 export default Board;

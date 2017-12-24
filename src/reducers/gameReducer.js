@@ -1,8 +1,8 @@
-import {initializeBoard, placeTile, moveTile, emptySquaresSelector, allLegalMovesFromLocation, allLegalMovesFromSquare} from '../ducks/boardDuck';
+import {initializeBoard, placeTile, moveTile, emptySquaresSelector, allLegalMovesFromLocation} from '../ducks/boardDuck';
 import {nextTile} from '../selectors/gameSelector';
 import generateGamePieceSequence from '../util/SequenceGenerator';
 import {BoardActionTypes} from '../actioncreators/boardActions';
-import {newGame, GameActionTypes} from '../actioncreators/gameActions';
+import {GameActionTypes} from '../actioncreators/gameActions';
 
 export const Roles = {
   Chaos: 'chaos',
@@ -102,7 +102,7 @@ const orderStartMoveReducer = (state, action) => {
   }
 };
 
-const orderEndMoveReducer = (state, action) => {
+const orderEndMoveReducer = (state, action) => {  
   switch (action.type) {
     case BoardActionTypes.SQUARE_CLICKED:
       const startMove = state.orderHalfMove;

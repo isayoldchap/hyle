@@ -1,11 +1,9 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import {connect} from 'react-redux';
 import {Roles} from '../reducers/gameReducer';
 import {createPassAction} from '../actioncreators/boardActions';
 import NextTileComponent from './NextTileComponent';
-import Paper from 'material-ui/Paper';
 
 class CurrentTurnComponent extends React.Component {
 
@@ -30,17 +28,16 @@ class CurrentTurnComponent extends React.Component {
   }
 
   renderChaos() {
-    const {dispatch, moveNumber} = this.props;
     return (
       <div>
         <h3>Chaos</h3>
-        <NextTileComponent height="75" width="75"/>
+        <NextTileComponent height={75} width={75} />
       </div>
     );
   }
 
   renderOrder() {
-    const {dispatch, moveNumber} = this.props;
+    const {dispatch} = this.props;
     return (
       <div>
         <h3>Order</h3>
