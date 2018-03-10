@@ -14,5 +14,4 @@ ScoreComponent.defaultProps = {
 	score: 0
 };
 
-
 export default ScoreComponent;

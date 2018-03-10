@@ -1,13 +1,31 @@
-import React from react;
-import RaisedButton from 'material-ui/raised-button';
+import React from 'react';
+import PropType from 'prop-types';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class EndOfRoundComponent extends React.Component {
-    render() {
-        return (
-            <div>
-                <p>End of round</p>
-                <RaisedButton value={"Please Continue"} />
-            </div>
-        );
-    }
+	
+	render() {
+		const {handleStartNextRound} = this.props;
+	  return (
+	    <div>
+	      <p>End of round</p>
+	      <RaisedButton 
+					secondary={true}
+					value={"Start next round"} 
+					label={"Continue"}
+					onClick={handleStartNextRound}
+				/>
+	    </div>
+	  );
+	}
 }
+
+EndOfRoundComponent.defaultProps = {
+	handleStartNextRound: () => {}
+};
+
+EndOfRoundComponent.propTypes = {
+	handleStartNextRound: PropType.func
+};
+
+export default EndOfRoundComponent;

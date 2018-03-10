@@ -1,5 +1,6 @@
 import {initializeBoard, placeTile, moveTile, emptySquaresSelector, allLegalMovesFromLocation} from '../ducks/boardDuck';
-import {nextTile} from '../selectors/gameSelector';
+import {nextTile, boardSize} from '../selectors/gameSelector';
+import scoreSelector from '../selectors/scoreSelector';
 import generateGamePieceSequence from '../util/SequenceGenerator';
 import {BoardActionTypes} from '../actioncreators/boardActions';
 import {GameActionTypes} from '../actioncreators/gameActions';
@@ -9,7 +10,7 @@ export const Roles = {
   Order: 'order'
 };
 
-export const AllColors = [
+export const ALL_COLORS = [
   'Red',
   'Green',
   'Orange',
@@ -24,29 +25,11 @@ export const AllColors = [
   'Black'
 ];
 
-const newGameReducer = (state, action) => {
-  if (action.type !== GameActionTypes.NEW_GAME){
-    return state;
-  }
-
-  const gameOptions = action.payload;
-  const boardSize = gameOptions.boardSize;
-  return Object.assign({}, state, initializeGame(boardSize));
-};
-
-const initializeGame = (boardSize) => {
-  const initialBoard = initializeBoard(boardSize);
-  const colors = AllColors.slice(0, boardSize);
-  const pieceSequence = generateGamePieceSequence(colors);
-
-  return {
-    colors: colors,
-    board: initialBoard,
+const INITIAL_GAME_STATE = {
     round: 1,
     round1Score: 0,
     round2Score: 0,
     moveNumber:1,
-    remainingPieces: pieceSequence,
     turn: Roles.Chaos,
     player1: {
       role: Roles.Chaos,
@@ -56,7 +39,46 @@ const initializeGame = (boardSize) => {
       role: Roles.Order,
       name: 'Player 2',
     }
+};
+
+const newGameReducer = (state, action) => {
+  if (action.type !== GameActionTypes.NEW_GAME){
+    return state;
+  }
+
+  const gameOptions = action.payload;
+  const boardSize = gameOptions.boardSize;
+  return Object.assign({}, state, initializeGame(INITIAL_GAME_STATE, boardSize));
+};
+
+const nextRoundReducer = (state, action) => {
+  if (action.type !== GameActionTypes.NEXT_ROUND){
+    return state;
+  }
+	
+	const newRoundNumber = state.roundNumber + 1;
+
+  return Object.assign(
+		{}, 
+		state,
+		initializeGame(state, boardSize(state)),
+		{ moveNumber: 1, roundNumber: newRoundNumber, turn: Roles.Chaos }
+	);
+}
+
+const initializeGame = (gameState, boardSize) => {
+  const initialBoard = initializeBoard(boardSize);
+  const colors = ALL_COLORS.slice(0, boardSize);
+  const pieceSequence = generateGamePieceSequence(colors);
+
+  const newState =  {
+    ...gameState,
+    remainingPieces: pieceSequence,
+    colors: colors,
+    board: initialBoard  
   };
+	
+	return newState;
 };
 
 const chaosReducer = (state, action) => {
@@ -141,10 +163,12 @@ const roleReducer = (role, orderHalfMove) => {
   else return orderEndMoveReducer;
 };
 
-const gameReducer = (state = initializeGame(4), action) => {
+const gameReducer = (state = initializeGame(INITIAL_GAME_STATE, 5), action) => {
   switch (action.type) {
     case GameActionTypes.NEW_GAME:
       return newGameReducer(state, action);
+    case GameActionTypes.NEXT_ROUND:
+      return nextRoundReducer(state, action);
     default:
       const selectedReducer = roleReducer(state.turn, state.orderHalfMove);
       return selectedReducer(state, action);

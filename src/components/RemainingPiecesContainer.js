@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {connect} from 'react-redux';
 import RemainingPiecesComponent from './RemainingPiecesComponent';
@@ -14,7 +13,6 @@ class RemainingPiecesContainer extends React.Component {
         />;
     }
 }
-
 
 const mapStateToProps = (state, oldProps) => {
     const theColors = colors(state);

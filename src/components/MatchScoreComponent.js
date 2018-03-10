@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
 class MatchScoreComponent extends React.Component {
 
@@ -19,9 +18,4 @@ class MatchScoreComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-
-  return state;
-};
-
-export default connect(mapStateToProps)(MatchScoreComponent);
+export default MatchScoreComponent;

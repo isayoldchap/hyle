@@ -9,7 +9,13 @@ class BoardContainer extends React.Component {
     render() {
         const {size, boardSquares, orderHalfMove, dispatch} = this.props; 
         const squareClickHandler = setupSquareClickHandler(dispatch);
-        return <Board size={size} boardSquares={boardSquares} selectedSquare={orderHalfMove} squareClickHandler={squareClickHandler} />;
+        return (
+					<Board size={size} 
+							 boardSquares={boardSquares} 
+							 selectedSquare={orderHalfMove} 
+							 squareClickHandler={squareClickHandler}
+					/>
+				);
     }
 };
 

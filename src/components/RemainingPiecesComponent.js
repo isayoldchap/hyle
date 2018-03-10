@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import {renderPieceOnCanvas, renderBackground} from '../util/pieceRenderingUtil';
-import {withSize} from './WithSize';
 
 class RemainingPiecesComponent extends React.Component {
   render() {

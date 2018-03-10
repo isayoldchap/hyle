@@ -38,7 +38,9 @@ Board.defaultProps = {
 };
 
 Board.propTypes = {
-  size: PropTypes.number
+  size: PropTypes.number,
+	boardSquares: PropTypes.array,
+	selectedSquare: PropTypes.object
 };
 
 export default Board;

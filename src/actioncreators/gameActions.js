@@ -1,5 +1,6 @@
 export const GameActionTypes = {
   NEW_GAME : "newGame",
+	NEXT_ROUND : "nextRound",
   PAUSE_GAME : "pauseGame",
   QUIT_GAME : "quitGame"
 };
@@ -14,6 +15,11 @@ const DefaultGameOptions = {
 };
 
 export const newGame = (gameOptions) => ({
-    type: GameActionTypes.NEW_GAME,
-    payload: Object.assign({}, DefaultGameOptions, gameOptions)
+	type: GameActionTypes.NEW_GAME,
+	payload: Object.assign({}, DefaultGameOptions, gameOptions)
+});
+
+export const nextRound = () => ({
+  type: GameActionTypes.NEXT_ROUND,
+  payload: {}
 });

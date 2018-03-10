@@ -11,13 +11,6 @@ export default class BoardSquare extends React.Component {
 		this.updateSquare();
 	}
 
-	shouldComponentUpdate(newProps) {
-		return true;
-		// const returnval =  (this.props.color != newProps.color || this.props.showSelection != newProps.showSelection);
-		// console.log("return val", returnval);
-		// return returnval;
-	}
-
 	updateSquare(){
 		const {col = 0, row = 0, width, height, color, canvasId = 'board', showSelection} = this.props;
 		const x = (col * width) - width;

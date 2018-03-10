@@ -1,4 +1,4 @@
-import {scoreCombo} from '../scorer';
+import {scoreCombo} from '../util/scorer';
 import {allRowsAndColumns, boardSelector} from '../ducks/boardDuck';
 
 const characterForCell = (cell) => {

@@ -10,11 +10,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = 
-      {
-        showNewGameDialog: false,
-        value: 5
-      };
+    this.state = {
+      showNewGameDialog: false,
+      value: 5
+    };
   }
 
   closeDialog(){
@@ -46,7 +45,6 @@ class App extends React.Component {
           <NewGameDialog open={this.state.showNewGameDialog}
                          startAction={this.startGame.bind(this)}
                          closeAction={this.closeDialog.bind(this)} />
-
       </div>
     );
   }

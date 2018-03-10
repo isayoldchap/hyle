@@ -1,6 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {nextTile} from '../selectors/gameSelector';
 import {renderPieceOnCanvas} from '../util/pieceRenderingUtil';
 import PropType from 'prop-types';
 
@@ -17,8 +15,8 @@ class NextTileComponent extends React.Component {
 
   paintContents(){
     const canvas = document.getElementById('nextTile');
-    const {width = 100, piece} = this.props;
-    renderPieceOnCanvas(canvas, 0, 0, width, piece);
+    const {width = 100, nextTile} = this.props;
+    renderPieceOnCanvas(canvas, 0, 0, width, nextTile);
   }
 
   componentDidUpdate(){
@@ -30,10 +28,6 @@ class NextTileComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state, oldProps) => {
-  return Object.assign({}, oldProps, {piece: nextTile(state)});
-}
-
 NextTileComponent.defaultProps = {
   width : 100,
   height : 100, 
@@ -41,9 +35,10 @@ NextTileComponent.defaultProps = {
 };
 
 NextTileComponent.propTypes = {
+	nextTile: PropType.string,
   width: PropType.number,
   height: PropType.number,
   visibleSlots: PropType.number
 };
 
-export default connect(mapStateToProps)(NextTileComponent);
+export default NextTileComponent;

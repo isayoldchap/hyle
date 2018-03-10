@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import Toggle from 'material-ui/Toggle';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import PropType from 'prop-types';
 
 class NewGameDialog extends React.Component {
 
@@ -72,8 +73,8 @@ class NewGameDialog extends React.Component {
 	            <SelectField  value={boardSize} 
 	                          onChange={this.handleChange.bind(this)}
 	                          floatingLabelText="Preferred Board Size">
-	              <MenuItem value={3} label="3 x 3" primaryText="Tiny" />
-	              <MenuItem value={5} label="5 x 5" primaryText="Normal" />
+	              <MenuItem value={3} label="3 x 3" primaryText="Small" />
+	              <MenuItem value={5} label="5 x 5" primaryText="Medium" />
 	              <MenuItem value={7} label="7 x 7" primaryText="Large" />
 	              <MenuItem value={9} label="9 x 9" primaryText="X-Large" />
 	            </SelectField>
@@ -116,6 +117,10 @@ class NewGameDialog extends React.Component {
   		boardSize : value
   	});
   }
+}
+
+NewGameDialog.propTypes = {
+	startAction: PropType.func.isRequired
 }
 
 export default NewGameDialog;
