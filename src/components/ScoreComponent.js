@@ -1,6 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import scoreSelector from '../selectors/scoreSelector.js';
 
-class ScoreComponent extends React.Component { 
+class ScoreComponent extends React.PureComponent { 
 
   render() {
     const {score} = this.props;
@@ -14,4 +16,10 @@ ScoreComponent.defaultProps = {
 	score: 0
 };
 
-export default ScoreComponent;
+const mapStateToProps = (state) => {
+	return { 
+		score: scoreSelector(state)
+	};
+};
+
+export default connect(mapStateToProps)(ScoreComponent);

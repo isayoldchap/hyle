@@ -9,7 +9,6 @@ export function withSize(WrappedComponent) {
 			this.state = {
 				componentSize: {}
 			};
-
 			this.setComponentWidth = this.setComponentWidth.bind(this);
 			this.updateComponentWidth = this.updateComponentWidth.bind(this);
 		}
@@ -19,7 +18,7 @@ export function withSize(WrappedComponent) {
 		}
 
 		componentDidMount() {
-			this.component = document.getElementById(this.id);
+			this.component = document.getElementById("board");
 			this.setComponentWidth();
 			window.addEventListener('resize', this.updateComponentWidth, false);
 		}

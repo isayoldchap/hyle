@@ -2,9 +2,8 @@ import React from 'react';
 import BoardContainer from './BoardContainer';
 import CurrentTurnComponent from './CurrentTurnComponent';
 import MatchScoreComponent from './MatchScoreComponent';
-import RemainingPiecesContainer from './RemainingPiecesContainer';
-import ScoreContainer from './ScoreContainer';
-import {withSize} from './WithSize';
+import RemainingPiecesComponent from './RemainingPiecesComponent';
+import ScoreComponent from './ScoreComponent';
 
 class Game extends React.Component {
   render() {
@@ -13,11 +12,11 @@ class Game extends React.Component {
         <div className="row">
           <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
             <BoardContainer/>
-            <RemainingPiecesContainer />
+            <RemainingPiecesComponent />
           </div>
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 ">
             <CurrentTurnComponent />
-            <ScoreContainer />
+            <ScoreComponent />
             <MatchScoreComponent />    
           </div>
         </div>

@@ -15,11 +15,15 @@ game : {
   history: [],
   orderHalfMove: {x: 2, y: 5},
   moveNumber: 4,
-  rounds: [
+  games: [
     {
       player1: 32,
       player2: 41
-    }
+    },
+		{
+      player1: 55,
+      player2: 43
+		}
   ]
   turn: 'chaos',
   remainingPieceSequence: [],

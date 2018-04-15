@@ -55,7 +55,7 @@ describe("Chaos move logic", () => {
   });
 });
 
-describe("Order move logic on 2x2 grid", () => {
+describe("Order move logic on mini boards", () => {
   const myBoard = initializeBoard(2);
 
   it ("should be no legal order moves until chaos has made a move", () => {

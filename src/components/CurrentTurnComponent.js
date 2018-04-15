@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Roles} from '../reducers/gameReducer';
 import {moveNumber, turn, endOfRound} from '../selectors/gameSelector';
 import {createPassAction} from '../actioncreators/boardActions';
-import NextTileContainer from './NextTileContainer';
+import NextTileComponent from './NextTileComponent';
 import EndOfRoundComponent from './EndOfRoundComponent';
 import {nextRound} from '../actioncreators/gameActions'
 
@@ -35,7 +35,7 @@ class CurrentTurnComponent extends React.Component {
     return (
       <div>
         <h3>Chaos</h3>
-        <NextTileContainer height={75} width={75} />
+        <NextTileComponent height={75} width={75} />
       </div>
     );
   }

@@ -26,10 +26,9 @@ export const ALL_COLORS = [
 ];
 
 const INITIAL_GAME_STATE = {
-    round: 1,
-    round1Score: 0,
-    round2Score: 0,
+    roundNumber: 1,
     moveNumber:1,
+  	gameHistory: [],
     turn: Roles.Chaos,
     player1: {
       role: Roles.Chaos,

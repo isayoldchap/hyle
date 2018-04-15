@@ -50,7 +50,7 @@ export const boardSize = (state) => {
 };
 
 export const roundNumber = (state) => {
-  return state.round;
+  return state.roundNumber;
 };
 
 export const turn = (state) => {
