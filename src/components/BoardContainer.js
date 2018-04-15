@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import Board from './Board';
 import {squaresSelector, sizeSelector} from '../ducks/boardDuck'
 import {createSquareClickAction} from '../actioncreators/boardActions'
-import {withSize} from './WithSize';
 
 class BoardContainer extends React.Component {
 

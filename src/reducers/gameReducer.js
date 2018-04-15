@@ -1,6 +1,5 @@
 import {initializeBoard, placeTile, moveTile, emptySquaresSelector, allLegalMovesFromLocation} from '../ducks/boardDuck';
 import {nextTile, boardSize} from '../selectors/gameSelector';
-import scoreSelector from '../selectors/scoreSelector';
 import generateGamePieceSequence from '../util/SequenceGenerator';
 import {BoardActionTypes} from '../actioncreators/boardActions';
 import {GameActionTypes} from '../actioncreators/gameActions';
