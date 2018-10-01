@@ -1,17 +1,25 @@
-import {transformArrayElement, swapArrayElement} from '../util/arrayUtil';
+import { transformArrayElement, swapArrayElement } from "../util/arrayUtil";
 
-const up    = (cell) => {return {x: cell.x, y: cell.y - 1}};
-const down  = (cell) => {return {x: cell.x, y: cell.y + 1}};
-const left  = (cell) => {return {x: cell.x - 1, y: cell.y}};
-const right = (cell) => {return {x: cell.x + 1, y: cell.y}};
+const up = cell => {
+  return { x: cell.x, y: cell.y - 1 };
+};
+const down = cell => {
+  return { x: cell.x, y: cell.y + 1 };
+};
+const left = cell => {
+  return { x: cell.x - 1, y: cell.y };
+};
+const right = cell => {
+  return { x: cell.x + 1, y: cell.y };
+};
 const allDirections = [up, down, left, right];
 
-export const initializeBoard = (size) => {
+export const initializeBoard = size => {
   let rows = [];
   for (let row = 0; row < size; row++) {
     let currentRow = [];
     for (let col = 0; col < size; col++) {
-      currentRow[col] = makeCell(row +1, col+1);
+      currentRow[col] = makeCell(row + 1, col + 1);
     }
     rows[row] = currentRow;
   }
@@ -23,20 +31,37 @@ export const moveTile = (state, startLocation, endLocation) => {
   const startRow = getRow(boardState, startLocation.y);
   const endRow = getRow(boardState, endLocation.y);
 
-  const cellWithColor = (color) => (cell) => {
-    return Object.assign({}, cell, {color: color, showSelection: false});
+  const cellWithColor = color => cell => {
+    return Object.assign({}, cell, { color: color, showSelection: false });
   };
 
-  const startSquareColor = startRow[startLocation.x-1].color;
+  const startSquareColor = startRow[startLocation.x - 1].color;
 
-  const updatedStartRow = transformArrayElement(startRow, startLocation.x-1, cellWithColor(undefined));
+  const updatedStartRow = transformArrayElement(
+    startRow,
+    startLocation.x - 1,
+    cellWithColor(undefined)
+  );
 
-  const endRowToUpdate = startLocation.y === endLocation.y ? updatedStartRow : endRow;
+  const endRowToUpdate =
+    startLocation.y === endLocation.y ? updatedStartRow : endRow;
 
-  const updatedEndRow = transformArrayElement(endRowToUpdate, endLocation.x-1, cellWithColor(startSquareColor));
+  const updatedEndRow = transformArrayElement(
+    endRowToUpdate,
+    endLocation.x - 1,
+    cellWithColor(startSquareColor)
+  );
 
-  const updatedBoard = swapArrayElement(boardState, startLocation.y-1, updatedStartRow);
-  const updatedBoard2 = swapArrayElement(updatedBoard, endLocation.y-1, updatedEndRow);
+  const updatedBoard = swapArrayElement(
+    boardState,
+    startLocation.y - 1,
+    updatedStartRow
+  );
+  const updatedBoard2 = swapArrayElement(
+    updatedBoard,
+    endLocation.y - 1,
+    updatedEndRow
+  );
 
   return updatedBoard2;
 };
@@ -45,12 +70,16 @@ export const placeTile = (state, rowIndex, colIndex, color) => {
   const boardState = state.board;
 
   const rowToUpdate = getRow(boardState, rowIndex);
-  const cellWithColor = (cell) => {
-    return Object.assign({}, cell, {color: color});
+  const cellWithColor = cell => {
+    return Object.assign({}, cell, { color: color });
   };
 
-  const updatedRow = transformArrayElement(rowToUpdate, colIndex-1, cellWithColor);
-  const updatedBoard = swapArrayElement(boardState, rowIndex-1, updatedRow);
+  const updatedRow = transformArrayElement(
+    rowToUpdate,
+    colIndex - 1,
+    cellWithColor
+  );
+  const updatedBoard = swapArrayElement(boardState, rowIndex - 1, updatedRow);
 
   return updatedBoard;
 };
@@ -61,7 +90,7 @@ const makeCell = (row, column, color = undefined) => {
     col: column,
     key: row + ":" + column,
     color: color
-  }
+  };
 };
 
 // selector functions start here
@@ -70,7 +99,7 @@ export const getCell = (board, row, col) => {
   return board[transformIndex(row)][transformIndex(col)];
 };
 
-export const allRowsAndColumns = (board) => {
+export const allRowsAndColumns = board => {
   const rows = getRows(board);
   const columns = getColumns(board);
   const all = rows.concat(columns);
@@ -78,15 +107,15 @@ export const allRowsAndColumns = (board) => {
   return all;
 };
 
-const getColumns = (board) => {
+const getColumns = board => {
   const columns = [];
-  for (let col = 1; col <= board.length; col++ ){
-    columns.push(getColumn(board, col))
+  for (let col = 1; col <= board.length; col++) {
+    columns.push(getColumn(board, col));
   }
   return columns;
 };
 
-const getRows = (board) => {
+const getRows = board => {
   return board;
 };
 
@@ -95,16 +124,14 @@ export const getRow = (board, row) => {
 };
 
 const getColumn = (board, col) => {
-  return board.map(row =>
-    row[transformIndex(col)]
-  );
+  return board.map(row => row[transformIndex(col)]);
 };
 
-const transformIndex = (boardIndex) => {
-  return boardIndex-1;
-}
+const transformIndex = boardIndex => {
+  return boardIndex - 1;
+};
 
-export const sizeSelector = (state) => {
+export const sizeSelector = state => {
   return boardSelector(state).length;
 };
 
@@ -117,38 +144,33 @@ export const squareAtLocationSelector = (state, location) => {
 };
 
 // convert with reducer function
-export const squaresSelector = (state) => {
-  let squares = [];
-  boardSelector(state).forEach(row =>
-    row.forEach(cell => squares.push(cell))
+export const squaresSelector = state => {
+  return boardSelector(state).reduce(
+    (allSquares, row) => allSquares.concat(row),
+    []
   );
-  return squares;
 };
 
-export const squaresOnBoardSelector = (board) => {
-  let squares = [];
-  board.forEach(row =>
-    row.forEach(cell => squares.push(cell))
-  );
-  return squares;
-};
+export const isOccupied = square => square && square.color !== undefined;
 
-export const emptySquaresSelector = (state) => {
-  return squaresSelector(state).filter(square => square.color === undefined);
+export const isEmpty = square => square && square.color === undefined;
+
+export const emptySquaresSelector = state => {
+  return squaresSelector(state).filter(isEmpty);
 };
 
 export const legalChaosMovesSelector = emptySquaresSelector;
 
-export const occupiedSquareSelector = (state) => {
-  return squaresSelector(state).filter(square => square.color !== undefined);
+export const occupiedSquareSelector = state => {
+  return squaresSelector(state).filter(isOccupied);
 };
 
-export const legalOrderMoveSelector = (state) => {
+export const legalOrderMoveSelector = state => {
   const occupiedSquares = occupiedSquareSelector(state);
   const allLegalMoves = occupiedSquares.reduce((allMoves, startSquare) => {
     const allFromSquare = allMovesFromSquare(startSquare, state);
     return allMoves.concat(allFromSquare);
-  },[]);
+  }, []);
 
   return allLegalMoves;
 };
@@ -171,15 +193,18 @@ export const allLegalMovesFromLocation = (state, startLocation) => {
 
 export const allMovesFromLocation = (startLocation, state) => {
   const allFromSquare = allDirections.reduce((allMoves, direction) => {
-    const allMovesFromLocation = allMovesFromLocationInDirection(startLocation, direction, state);
+    const allMovesFromLocation = allMovesFromLocationInDirection(
+      startLocation,
+      direction,
+      state
+    );
     return allMoves.concat(allMovesFromLocation);
   }, []);
 
   return allFromSquare;
 };
 
-
-export const transformSquareToLocation = (square) => {
+export const transformSquareToLocation = square => {
   return {
     x: square.col,
     y: square.row
@@ -187,32 +212,34 @@ export const transformSquareToLocation = (square) => {
 };
 
 function* generateLocationsInDirection(origin, applyDirection) {
-  let currentLocation = {x: origin.x,y: origin.y};
+  let currentLocation = { x: origin.x, y: origin.y };
 
   while (true) {
     currentLocation = applyDirection(currentLocation);
-    yield(currentLocation);
+    yield currentLocation;
   }
 }
 
-export const allMovesFromLocationInDirection = (startLocation, direction, board) => {
+export const allMovesFromLocationInDirection = (
+  startLocation,
+  direction,
+  board
+) => {
   const pathGenerator = generateLocationsInDirection(startLocation, direction);
   let allMovesInDirection = [];
   let nextOnPath = pathGenerator.next().value;
   let squareAtLocation = squareAtLocationSelector(board, nextOnPath);
 
   while (squareAtLocation && squareAtLocation.color === undefined) {
-    allMovesInDirection = allMovesInDirection.concat(
-      {
-        start: startLocation,
-        end: nextOnPath
-      }
-    );
+    allMovesInDirection = allMovesInDirection.concat({
+      start: startLocation,
+      end: nextOnPath
+    });
     nextOnPath = pathGenerator.next().value;
     squareAtLocation = squareAtLocationSelector(board, nextOnPath);
   }
 
   return allMovesInDirection;
-}
+};
 
-export const boardSelector = (state) => state.board;
+export const boardSelector = state => state.board;

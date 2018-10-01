@@ -1,12 +1,11 @@
-import React from 'react';
-import NewGameDialog from './NewGameDialog';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import {connect} from 'react-redux';
-import {newGame} from '../actioncreators/gameActions';
+import React from "react";
+import NewGameDialog from "./NewGameDialog";
+import AppBar from "material-ui/AppBar";
+import FlatButton from "material-ui/FlatButton";
+import { connect } from "react-redux";
+import { newGame } from "../actioncreators/gameActions";
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -16,7 +15,7 @@ class App extends React.Component {
     };
   }
 
-  closeDialog(){
+  closeDialog() {
     this.setState({
       showNewGameDialog: false
     });
@@ -29,27 +28,34 @@ class App extends React.Component {
   }
 
   startGame(gameParams) {
-    const {dispatch} = this.props;
+    const { newGame } = this.props;
     this.closeDialog();
-    dispatch(newGame(gameParams));
+    newGame(gameParams);
   }
 
   render() {
     return (
       <div>
-         <AppBar title="Entropy"
-               iconElementRight={<FlatButton label="New" />}
-               onRightIconButtonClick={this.newGame.bind(this)}
-               iconElementLeft={undefined}/>
+        <AppBar
+          title="Entropy"
+          iconElementRight={<FlatButton label="New" />}
+          onRightIconButtonClick={this.newGame.bind(this)}
+          iconElementLeft={undefined}
+        />
 
-          <NewGameDialog open={this.state.showNewGameDialog}
-                         startAction={this.startGame.bind(this)}
-                         closeAction={this.closeDialog.bind(this)} />
+        <NewGameDialog
+          open={this.state.showNewGameDialog}
+          startAction={this.startGame.bind(this)}
+          closeAction={this.closeDialog.bind(this)}
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = state => state;
 
-export default connect(mapStateToProps)(App);
+export default connect(
+  mapStateToProps,
+  { newGame }
+)(App);

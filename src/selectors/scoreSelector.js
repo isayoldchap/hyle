@@ -1,11 +1,11 @@
-import {scoreCombo} from '../util/scorer';
-import {allRowsAndColumns, boardSelector} from '../ducks/boardDuck';
+import { scoreCombo } from "../util/scorer";
+import { allRowsAndColumns, boardSelector } from "../ducks/boardDuck";
 
-const characterForCell = (cell) => {
-  return cell.color ? cell.color.substring(0,1) : ' ';
+const characterForCell = cell => {
+  return cell.color ? cell.color.substring(0, 1) : " ";
 };
 
-const scoreSelector = (state) => {
+const scoreSelector = state => {
   const board = boardSelector(state);
   const allScoreablePatterns = allRowsAndColumns(board);
 

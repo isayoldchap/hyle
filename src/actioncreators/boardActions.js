@@ -1,7 +1,8 @@
-export const BoardActionTypes = {
+export const BoardActionTypes = Object.freeze({
   SQUARE_CLICKED: "squareClicked",
-  PASS: "pass"
-};
+  PASS: "pass",
+  UNDO: "undo"
+});
 
 export const createSquareClickAction = (row, col) => {
   return {
@@ -16,5 +17,11 @@ export const createSquareClickAction = (row, col) => {
 export const createPassAction = () => {
   return {
     type: BoardActionTypes.PASS
+  };
+};
+
+export const createUndoAction = () => {
+  return {
+    type: BoardActionTypes.UNDO
   };
 };

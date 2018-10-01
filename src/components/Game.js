@@ -1,24 +1,22 @@
-import React from 'react';
-import BoardContainer from './BoardContainer';
-import CurrentTurnComponent from './CurrentTurnComponent';
-import MatchScoreComponent from './MatchScoreComponent';
-import RemainingPiecesComponent from './RemainingPiecesComponent';
-import ScoreComponent from './ScoreComponent';
+import React from "react";
+import BoardContainer from "./BoardContainer";
+import CurrentTurnComponent from "./CurrentTurnComponent";
+import MatchScoreComponent from "./MatchScoreComponent";
+import RemainingPiecesComponent from "./RemainingPiecesComponent";
+import ScoreComponent from "./ScoreComponent";
 
 class Game extends React.Component {
   render() {
     return (
-      <div className="grid">
-        <div className="row">
-          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-            <BoardContainer/>
-            <RemainingPiecesComponent />
-          </div>
-          <div className="col-xs-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 ">
-            <CurrentTurnComponent />
-            <ScoreComponent />
-            <MatchScoreComponent />    
-          </div>
+      <div id="game">
+        <div id="board-ui" id="board-container">
+          <BoardContainer />
+          <RemainingPiecesComponent />
+        </div>
+        <div id="game-info">
+          <CurrentTurnComponent />
+          <ScoreComponent />
+          <MatchScoreComponent />
         </div>
       </div>
     );
@@ -26,4 +24,3 @@ class Game extends React.Component {
 }
 
 export default Game;
-

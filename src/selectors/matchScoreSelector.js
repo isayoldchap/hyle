@@ -1,13 +1,13 @@
-const roundsSelector = (state) => return state.rounds;
+const roundsSelector = state => state.rounds;
 
-export const numberOfGames = (state) => {
+export const numberOfGames = state => {
   return roundsSelector.length;
 };
 
-export const currentRound = (state) => {
+export const currentRound = state => {
   const roundState = roundsSelector(state);
 };
 
 export const scoreForRound = (state, roundNumber) => {
-	return roundsSelector(state).score;
+  return roundsSelector(state).score;
 };

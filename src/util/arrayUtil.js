@@ -1,4 +1,3 @@
-
 export const transformArrayElement = (array, index, transform) => {
   return array.map((currentElement, currentIndex) => {
     if (currentIndex !== index) {
