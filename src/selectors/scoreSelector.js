@@ -1,5 +1,6 @@
 import { scoreCombo } from "../util/scorer";
-import { allRowsAndColumns, boardSelector } from "../ducks/boardDuck";
+import { boardSelector } from "../ducks/boardDuck";
+import { allRowsAndColumns } from "../board";
 
 const characterForCell = cell => {
   return cell.color ? cell.color.substring(0, 1) : " ";

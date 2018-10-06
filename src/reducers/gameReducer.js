@@ -1,10 +1,11 @@
 import {
-  initializeBoard,
   placeTile,
   moveTile,
   emptySquaresSelector,
   allLegalMovesFromLocation
 } from "../ducks/boardDuck";
+
+import {initializeEntropyBoard} from "../entropy";
 import { nextTile, boardSize } from "../selectors/gameSelector";
 import generateGamePieceSequence from "../util/SequenceGenerator";
 import { HistoryActionTypes } from "../actioncreators/historyActions";
@@ -74,7 +75,7 @@ const nextRoundReducer = (state, action) => {
 };
 
 const initializeGame = (gameState, boardSize) => {
-  const initialBoard = initializeBoard(boardSize);
+  const initialBoard = initializeEntropyBoard(boardSize);
   const colors = ALL_COLORS.slice(0, boardSize);
   const pieceSequence = generateGamePieceSequence(colors);
 

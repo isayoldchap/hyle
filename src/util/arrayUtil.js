@@ -11,3 +11,18 @@ export const transformArrayElement = (array, index, transform) => {
 export const swapArrayElement = (array, index, updatedElement) => {
   return transformArrayElement(array, index, oldElement => updatedElement);
 };
+
+const swapArrayElements = (array, x, y) => {
+  if (array[x] === undefined || array[y] === undefined) {
+    return array;
+  }
+  const a = x > y ? y : x;
+  const b = x > y ? x : y;
+  return [
+    ...array.slice(0, a),
+    array[b],
+    ...array.slice(a+1, b),
+    array[a],
+    ...array.slice(b+1)
+  ];
+}
