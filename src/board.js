@@ -1,4 +1,4 @@
-import {transformArrayElement, swapArrayElement} from './util/arrayUtil.js';
+import { transformArrayElement, swapArrayElement, makeIntArrayOfSize } from "./util/arrayUtil.js";
 
 const up = cell => {
   return { x: cell.x, y: cell.y - 1 };
@@ -19,17 +19,9 @@ export const isEmpty = square => !isOccupied(square);
 
 const allDirections = [up, down, left, right];
 
-export const initializeBoard = (size, makeCell) => {
-  let rows = [];
-  for (let row = 0; row < size; row++) {
-    let currentRow = [];
-    for (let col = 0; col < size; col++) {
-      currentRow[col] = makeCell(row + 1, col + 1);
-    }
-    rows[row] = currentRow;
-  }
-  return rows;
-};
+export const initializeBoard = (size, makeCell) => makeIntArrayOfSize(size).map(row => 
+    makeIntArrayOfSize(size).map(col => makeCell(row, col))
+);
 
 export const getCell = (board, row, col) => {
   return board[transformIndex(row)][transformIndex(col)];
@@ -58,11 +50,7 @@ export const allRowsAndColumns = board => {
 };
 
 const getColumns = board => {
-  const columns = [];
-  for (let col = 1; col <= board.length; col++) {
-    columns.push(getColumn(board, col));
-  }
-  return columns;
+  return makeIntArrayOfSize(board.length).map(col => getColumn(board, col));
 };
 
 const getRows = board => board;
@@ -90,8 +78,8 @@ export const selectEmptySquares = board => {
 };
 
 export const selectOccupiedSquares = board => {
-    return selectAllSquares(board).filter(isOccupied);
-  };
+  return selectAllSquares(board).filter(isOccupied);
+};
 
 export const moveTileOnBoard = (board, startLocation, endLocation) => {
   const startRow = getRow(board, startLocation.y);
@@ -142,9 +130,9 @@ export const placeTileOnBoard = (board, rowIndex, colIndex, color) => {
 };
 
 export const selectLegalMoves = (board, startSquare) => {
-    const xyLocation = transformSquareToLocation(startSquare);
-    return allMovesFromLocation(xyLocation, board);
-}
+  const xyLocation = transformSquareToLocation(startSquare);
+  return allMovesFromLocation(xyLocation, board);
+};
 
 export const allMovesFromLocation = (startLocation, board) => {
   const allFromSquare = allDirections.reduce((allMoves, direction) => {
