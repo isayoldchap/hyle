@@ -1,10 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import { renderPieceOnCanvas } from "../util/pieceRenderingUtil";
+import { renderPieceOnCanvas } from "../../util/pieceRenderingUtil";
 import PropType from "prop-types";
-import { nextTile } from "../selectors/gameSelector.js";
 
-class NextTileComponent extends React.Component {
+export class NextTileComponent extends React.Component { 
   render() {
     const { width, height } = this.props;
     return (
@@ -43,8 +41,3 @@ NextTileComponent.propTypes = {
   visibleSlots: PropType.number
 };
 
-const mapStateToProps = (state, oldProps) => {
-  return Object.assign({}, oldProps, { nextTile: nextTile(state) });
-};
-
-export default connect(mapStateToProps)(NextTileComponent);

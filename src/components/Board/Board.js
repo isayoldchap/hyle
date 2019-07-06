@@ -1,7 +1,7 @@
 import React from "react";
-import BoardSquare from "./BoardSquare";
+import BoardSquare from "../BoardSquare/BoardSquare";
 import PropTypes from "prop-types";
-import { withSize } from "./WithSize";
+import { withSize } from "../WithSize";
 
 class Board extends React.Component {
   componentDidMount() {

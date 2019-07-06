@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+
 import {
   renderPieceOnCanvas,
   renderBackground
-} from "../util/pieceRenderingUtil";
-import { remainingColorCounts, colors } from "../selectors/gameSelector";
+} from "../../util/pieceRenderingUtil";
 
-class RemainingPiecesComponent extends React.Component {
+
+export class RemainingPiecesComponent extends React.Component {
   render() {
     const { width, colorCounts, orientation } = this.props;
     const canvasContent =
@@ -99,19 +99,3 @@ RemainingPiecesComponent.defaultProps = {
   orientation: RemainingPiecesComponentOrientation.HORIZONTAL
 };
 
-const mapStateToProps = (state, oldProps) => {
-  const theColors = colors(state);
-  const remainingCounts = remainingColorCounts(state);
-
-  const colorToCount = theColors.map(color => {
-    const foundColor = remainingCounts.find(each => {
-      return color === each.color;
-    });
-    const count = foundColor ? foundColor.count : 0;
-    return { color: color, count: count };
-  });
-
-  return Object.assign({}, oldProps, { colorCounts: colorToCount });
-};
-
-export default connect(mapStateToProps)(RemainingPiecesComponent);

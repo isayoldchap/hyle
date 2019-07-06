@@ -1,4 +1,4 @@
-import scoreSelector from "../../src/selectors/scoreSelector";
+import selectScore from "../../src/selectors/selectScore";
 import gameReducer, { Roles } from "../../src/reducers/gameReducer";
 import { legalChaosMovesSelector } from "../../src/ducks/boardDuck";
 import {
@@ -117,7 +117,7 @@ describe("A game reducer", () => {
     const initialState = store.getState();
 
     it("should have a score of zero ", () => {
-      assert.equal(scoreSelector(initialState), 0);
+      assert.equal(selectScore(initialState), 0);
     });
 
     it("should have a move number of one ", () => {

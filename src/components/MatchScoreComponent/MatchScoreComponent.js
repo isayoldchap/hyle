@@ -1,5 +1,4 @@
 import React from "react";
-import PropType from "prop-types";
 
 class MatchScoreComponent extends React.Component {
   render() {

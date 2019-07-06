@@ -2,7 +2,7 @@ import React from "react";
 import PropType from "prop-types";
 import RaisedButton from "material-ui/RaisedButton";
 
-class EndOfRoundComponent extends React.Component {
+export class EndOfRoundComponent extends React.Component {
   render() {
     const { handleStartNextRound } = this.props;
     return (
@@ -26,5 +26,3 @@ EndOfRoundComponent.defaultProps = {
 EndOfRoundComponent.propTypes = {
   handleStartNextRound: PropType.func
 };
-
-export default EndOfRoundComponent;

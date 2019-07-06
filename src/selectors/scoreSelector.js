@@ -6,7 +6,7 @@ const characterForCell = cell => {
   return cell.color ? cell.color.substring(0, 1) : " ";
 };
 
-const scoreSelector = state => {
+const selectScore = state => {
   const board = boardSelector(state);
   const allScoreablePatterns = allRowsAndColumns(board);
 
@@ -18,4 +18,4 @@ const scoreSelector = state => {
   return combinedScore;
 };
 
-export default scoreSelector;
+export default selectScore;

@@ -6,22 +6,20 @@ body {
 
 #game {
 	display: flex;
-	justify-content: space-between;
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-#board {
-
+	flex-direction: row;
+	flex-wrap: wrap;
+	/* justify-content: space-between; */
+	/* width: 90%; */
+	/* margin-left: auto; */
+	/* margin-right: auto; */
 }
 
 #board-ui {
-	background-color: green;
-	flex: 2;
+	height: vh;
+	/* flex: 2; */
 }
 
 #game-info {
 	padding: 0px 10px;
-	flex: 1;
+	/* flex: 1; */
 }

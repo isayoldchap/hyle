@@ -1,7 +1,7 @@
 import React from "react";
 import PropType from "prop-types";
 
-class EndOfGameComponent extends React.Component {
+export class EndOfGameComponent extends React.Component {
   render() {
     const { player1Name, player1Score, player2Name, player2Score } = this.props;
     return (

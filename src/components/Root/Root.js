@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import App from "./App";
-import Game from "./Game";
+import App from "../App/App";
+import Game from "../Game/Game";
 
-import "../css/App.css";
-import "../css/bootstrap.css";
-import "../css/bootstrap-theme.css";
+import "../../css/App.css";
+import "../../css/bootstrap.css";
+import "../../css/bootstrap-theme.css";
 
 class Root extends React.Component {
   render() {
@@ -26,3 +26,4 @@ class Root extends React.Component {
 }
 
 export default Root;
+ 

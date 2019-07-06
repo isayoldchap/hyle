@@ -6,7 +6,7 @@ import {
 } from "../ducks/boardDuck";
 
 import {initializeEntropyBoard} from "../entropy";
-import { nextTile, boardSize } from "../selectors/gameSelector";
+import { selectNextTile, selectBoardSize } from "../selectors/gameSelector";
 import generateGamePieceSequence from "../util/SequenceGenerator";
 import { HistoryActionTypes } from "../actioncreators/historyActions";
 import { BoardActionTypes } from "../actioncreators/boardActions";
@@ -67,7 +67,7 @@ const nextRoundReducer = (state, action) => {
 
   const newRoundNumber = state.roundNumber + 1;
 
-  return Object.assign({}, state, initializeGame(state, boardSize(state)), {
+  return Object.assign({}, state, initializeGame(state, selectBoardSize(state)), {
     moveNumber: 1,
     roundNumber: newRoundNumber,
     turn: Roles.Chaos
@@ -101,7 +101,7 @@ const chaosReducer = (state, action) => {
 
       if (!matchingSquare) return state;
 
-      const nextColor = nextTile(state);
+      const nextColor = selectNextTile(state);
       const updatedBoard = placeTile(
         state,
         matchingSquare.row,

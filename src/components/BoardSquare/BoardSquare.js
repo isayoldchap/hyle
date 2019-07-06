@@ -1,5 +1,5 @@
 import React from "react";
-import { renderPieceOnCanvas } from "../util/pieceRenderingUtil";
+import { renderPieceOnCanvas } from "../../util/pieceRenderingUtil";
 
 export default class BoardSquare extends React.Component {
   componentDidMount() {
