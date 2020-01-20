@@ -55,7 +55,7 @@ Board.defaultProps = {
 };
 
 Board.propTypes = {
-  squareClickHandler: PropTypes.function,
+  squareClickHandler: PropTypes.func,
   size: PropTypes.number,
   boardSquares: PropTypes.array,
   selectedSquare: PropTypes.object
