@@ -9,7 +9,7 @@ export const transformArrayElement = (array, index, transform) => {
 };
 
 export const swapArrayElement = (array, index, updatedElement) => {
-  return transformArrayElement(array, index, oldElement => updatedElement);
+  return transformArrayElement(array, index, () => updatedElement);
 };
 
 function* range(start, end) {
@@ -21,18 +21,3 @@ function* range(start, end) {
 export const makeIntArrayOfSize = size => {
   return [...range(1, size)];
 };
-
-const swapArrayElements = (array, x, y) => {
-  if (array[x] === undefined || array[y] === undefined) {
-    return array;
-  }
-  const a = x > y ? y : x;
-  const b = x > y ? x : y;
-  return [
-    ...array.slice(0, a),
-    array[b],
-    ...array.slice(a+1, b),
-    array[a],
-    ...array.slice(b+1)
-  ];
-}

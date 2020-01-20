@@ -1,6 +1,5 @@
 import { initializeBoard } from "./board";
 
-
 const makeEntropyCell = (row, column, color = undefined) => {
     return {
       row: row,

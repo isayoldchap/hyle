@@ -3,7 +3,7 @@ import NewGameDialog from "../NewGameDialog/NewGameDialog";
 import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
 
-export default class App extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
 

@@ -48,7 +48,7 @@ export const renderPieceOnCanvas = (
   ctx.fill();
   ctx.closePath();
 
-  if (label != undefined) {
+  if (label !== undefined) {
     ctx.font = "36px arial";
     ctx.fillStyle = "white";
     const measurement = ctx.measureText(label);

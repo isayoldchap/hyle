@@ -19,7 +19,6 @@ class Board extends React.Component {
       squareHeight,
       boardSquares,
       selectedSquare,
-      componentSize
     } = this.props;
     const squareContent = boardSquares.map(each => {
       const isSquareSelected = selectedSquare

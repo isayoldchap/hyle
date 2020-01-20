@@ -24,9 +24,7 @@ const scoreRight = pattern => {
   );
 };
 
-const reversePattern = pattern => {
-  return pattern
-    .split("")
-    .reverse()
-    .join("");
-};
+const reversePattern = pattern => pattern
+  .split("")
+  .reverse()
+  .join("");

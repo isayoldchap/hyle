@@ -121,6 +121,14 @@ const chaosReducer = (state, action) => {
   }
 };
 
+const handlePassAction = state => {
+  return Object.assign({}, state, {
+    turn: Roles.Chaos,
+    orderHalfMove: undefined,
+    moveNumber: state.moveNumber + 1
+  });
+}
+
 const orderStartMoveReducer = (state, action) => {
   switch (action.type) {
     case BoardActionTypes.SQUARE_CLICKED:
@@ -130,11 +138,7 @@ const orderStartMoveReducer = (state, action) => {
         return Object.assign({}, state, { orderHalfMove: halfMove });
       } else return state;
     case BoardActionTypes.PASS:
-      return Object.assign({}, state, {
-        turn: Roles.Chaos,
-        orderHalfMove: undefined,
-        moveNumber: state.moveNumber + 1
-      });
+      return handlePassAction(state);
     default:
       return state;
   }
@@ -163,16 +167,7 @@ const orderEndMoveReducer = (state, action) => {
         );
       }
     case BoardActionTypes.PASS:
-      const moveHistoryEntry = {
-        color: undefined,
-        source: undefined,
-        destination: undefined
-      };
-      return Object.assign({}, state, {
-        turn: Roles.Chaos,
-        orderHalfMove: undefined,
-        moveNumber: state.moveNumber + 1
-      });
+      return handlePassAction(state);
     default:
       return state;
   }
@@ -192,6 +187,7 @@ const calcNewStateReducer = (
     case GameActionTypes.NEW_GAME:
       return newGameReducer(state, action);
     case GameActionTypes.NEXT_ROUND:
+      console.log('next round was clicked!');
       return nextRoundReducer(state, action);
     default:
       const selectedReducer = roleReducer(state.turn, state.orderHalfMove);
@@ -214,7 +210,7 @@ const withHistory = reducer => (state, action) => {
 
   const newState = reducer(state, action);
 
-  if (state == newState) return state;
+  if (state === newState) return state;
 
   const previousHistory = oldState.history || [];
   const stateWithHistory = Object.assign({}, newState, {

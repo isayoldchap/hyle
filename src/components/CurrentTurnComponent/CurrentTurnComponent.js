@@ -51,12 +51,12 @@ export class CurrentTurnComponent extends React.Component {
   }
 
   renderUndoButton() {
-    const { back } = this.props;
+    const {back} = this.props;
     return <RaisedButton label="Undo" primary={true} onClick={back} />;
   }
 
   renderEndOfRound() {
-    const startNextRound = this.props;
+    const {startNextRound} = this.props;
     return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import App from "../App/App";
+import ConnectedApp from "../App/App.connected";
 import Game from "../Game/Game";
 
 import "../../css/App.css";
@@ -12,7 +12,7 @@ class Root extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path="/" component={App} />
+          <Route path="/" component={ConnectedApp} />
           <div style={{ margin: 10 }}>
             <Switch>
               <Route path="/currentGame" component={Game} />

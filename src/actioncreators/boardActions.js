@@ -4,24 +4,15 @@ export const BoardActionTypes = Object.freeze({
   UNDO: "undo"
 });
 
-export const createSquareClickAction = (row, col) => {
-  return {
-    type: BoardActionTypes.SQUARE_CLICKED,
-    payload: {
-      x: col,
-      y: row
-    }
-  };
-};
+export const createSquareClickAction = (row, col) => ({
+  type: BoardActionTypes.SQUARE_CLICKED,
+  payload: {
+    x: col,
+    y: row
+  }
+});
 
-export const createPassAction = () => {
-  return {
-    type: BoardActionTypes.PASS
-  };
-};
+const createSimpleTypeAction = type => () => ({type});
 
-export const createUndoAction = () => {
-  return {
-    type: BoardActionTypes.UNDO
-  };
-};
+export const createPassAction = createSimpleTypeAction(BoardActionTypes.PASS);
+export const createUndoAction = createSimpleTypeAction(BoardActionTypes.UNDO);

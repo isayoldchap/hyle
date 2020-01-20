@@ -5,20 +5,17 @@ import { createBackAction } from "../../actioncreators/historyActions";
 import { nextRound } from "../../actioncreators/gameActions";
 import { CurrentTurnComponent} from "./CurrentTurnComponent";
 
-
-const mapStateToProps = state => {
-    const computedProps = Object.assign(
-      {},
-      {
-        turn: selectTurn(state),
-        moveNumber: selectMoveNumber(state),
-        endOfRound: selectIsEndOfRound(state)
-      }
-    );
-    return computedProps;
-  };
+const mapStateToProps = state => ({
+  turn: selectTurn(state),
+  moveNumber: selectMoveNumber(state),
+  endOfRound: selectIsEndOfRound(state)
+});
   
 export default connect(
-    mapStateToProps,
-    { startNextRound: nextRound, back: createBackAction, pass: createPassAction }
+  mapStateToProps,
+  { 
+    startNextRound: nextRound, 
+    back: createBackAction, 
+    pass: createPassAction 
+  }
 )(CurrentTurnComponent);
