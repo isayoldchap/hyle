@@ -92,7 +92,6 @@ class NewGameDialog extends React.Component {
   }
 
   handleOk() {
-    console.log('handloing the ok button');
     const { startAction } = this.props;
     startAction(this.state);
   }

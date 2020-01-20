@@ -187,7 +187,6 @@ const calcNewStateReducer = (
     case GameActionTypes.NEW_GAME:
       return newGameReducer(state, action);
     case GameActionTypes.NEXT_ROUND:
-      console.log('next round was clicked!');
       return nextRoundReducer(state, action);
     default:
       const selectedReducer = roleReducer(state.turn, state.orderHalfMove);
