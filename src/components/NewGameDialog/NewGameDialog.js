@@ -10,6 +10,9 @@ class NewGameDialog extends React.Component {
   constructor(props) {
     super(props);
 
+    this.toggleGridLines = this.toggleGridLines.bind(this);
+    this.toggleLiveScore = this.toggleLiveScore.bind(this)
+
     this.state = {
       showLiveScore: true,
       showGridLines: true,
@@ -75,13 +78,13 @@ class NewGameDialog extends React.Component {
         <Toggle
           label="Show Live Score"
           toggled={showLiveScore}
-          onToggle={this.toggleLiveScore.bind(this)}
+          onToggle={this.toggleLiveScore}
           style={styles.toggle}
         />
         <Toggle
           label="Show Grid Lines"
           toggled={showGridLines}
-          onToggle={this.toggleGridLines.bind(this)}
+          onToggle={this.toggleGridLines}
           style={styles.toggle}
         />
       </Dialog>
