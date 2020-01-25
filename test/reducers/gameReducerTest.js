@@ -1,17 +1,19 @@
-import selectScore from "../../src/selectors/selectScore";
+import selectScore from "../../src/selectors/scoreSelector";
 import gameReducer, { Roles } from "../../src/reducers/gameReducer";
 import { legalChaosMovesSelector } from "../../src/ducks/boardDuck";
 import {
-  roundNumber,
-  moveNumber,
-  turn,
-  remainingPieces,
-  nextTile
+  selectRoundNumber,
+  selectMoveNumber,
+  selectTurn,
+  selectRemainingPieces,
+  selectNextTile
 } from "../../src/selectors/gameSelector";
+
 import {
   createSquareClickAction,
   createPassAction
 } from "../../src/actioncreators/boardActions";
+
 import { createBackAction } from "../../src/actioncreators/historyActions";
 import { newGame } from "../../src/actioncreators/gameActions";
 import { assert } from "chai";
@@ -21,24 +23,24 @@ describe("A game reducer", () => {
   describe("Advancing the game by passing", () => {
     const store = createStore(gameReducer);
     const initialState = store.getState();
-    const nextColor = nextTile(initialState);
+    const nextColor = selectNextTile(initialState);
 
     store.dispatch(createSquareClickAction(2, 2));
 
     const after1Move = store.getState();
-    it("should be orders turn", () => {
-      assert.equal(turn(after1Move), Roles.Order);
+    it("should be orders selectTurn", () => {
+      assert.equal(selectTurn(after1Move), Roles.Order);
     });
 
     it("should have a move number of one ", () => {
-      assert.equal(moveNumber(after1Move), 1);
+      assert.equal(selectMoveNumber(after1Move), 1);
     });
 
     store.dispatch(createPassAction());
     const after2Moves = store.getState();
 
-    it("should be chaos turn", () => {
-      assert.equal(turn(after2Moves), Roles.Chaos);
+    it("should be chaos selectTurn", () => {
+      assert.equal(selectTurn(after2Moves), Roles.Chaos);
     });
   });
 
@@ -52,8 +54,8 @@ describe("A game reducer", () => {
 
     const after2Moves = store.getState();
 
-    it("should be chaos turn", () => {
-      assert.equal(turn(after2Moves), Roles.Chaos);
+    it("should be chaos selectTurn", () => {
+      assert.equal(selectTurn(after2Moves), Roles.Chaos);
     });
   });
 
@@ -66,8 +68,8 @@ describe("A game reducer", () => {
 
     const after2Moves = store.getState();
 
-    it("should still be order's turn", () => {
-      assert.equal(turn(after2Moves), Roles.Order);
+    it("should still be order's selectTurn", () => {
+      assert.equal(selectTurn(after2Moves), Roles.Order);
     });
   });
 
@@ -75,13 +77,9 @@ describe("A game reducer", () => {
     const store = createStore(gameReducer);
     const initialState = store.getState();
 
-    console.log("Original State is : ", initialState);
-
     store.dispatch(createSquareClickAction(2, 2));
 
     const afterClickingState = store.getState();
-
-    console.log("After clicking state is ", afterClickingState);
 
     it("Should be a different state", () => {
       assert.notEqual(initialState, afterClickingState);
@@ -90,7 +88,6 @@ describe("A game reducer", () => {
     store.dispatch(createBackAction());
 
     const afterRevertToPrevious = store.getState();
-    console.log("After revert state was : ", afterRevertToPrevious);
 
     it("Should be back to original state", () => {
       assert.equal(initialState, afterRevertToPrevious);
@@ -106,8 +103,8 @@ describe("A game reducer", () => {
 
     const after2Moves = store.getState();
 
-    it("should still be order's turn", () => {
-      assert.equal(turn(after2Moves), Roles.Order);
+    it("should still be order's selectTurn", () => {
+      assert.equal(selectTurn(after2Moves), Roles.Order);
     });
   });
 
@@ -121,15 +118,15 @@ describe("A game reducer", () => {
     });
 
     it("should have a move number of one ", () => {
-      assert.equal(moveNumber(initialState), 1);
+      assert.equal(selectMoveNumber(initialState), 1);
     });
 
     it("should have a round number of one ", () => {
-      assert.equal(roundNumber(initialState), 1);
+      assert.equal(selectRoundNumber(initialState), 1);
     });
 
-    it("should be chaos's turn", () => {
-      assert.equal(turn(initialState), "chaos");
+    it("should be chaos's selectTurn", () => {
+      assert.equal(selectTurn(initialState), "chaos");
     });
 
     it("should have 16 legal moves", () => {
@@ -137,7 +134,7 @@ describe("A game reducer", () => {
     });
 
     it("should have 16 remaining pieces ", () => {
-      assert.equal(remainingPieces(initialState).length, 16);
+      assert.equal(selectRemainingPieces(initialState).length, 16);
     });
   });
 });

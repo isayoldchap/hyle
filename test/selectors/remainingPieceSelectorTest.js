@@ -1,9 +1,9 @@
 import { assert } from "chai";
-import { remainingCounts } from "../../src/selectors/gameSelector";
+import { computeRemainingColorCounts } from "../../src/util/colorCounts";
 
-describe("A remainingPieceSelector", () => {
+describe("A color count utility", () => {
   const colors = ["red", "green", "blue", "blue", "red"];
-  const colorCounts = remainingCounts(colors);
+  const colorCounts = computeRemainingColorCounts(colors);
 
   it("should have counts for three colors", () => {
     assert.equal(colorCounts.length, 3);

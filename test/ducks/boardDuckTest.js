@@ -1,6 +1,5 @@
 import {
-  initializeBoard,
-  squaresOnBoardSelector,
+  squaresSelector,
   legalChaosMovesSelector,
   legalOrderMoveSelector,
   placeTile,
@@ -8,20 +7,25 @@ import {
   allMovesFromSquare,
   allLegalMovesFromSquare
 } from "../../src/ducks/boardDuck.js";
+
+import {
+  initializeEntropyBoard
+} from '../../src/entropy.js';
+
 import { assert } from "chai";
 
 describe("A board", () => {
-  const myBoard = initializeBoard(5);
+  const myBoard = initializeEntropyBoard(5);
+  const gameState = {
+    board: myBoard
+  };
 
   it("should initialize to the size provided", () => {
-    const gameState = {
-      board: myBoard
-    };
     assert.equal(sizeSelector(gameState), 5);
   });
 
   it("should have 25 squares", () => {
-    const squares = squaresOnBoardSelector(myBoard);
+    const squares = squaresSelector(gameState);
     assert.equal(squares.length, 25);
   });
 });
@@ -38,12 +42,6 @@ describe("Order Move Logic", () => {
     ]
   ];
 
-  it("should calc all the moves from the start square", () => {
-    const startSquare = { row: 1, col: 1 };
-    const legalMoves = allMovesFromSquare(startSquare, { board: myBoard });
-    assert.equal(legalMoves.length, 2);
-  });
-
   it("should calc all the legal moves from the start square", () => {
     const startSquare = { row: 1, col: 1 };
     const legalMoves = allLegalMovesFromSquare({ board: myBoard }, startSquare);
@@ -52,7 +50,7 @@ describe("Order Move Logic", () => {
 });
 
 describe("Chaos move logic", () => {
-  const myBoard = initializeBoard(3);
+  const myBoard = initializeEntropyBoard(3);
 
   it("should allow placement at any empty board location", () => {
     assert.equal(legalChaosMovesSelector({ board: myBoard }).length, 9);
@@ -65,7 +63,7 @@ describe("Chaos move logic", () => {
 });
 
 describe("Order move logic on mini boards", () => {
-  const myBoard = initializeBoard(2);
+  const myBoard = initializeEntropyBoard(2);
 
   it("should be no legal order moves until chaos has made a move", () => {
     assert.equal(legalOrderMoveSelector({ board: myBoard }).length, 0);
@@ -77,15 +75,15 @@ describe("Order move logic on mini boards", () => {
   });
 
   it("should be no legal moves once the board is full", () => {
-    let board = initializeBoard(1);
-    const updatedBoard = placeTile({ board: board }, 1, 1, "red");
+    const myBoard = initializeEntropyBoard(1);
+    const updatedBoard = placeTile({ board: myBoard }, 1, 1, "red");
     assert.equal(legalOrderMoveSelector({ board: updatedBoard }).length, 0);
   });
 });
 
 describe("Am empty board", () => {
   it("should initialize to the size provided", () => {
-    const myBoard = initializeBoard(2);
+    const myBoard = initializeEntropyBoard(2);
     assert.equal(myBoard.length, 2);
   });
 });

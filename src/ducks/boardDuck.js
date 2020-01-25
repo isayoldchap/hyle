@@ -1,7 +1,5 @@
 import { moveTileOnBoard, placeTileOnBoard, selectAllSquares, selectEmptySquares, selectOccupiedSquares, selectLegalMoves, allMovesFromLocation } from "../board";
 
-const selectBoard = (state) => state.board;
-
 export const moveTile = (state, startLocation, endLocation) => {
   const boardState = selectBoard(state);
   return moveTileOnBoard(boardState, startLocation, endLocation);
@@ -14,12 +12,15 @@ export const placeTile = (state, rowIndex, colIndex, color) => {
 
 // selector functions start here
 
+export const selectBoard = state => state.board;
+
 export const sizeSelector = state => {
   return selectBoard(state).length;
 };
 
 export const squaresSelector = state => {
-  return selectAllSquares(selectBoard(state));
+  const board = selectBoard(state);
+  return selectAllSquares(board);
 };
 
 export const emptySquaresSelector = state => {
@@ -34,7 +35,11 @@ export const occupiedSquareSelector = state => {
 
 export const legalOrderMoveSelector = state => {
   const board = selectBoard(state);
-  return selectLegalMoves(board);
+  const occupiedSquares = selectOccupiedSquares(board);
+  return occupiedSquares.reduce((allMoves, startSquare) => {
+    console.log(startSquare);
+    return allMoves.concat(allLegalMovesFromSquare(state, startSquare))
+  }, []);
 };
 
 export const allLegalMovesFromSquare = (state, startSquare) => {

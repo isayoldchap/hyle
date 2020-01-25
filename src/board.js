@@ -69,7 +69,7 @@ const emptiedCell = cell => {
   return { ...cell, showSelection: false, color: undefined };
 };
 
-export const selectAllSquares = board => {
+export const selectAllSquares = (board = []) => {
   return board.reduce((allSquares, row) => allSquares.concat(row), []);
 };
 
