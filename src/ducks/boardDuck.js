@@ -37,7 +37,6 @@ export const legalOrderMoveSelector = state => {
   const board = selectBoard(state);
   const occupiedSquares = selectOccupiedSquares(board);
   return occupiedSquares.reduce((allMoves, startSquare) => {
-    console.log(startSquare);
     return allMoves.concat(allLegalMovesFromSquare(state, startSquare))
   }, []);
 };

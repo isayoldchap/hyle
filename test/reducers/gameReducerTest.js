@@ -6,7 +6,6 @@ import {
   selectMoveNumber,
   selectTurn,
   selectRemainingPieces,
-  selectNextTile
 } from "../../src/selectors/gameSelector";
 
 import {
@@ -22,8 +21,6 @@ import { createStore } from "redux";
 describe("A game reducer", () => {
   describe("Advancing the game by passing", () => {
     const store = createStore(gameReducer);
-    const initialState = store.getState();
-    const nextColor = selectNextTile(initialState);
 
     store.dispatch(createSquareClickAction(2, 2));
 
@@ -46,7 +43,6 @@ describe("A game reducer", () => {
 
   describe("Advancing the game by moving a piece", () => {
     const store = createStore(gameReducer);
-    const initialState = store.getState();
 
     store.dispatch(createSquareClickAction(2, 2));
     store.dispatch(createSquareClickAction(2, 2));
@@ -61,7 +57,6 @@ describe("A game reducer", () => {
 
   describe("Handling of bad input on order's start move", () => {
     const store = createStore(gameReducer);
-    const initialState = store.getState();
 
     store.dispatch(createSquareClickAction(2, 2));
     store.dispatch(createSquareClickAction(16, 5));
@@ -96,7 +91,6 @@ describe("A game reducer", () => {
 
   describe("Handling of bad input on order's half move", () => {
     const store = createStore(gameReducer);
-    const initialState = store.getState();
 
     store.dispatch(createSquareClickAction(2, 2));
     store.dispatch(createSquareClickAction(16, 5));
