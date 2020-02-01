@@ -1,24 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import "./css/index.css";
-import Root from "./components/Root/Root";
-import registerServiceWorker from "./registerServiceWorker";
-import gameReducer from "./reducers/gameReducer";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+alert("oh no")
 
-const store = createStore(gameReducer);
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import { Provider } from "react-redux";
+// import { createStore } from "redux";
+// import "./css/index.css";
+// import Root from "./components/Root/Root";
+// import registerServiceWorker from "./registerServiceWorker";
+// import gameReducer from "./reducers/gameReducer";
+// import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-window.store = store;
+// const store = createStore(gameReducer);
 
-ReactDOM.render(
-  <MuiThemeProvider>
-    <Provider store={store}>
-      <Root />
-    </Provider>
-  </MuiThemeProvider>,
-  document.getElementById("root")
-);
+// window.store = store;
 
-registerServiceWorker();
+// ReactDOM.render(
+//   <MuiThemeProvider>
+//     <Provider store={store}>
+//       <Root />
+//     </Provider>
+//   </MuiThemeProvider>,
+//   document.getElementById("root")
+// );
+
+// registerServiceWorker();
