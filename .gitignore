@@ -3,11 +3,13 @@
 # dependencies
 /node_modules
 
+
 # testing
 /coverage
 
 # artifacts
 /build
+/dist
 
 # misc
 .DS_Store
