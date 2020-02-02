@@ -5,9 +5,10 @@ module.exports = {
         main: "./src/index.js"
     },
     mode: "development", // valid modes are development and production
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
     output: {
         filename: "[name]-bundle.js",
+        sourceMapFilename: "[name]-sourcemap.js",
         path: path.resolve(__dirname, "../dist"),
         publicPath: "/"
     },
