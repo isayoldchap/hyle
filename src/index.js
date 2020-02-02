@@ -1,16 +1,17 @@
+import "./css/index.css";
+import "./index.html";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import "./css/index.css";
 import Root from "./components/Root/Root";
-import registerServiceWorker from "./registerServiceWorker";
 import gameReducer from "./reducers/gameReducer";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
-const store = createStore(gameReducer);
-
-window.store = store;
+const store = createStore(gameReducer, devToolsEnhancer());
+const root = document.getElementById('root');
 
 ReactDOM.render(
   <MuiThemeProvider>
@@ -18,7 +19,5 @@ ReactDOM.render(
       <Root />
     </Provider>
   </MuiThemeProvider>,
-  document.getElementById("root")
+  root
 );
-
-registerServiceWorker();
