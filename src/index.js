@@ -10,9 +10,7 @@ import gameReducer from "./reducers/gameReducer";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { devToolsEnhancer } from 'redux-devtools-extension';
 
-const store = createStore(gameReducer, /* preloadedState, */ devToolsEnhancer(
-    // Specify custom devTools options
-  ));
+const store = createStore(gameReducer, devToolsEnhancer());
 const root = document.getElementById('root');
 
 ReactDOM.render(
