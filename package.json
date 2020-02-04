@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
     "@babel/register": "^7.8.3",
+    "babel-plugin-require-context-hook": "^1.0.0",
     "chai": "^4.2.0",
     "chance": "^1.1.4",
     "material-ui": "^0.20.2",
@@ -20,12 +21,13 @@
   "scripts": {
     "start": "webpack-dev-server --config=config/webpack.dev.js",
     "build": "webpack --config=config/webpack.dev.js",
-    "test": "mocha test",
+    "test": "mocha --require @babel/register \"test/**/*.test.js\"",
     "watch": "mocha test --watch "
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",

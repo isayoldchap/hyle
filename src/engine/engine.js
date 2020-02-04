@@ -15,7 +15,8 @@ export const createGame = () => {
         },
         playMove: move => {
             const updatedGame = handleMove(game, move);
-
+            history.push(game);
+            
         }
     });
 }
