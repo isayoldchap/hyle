@@ -5,7 +5,7 @@ describe("A scorer", () => {
   it("should score individual scores properly", () => {
     assert.equal(scoreSingle("XXX"), 3);
     assert.equal(scoreSingle("OOOO"), 4);
-    assert.equal(scoreSingle("XXXXX"), 5);
+    assert.equal(scoreSingle("XXXXX"), 5); 
   });
 
   it("should score combinations properly", () => {
