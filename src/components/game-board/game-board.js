@@ -1,128 +1,73 @@
 import React, { Component } from 'react';
-// import { PropTypes } from 'prop-types';
-import blueTriangleImage from './game-pieces/game-piece-blue-triangle-600.png';
-import goldXImage from './game-pieces/game-piece-gold-x-600.png';
-import greenStarImage from './game-pieces/game-piece-green-star-600.png';
-import limeSlashImage from './game-pieces/game-piece-lime-slash-600.png';
-import orangeEqualsImage from './game-pieces/game-piece-orange-equals-600.png';
-import pinkDotImage from './game-pieces/game-piece-pink-dot-600.png';
-import purplePlusImage from './game-pieces/game-piece-purple-plus-600.png';
-import resAsteriskImage from './game-pieces/game-piece-red-asterisk-600.png';
-import violetMinusImage from './game-pieces/game-piece-violet-minus-600.png';
 import './game-board.css';
-import Draggable from 'react-draggable';
+import { GamePiece } from '../game-piece/game-piece';
+import { GameCell } from '../game-cell/game-cell';
+import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
+import { GameBoardDragLayer } from './game-board-drag-layer/game-board-drag-layer';
 
 const GRID_SIZE = 7;
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class GameBoard extends Component {
-  // static propTypes = {
-  //   // reset: PropTypes.func,
-  // };
-
-  // static defaultProps = {
-  //   // reset: PropTypes.func,
-  // };
-
   constructor(props) {
     super(props);
-    this.state = { cells: [] };
-    this.handleOnStart = this.handleOnStart.bind(this);
-    this.handleOnDrag = this.handleOnDrag.bind(this);
-    this.handleOnStop = this.handleOnStop.bind(this);
-    this.renderCells = this.renderCells.bind(this);
+    this.state = { gamePiecePosition: [0, 0] };
+
+    this.moveGamePiece = this.moveGamePiece.bind(this);
+    this.canMoveGamePiece = this.canMoveGamePiece.bind(this);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getRandomGamePieceImage() {
-    const gamePieces = [
-      blueTriangleImage,
-      goldXImage,
-      greenStarImage,
-      limeSlashImage,
-      orangeEqualsImage,
-      pinkDotImage,
-      purplePlusImage,
-      resAsteriskImage,
-      violetMinusImage
-    ];
-    const randomIndex = Math.floor(Math.random() * gamePieces.length);
-    return gamePieces[randomIndex];
+  moveGamePiece(toX, toY, item) {
+    if (this.canMoveGamePiece(toX, toY, item)) this.setState({ gamePiecePosition: [toX, toY] });
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  handleOnDrag(event) {
-    event.preventDefault();
-    console.log('drag event:', event);
+  canMoveGamePiece(toX, toY, item = {}) {
+    const { gamePiecePosition } = this.state;
+    const { type } = item;
+    const currentX = gamePiecePosition[0];
+    const currentY = gamePiecePosition[1];
+
+    if (type === DND_ITEM_TYPES.CHAOS_PIECE && toX !== currentX && toY !== currentY) return true;
+    // TODO: Check for other pieces that are blocking here:
+    return toX === currentX || toY === currentY;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  handleOnStop(event) {
-    event.preventDefault();
-    console.log('stop event:', event);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  handleOnStart(event) {
-    event.preventDefault();
-    console.log('start event:', event);
+  renderCell(i) {
+    const x = i % GRID_SIZE;
+    const y = Math.floor(i / GRID_SIZE);
+    // const widthHeightPercentage = `${100 / GRID_SIZE}%`;
+    return (
+      <GameCell key={i} x={x} y={y} moveGamePiece={this.moveGamePiece} canMoveGamePiece={this.canMoveGamePiece}>
+        {this.renderGamePiece(x, y)}
+      </GameCell>
+    );
   }
 
   renderCells() {
     const cells = [];
-    for (let i = 0; i < GRID_SIZE; i += 1) {
-      for (let j = 0; j < GRID_SIZE; j += 1) {
-        const key = `cell__${i}${j}`;
-        const randomNumber = Math.floor(Math.random() * 10) + 1;
-        if (randomNumber >= 9) {
-          const gamePieceImage = this.getRandomGamePieceImage();
-          cells.push(
-            <span className="cell" key={key}>
-              <Draggable
-                axis="both"
-                bounds="#grid"
-                defaultPosition={{ x: 0, y: 0 }}
-                position={null}
-                grid={[136.5, 136.5]}
-                scale={1}
-                onStart={this.handleOnStart}
-                onDrag={this.handleOnDrag}
-                onStop={this.handleOnStop}
-              >
-                <div>
-                  <img alt="game piece" src={gamePieceImage} style={{ cursor: 'grab' }} />
-                </div>
-              </Draggable>
-            </span>
-          );
-        } else {
-          cells.push(<span className="cell" key={key} />);
-        }
-      }
+    for (let i = 0; i < GRID_SIZE * GRID_SIZE; i += 1) {
+      cells.push(this.renderCell(i));
     }
-    this.setState({ cells });
+    return cells;
+  }
+
+  renderGamePiece(x, y) {
+    const { gamePiecePosition } = this.state;
+    const gamePieceX = gamePiecePosition[0];
+    const gamePieceY = gamePiecePosition[1];
+    if (x === gamePieceX && y === gamePieceY) {
+      return <GamePiece />;
+    }
+    return null;
   }
 
   render() {
-    const { cells } = this.state;
+    const cells = this.renderCells();
 
     return (
-      // eslint-disable-next-line react/jsx-fragments
-      <React.Fragment>
-        <div id="wrapper" style={{ margin: '0 auto' }}>
-          <div id="grid" className="">
-            {cells}
-          </div>
-        </div>
-        <div style={{ padding: '1rem', textAlign: 'center' }}>
-          <h2>Current Score: 52</h2>
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <button type="button" onClick={this.renderCells}>
-            Refresh Board
-          </button>
-        </div>
-      </React.Fragment>
+      <div id="wrapper">
+        <div id="grid">{cells}</div>
+        <GameBoardDragLayer />
+      </div>
     );
   }
 }
