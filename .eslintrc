@@ -33,7 +33,9 @@
       "react/jsx-one-expression-per-line": [0],
       "react/jsx-wrap-multilines": [0],
       "react/no-unused-prop-types": 1,
-      "semi": ["error", "always"]
+      "semi": ["error", "always"],
+      "react/static-property-placement": 0,
+      "react/jsx-fragments": 0
     }
   }
   
