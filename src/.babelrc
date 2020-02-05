@@ -1,0 +1,14 @@
+{
+    "presets": [ 
+        [
+            "@babel/preset-env",
+            {
+                "exclude" : ["@babel/plugin-transform-regenerator"]
+            }
+        ],
+        "@babel/preset-react"
+     ],
+     "plugins": [
+         "@babel/plugin-transform-modules-commonjs"
+     ]
+}

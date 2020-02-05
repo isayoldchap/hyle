@@ -18,7 +18,7 @@ class Root extends React.Component {
             <Switch>
               <Route exact path="/kip" component={GameScreen} />
               <Route path="/currentGame" component={Game} />
-              <Route component={Game} />
+              <Route component={GameScreen} />
             </Switch>
           </div>
         </div>

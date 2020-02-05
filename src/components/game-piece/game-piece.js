@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import blueTriangleImage from '../game-board/game-pieces/game-piece-blue-triangle-600.png';
-import pinkDotImage from '../game-board/game-pieces/game-piece-pink-dot-600.png';
+// import blueTriangleImage from '../game-board/game-pieces/game-piece-blue-triangle-600.png';
+// import pinkDotImage from '../game-board/game-pieces/game-piece-pink-dot-600.png';
 import { useDrag } from 'react-dnd';
 import PropTypes from 'prop-types';
 import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
@@ -19,7 +19,8 @@ export const GamePiece = props => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, []);
 
-  const src = variant === 'blue' ? blueTriangleImage : pinkDotImage;
+  // const src = variant === 'blue' ? blueTriangleImage : pinkDotImage;
+  const src = variant === 'blue' ? 'http://fpoimg.com/134x134?text=BLUE' : 'http://fpoimg.com/134x134?text=PINK';
 
   return (
     <img
