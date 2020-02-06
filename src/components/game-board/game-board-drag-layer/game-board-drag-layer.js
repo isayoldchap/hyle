@@ -2,8 +2,8 @@ import React from 'react';
 import { useDragLayer } from 'react-dnd';
 import { DND_ITEM_TYPES } from '../../../constants/dnd-item-types';
 import { snapToGrid } from '../../../util/game-board/snap-to-grid';
-// import blueTriangleImage from '../game-pieces/game-piece-blue-triangle-600.png';
-// import pinkDotImage from '../game-pieces/game-piece-pink-dot-600.png';
+import blueTriangleImage from '../game-pieces/game-piece-blue-triangle-600.png';
+import pinkDotImage from '../game-pieces/game-piece-pink-dot-600.png';
 
 const layerStyles = {
   position: 'fixed',
@@ -54,15 +54,13 @@ export const GameBoardDragLayer = () => {
   const { variant } = item;
 
   // TODO: Create util for this. Same code is in <GamePiece />
-  // const src = variant === 'blue' ? blueTriangleImage : pinkDotImage;
-  const src = variant === 'blue' ? 'http://fpoimg.com/134x134?text=BLUE' : 'http://fpoimg.com/134x134?text=PINK';
+  const src = variant === 'blue' ? blueTriangleImage : pinkDotImage;
 
   function renderItem() {
     switch (itemType) {
       case DND_ITEM_TYPES.GAME_PIECE:
       case DND_ITEM_TYPES.CHAOS_PIECE:
         return <img alt="game piece" src={src} style={{ width: 134, height: 134 }} />;
-      // return <span style={{ padding: 5, background: 'white', border: '1px solid gray' }}>I am Dragging!</span>;
       default:
         return null;
     }
@@ -74,7 +72,6 @@ export const GameBoardDragLayer = () => {
 
   return (
     <div style={layerStyles}>
-      {/* <div style={getItemStyles(initialOffset, currentOffset, true)}>{renderItem()}</div> */}
       <div style={getItemStyles(initialOffset, currentOffset, false)}>{renderItem()}</div>
     </div>
   );
