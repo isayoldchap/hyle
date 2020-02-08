@@ -5,12 +5,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { entropyReducer } from "./reducers/newGameReducer";
+import { entropyReducer } from "./reducers/entropyReducer";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import Root from "./components/Root/Root";
 import thunk from 'redux-thunk';
-
 
 const middleware = composeWithDevTools(applyMiddleware(thunk));
 const store = createStore(entropyReducer, middleware);

@@ -1,4 +1,4 @@
-import { ALL_COLORS } from "../reducers/gameReducer";
+import { ALL_COLORS } from "../engine/engine";
 import { sizeSelector } from "../ducks/boardDuck";
 import { computeRemainingColorCounts } from "../util/colorCounts";
 

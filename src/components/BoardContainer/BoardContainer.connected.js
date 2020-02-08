@@ -1,7 +1,7 @@
 
 import { BoardContainer } from "./BoardContainer";
 import { squaresSelector, sizeSelector } from "../../ducks/boardDuck";
-import { handleClick } from '../../reducers/newGameReducer';
+import { handleClick } from '../../reducers/entropyReducer';
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {

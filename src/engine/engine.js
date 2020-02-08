@@ -8,11 +8,15 @@ export const Roles = {
     CHAOS: "Chaos"
 };
 
+const DEFAULT_GAME_OPTIONS = {
+    boardSize: 5
+};
+
 export const createEngine = (boardSize = 5) => {
     let game = initializeGame(boardSize);
 
     return ({
-        newGame: options => {
+        newGame: (options = DEFAULT_GAME_OPTIONS) => {
             const {boardSize} = options;
             game = initializeGame(boardSize);
             return game;

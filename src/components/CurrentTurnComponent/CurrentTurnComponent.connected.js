@@ -3,7 +3,7 @@ import { selectMoveNumber, selectTurn, selectIsEndOfRound } from "../../selector
 import { createBackAction } from "../../actioncreators/historyActions";
 import { nextRound } from "../../actioncreators/gameActions";
 import { CurrentTurnComponent} from "./CurrentTurnComponent";
-import { handlePass } from "../../reducers/newGameReducer";
+import { handlePass } from "../../reducers/entropyReducer";
 
 const mapStateToProps = state => ({
   turn: selectTurn(state),
