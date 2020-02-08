@@ -1,4 +1,4 @@
-import { selectAllSquares  } from "../board";
+import { selectAllSquares } from "../board";
 
 export const selectBoard = state => state.board;
 

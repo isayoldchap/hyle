@@ -1,5 +1,4 @@
 import {
-    placeTile,
     placeTileOnBoard,
   } from '../src/board.js';
 

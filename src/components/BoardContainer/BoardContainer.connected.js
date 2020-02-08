@@ -1,6 +1,6 @@
 
 import { BoardContainer } from "./BoardContainer";
-import { squaresSelector, sizeSelector } from "../../ducks/boardDuck";
+import { squaresSelector, sizeSelector } from "../../selectors/boardSelector";
 import { handleClick } from '../../reducers/entropyReducer';
 import { connect } from "react-redux";
 

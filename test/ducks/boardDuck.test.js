@@ -1,7 +1,7 @@
 import {
     squaresSelector,
     sizeSelector,
-  } from "../../src/ducks/boardDuck.js";
+  } from "../../src/selectors/boardSelector.js";
   
   import {
     initializeEntropyBoard

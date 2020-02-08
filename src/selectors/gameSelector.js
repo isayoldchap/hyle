@@ -1,5 +1,5 @@
 import { ALL_COLORS } from "../engine/engine";
-import { sizeSelector } from "../ducks/boardDuck";
+import { sizeSelector } from "../selectors/boardSelector";
 import { computeRemainingColorCounts } from "../util/colorCounts";
 
 export const selectRemainingColorCounts = state => {
