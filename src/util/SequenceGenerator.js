@@ -1,7 +1,7 @@
 import Chance from "chance";
 
 // The ability to reproduce sequences is important for replaying games
-const generateGamePieceSequence = (colors, randomSeed) => {
+export const generateGamePieceSequence = (colors, randomSeed) => {
   const chance = initChance(randomSeed);
   const allGamePieces = initializeAllGamePieces(colors);
   const generatedSequence = [];
@@ -14,8 +14,6 @@ const generateGamePieceSequence = (colors, randomSeed) => {
 
   return generatedSequence;
 };
-
-export default generateGamePieceSequence;
 
 // non-random - this works but what is a more functional way to do it?
 const initializeAllGamePieces = colors => {

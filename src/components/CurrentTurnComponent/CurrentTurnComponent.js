@@ -1,7 +1,7 @@
 import React from "react";
 import RaisedButton from "material-ui/RaisedButton";
 
-import { Roles } from "../../reducers/gameReducer";
+import { Roles } from "../../engine/engine";
 import NextTileComponent from "../NextTileComponent/NextTileComponent.connected";
 import {EndOfRoundComponent} from "../EndOfRoundComponent/EndOfRoundComponent";
 
@@ -21,9 +21,9 @@ export class CurrentTurnComponent extends React.Component {
   renderRoleSpecificContent() {
     const { turn } = this.props;
 
-    if (turn === Roles.Chaos) {
+    if (turn === Roles.CHAOS) {
       return this.renderChaos();
-    } else if (turn === Roles.Order) {
+    } else if (turn === Roles.ORDER) {
       return this.renderOrder();
     } else return undefined;
   }

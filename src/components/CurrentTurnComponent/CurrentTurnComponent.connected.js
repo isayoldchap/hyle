@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { selectMoveNumber, selectTurn, selectIsEndOfRound } from "../../selectors/gameSelector";
-import { createPassAction } from "../../actioncreators/boardActions";
 import { createBackAction } from "../../actioncreators/historyActions";
 import { nextRound } from "../../actioncreators/gameActions";
 import { CurrentTurnComponent} from "./CurrentTurnComponent";
+import { handlePass } from "../../reducers/newGameReducer";
 
 const mapStateToProps = state => ({
   turn: selectTurn(state),
@@ -16,6 +16,6 @@ export default connect(
   { 
     startNextRound: nextRound, 
     back: createBackAction, 
-    pass: createPassAction 
+    pass: handlePass 
   }
 )(CurrentTurnComponent);

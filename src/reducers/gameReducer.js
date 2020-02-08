@@ -5,9 +5,9 @@ import {
   allLegalMovesFromLocation
 } from "../ducks/boardDuck";
 
-import {initializeEntropyBoard} from "../entropy";
+import { initializeEntropyBoard } from "../entropy";
 import { selectNextTile, selectBoardSize } from "../selectors/gameSelector";
-import generateGamePieceSequence from "../util/SequenceGenerator";
+import { generateGamePieceSequence } from "../util/SequenceGenerator";
 import { HistoryActionTypes } from "../actioncreators/historyActions";
 import { BoardActionTypes } from "../actioncreators/boardActions";
 import { GameActionTypes } from "../actioncreators/gameActions";
@@ -95,7 +95,7 @@ const chaosReducer = (state, action) => {
       const emptySquares = emptySquaresSelector(state);
       const matchingSquare = emptySquares.find(square => {
         return (
-          square.row === action.payload.y && square.col === action.payload.x
+          square.y === action.payload.y && square.x === action.payload.x
         );
       });
 
@@ -104,8 +104,8 @@ const chaosReducer = (state, action) => {
       const nextColor = selectNextTile(state);
       const updatedBoard = placeTile(
         state,
-        matchingSquare.row,
-        matchingSquare.col,
+        matchingSquare.y,
+        matchingSquare.x,
         nextColor
       );
       const newState = Object.assign(

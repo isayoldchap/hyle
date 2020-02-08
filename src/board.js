@@ -69,12 +69,14 @@ const emptiedCell = cell => {
   return { ...cell, showSelection: false, color: undefined };
 };
 
+const toLocation = cell => ({x: cell.col, y: cell.row});
+
 export const selectAllSquares = (board = []) => {
   return board.reduce((allSquares, row) => allSquares.concat(row), []);
 };
 
 export const selectEmptySquares = board => {
-  return selectAllSquares(board).filter(isEmpty);
+  return selectAllSquares(board).filter(isEmpty).map(toLocation);
 };
 
 export const selectOccupiedSquares = board => {

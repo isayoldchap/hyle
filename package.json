@@ -10,13 +10,14 @@
     "react-redux": "^7.1.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "webpack-dev-server --config=config/webpack.dev.js",
     "build": "webpack --config=config/webpack.dev.js",
-    "test": "mocha  \"test/**/*.test.js\"",
-    "watch": "mocha test --watch "
+    "test": "mocha  \"src/**/*.test.js\"",
+    "watch": "mocha \"src/**/*.test.js\" --watch  "
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
