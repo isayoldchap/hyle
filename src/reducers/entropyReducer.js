@@ -19,7 +19,8 @@ function isValid(moves, move) {
     return moves.some(each => each.x === move.x && each.y === move.y);
 }
 
-export const handleClick = (y, x) => (dispatch, getState) => {
+export const handleClick = (x, y) => (dispatch, getState) => {
+    const clickLocation = {x, y};
     const state = getState();
     const turn = selectTurn(state);
     const halfMove = state.orderHalfMove;
@@ -28,23 +29,23 @@ export const handleClick = (y, x) => (dispatch, getState) => {
     if (turn === 'Order') {
         if (!halfMove) {
             const legalStartMoves = legalMoves.map(move => move.start);
-            if (isValid(legalStartMoves, ({y, x}))) {
-                dispatch({type: 'ORDER_HALF_MOVE', payload: {x,y}});
+            if (isValid(legalStartMoves, clickLocation)) {
+                dispatch({type: 'ORDER_HALF_MOVE', payload: clickLocation});
             }
         } else {
             const legalEndMoves = legalMoves.map(move => move.end);
-            if (isValid(legalEndMoves, ({y, x}))) {
-                engine.playMove({start: state.orderHalfMove, end: {x, y}});
+            if (isValid(legalEndMoves, clickLocation)) {
+                engine.playMove({start: state.orderHalfMove, end: clickLocation});
                 const updatedState = engine.getState();
                 dispatch({type: 'UPDATE_GAME_STATE', payload: updatedState});
             } else {
-                dispatch({type: 'RESET_ORDER_HALF_MOVE', payload: {x,y}});
+                dispatch({type: 'RESET_ORDER_HALF_MOVE', payload: clickLocation});
             }
         }
 
     } else if (turn === 'Chaos') {
-        if (isValid(legalMoves, {x, y})) {
-            engine.playMove({x, y});
+        if (isValid(legalMoves, clickLocation)) {
+            engine.playMove(clickLocation);
             const updatedState = engine.getState();
             dispatch({type: 'UPDATE_GAME_STATE', payload: updatedState});
         }

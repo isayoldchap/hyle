@@ -1,6 +1,7 @@
 import { initializeBoard, placeTileOnBoard, moveTileOnBoard, allRowsAndColumns } from "../board";
 import { scoreCombo } from "../util/scorer";
 import { allLegalMoves } from "../util/boardUtils";
+import { computeRemainingColorCounts, getGameColors } from "../util/colorUtils";
 import { generateGamePieceSequence } from "../util/SequenceGenerator";
 
 export const Roles = {
@@ -123,50 +124,12 @@ const characterForCell = cell => {
     return cell.color ? cell.color.substring(0, 1) : " ";
 };
 
-const computeRemainingColorCounts = remainingColors => {
-    const allCounts = remainingColors.reduce((colorCounts, color) => {
-      if (!colorCounts[color]) {
-        colorCounts[color] = 1;
-      } else {
-        const currentCount = colorCounts[color];
-        colorCounts[color] = currentCount + 1;
-      }
-      return colorCounts;
-    }, {});
-    return sortColorCounts(allCounts);
-  };
-
-  const sortColorCounts = colorCounts => {
-    return Object.keys(colorCounts)
-      .map(color => {
-        return { color, count: colorCounts[color] };
-      })
-      .sort((a, b) => {
-        return b.count - a.count;
-      });
-  };
-
-export const ALL_COLORS = [
-    "Red",
-    "Green",
-    "Orange",
-    "Blue",
-    "Magenta",
-    "Cyan",
-    "Brown",
-    "Silver",
-    "Gray",
-    "Yellow",
-    "Navy",
-    "Black"
-  ];
-
 const initializeGame = (boardSize = 5) => {
-    const colors = ALL_COLORS.slice(0, boardSize);
+    const colors = getGameColors(boardSize);
     const board = initializeEntropyBoard(boardSize);
     const legalMoves = allLegalMoves(Roles.CHAOS, board);
     const pieceSequence = generateGamePieceSequence(colors);
-    const remainingColorCouunts = computeRemainingColorCounts(pieceSequence);
+    const remainingColorCounts = computeRemainingColorCounts(pieceSequence);
 
     const game = {
         round: 1,
@@ -178,7 +141,7 @@ const initializeGame = (boardSize = 5) => {
         player2: 'Player 2',
         nextPiece: pieceSequence[0],
         remainingPieces: pieceSequence, 
-        remainingColorCouunts, 
+        remainingColorCounts, 
         legalMoves: legalMoves,
         colors: colors,
         board,

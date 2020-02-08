@@ -8,7 +8,7 @@ class Board extends React.Component {
     document.getElementById("board").addEventListener("click", event => {
       const row = Math.ceil(event.offsetY / squareHeight);
       const col = Math.ceil(event.offsetX / squareHeight);
-      squareClickHandler(row, col);
+      squareClickHandler(col, row);
     });
   }
 

@@ -1,22 +1,17 @@
-import { ALL_COLORS } from "../engine/engine";
+import { getGameColors } from "../util/colorUtils";
 import { sizeSelector } from "../selectors/boardSelector";
-import { computeRemainingColorCounts } from "../util/colorCounts";
 
 export const selectRemainingColorCounts = state => {
-  const remainingColors = selectRemainingPieces(state);
-  return computeRemainingColorCounts(remainingColors);
+  return state.remainingColorCounts; 
 };
 
 export const selectNextTile = state => {
-  const colorSequence = selectRemainingPieces(state);
-  return colorSequence && colorSequence.length > 0
-    ? colorSequence[0]
-    : undefined;
+  return state.nextPiece;
 };
 
 export const selectColors = state => {
   const size = sizeSelector(state);
-  return ALL_COLORS.slice(0, size);
+  return getGameColors(size);
 };
 
 export const selectRemainingPieces = state => {

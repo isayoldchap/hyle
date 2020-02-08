@@ -10,7 +10,7 @@ export class CurrentTurnComponent extends React.Component {
     const { moveNumber, endOfRound } = this.props;
     return (
       <div>
-        {this.renderUndoButton()}
+        {/* {this.renderUndoButton()} */}
         <p>Move number: {moveNumber}</p>
         {!endOfRound && this.renderRoleSpecificContent()}
         {endOfRound && this.renderEndOfRound()}
