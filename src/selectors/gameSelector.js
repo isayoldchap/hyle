@@ -50,6 +50,8 @@ export const selectOrderHalfMove = state => state.orderHalfMove;
 
 export const selecLegalMoves = state => state.legalMoves;
 
+export const selectScore = state => state.score;
+
 export const selectIsEndOfRound = state => {
   return selectRemainingPieces(state).length === 0;
 };
