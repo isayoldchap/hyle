@@ -12,8 +12,8 @@ export class CurrentTurnComponent extends React.Component {
     return (
       <div>
         {/* {this.renderUndoButton()} */}
-        <p>Move number: {moveNumber}</p>
         <p>Round number: {roundNumber}</p>
+        <p>Move number: {moveNumber}</p>
         {!endOfRound && this.renderRoleSpecificContent()}
         {endOfRound && this.renderEndOfRound()}
       </div>

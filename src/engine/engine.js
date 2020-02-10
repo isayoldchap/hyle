@@ -96,6 +96,7 @@ function handleOrderMove(game, {pass = false, start, end}) {
 }
 
 function completeTurn(game, updatedBoard) {
+    console.log(game);
     const round = game.round;
     const newScore = computeScore(updatedBoard);
     const scoreKey = (round === 1 ? 'player1Score' : 'player2Score');
@@ -104,7 +105,7 @@ function completeTurn(game, updatedBoard) {
     const turn = (game.turn === Roles.CHAOS) ? Roles.ORDER : Roles.CHAOS;
     const legalMoves = allLegalMoves(turn, updatedBoard);
 
-    let remainingColorCouunts = game.remainingColorCouunts;
+    let remainingColorCounts = game.remainingColorCounts;
     let remainingPieces = game.remainingPieces;
     let nextPiece = game.nextPiece;
     let roundInProgress = game.roundInProgress;
@@ -114,7 +115,7 @@ function completeTurn(game, updatedBoard) {
         nextPiece = remainingPieces[0];
     } else {
         remainingPieces = remainingPieces.slice(1);
-        remainingColorCouunts = computeRemainingColorCounts(remainingPieces);
+        remainingColorCounts = computeRemainingColorCounts(remainingPieces);
         moveNumber = moveNumber + 1;
         nextPiece = undefined;
     }
@@ -128,7 +129,7 @@ function completeTurn(game, updatedBoard) {
         moveNumber,
         nextPiece,
         remainingPieces,
-        remainingColorCouunts,
+        remainingColorCounts,
         roundInProgress
     }
 }
