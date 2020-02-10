@@ -19,6 +19,7 @@ class Board extends React.Component {
       boardSquares,
       selectedSquare,
     } = this.props;
+    
     const squareContent = boardSquares.map(each => {
       const isSquareSelected = selectedSquare
         ? selectedSquare.x === each.col && selectedSquare.y === each.row

@@ -1,0 +1,25 @@
+
+1. Decouple the colors from the game and board representation
+    a. Each unique color can be represented as an integer (e.g. 1,2,3,4,5 on the 5x5 board)
+    b. The presentation layer can then map the integer for each distinct game piece to a game tile. This will allow for theming.
+2. Repackage the code into a more suitable structure. Something like this:
+
+    src/
+        /css
+        /fonts
+        /js
+            /redux
+                /actions
+                /selectors
+                /reducers
+            /react
+                /components  
+            /engine
+            /util
+
+3. Integrate the drag and drop UI board with the updated game engine    
+4. Do something decent with the CSS/layout
+5. Get some decent fonts working
+6. Make a decision on whether to continue with material UI or do something else. Check with Rick
+7. Remove export defaults because they suck
+8.         

@@ -4,14 +4,16 @@ import RaisedButton from "material-ui/RaisedButton";
 import { Roles } from "../../engine/engine";
 import NextTileComponent from "../NextTileComponent/NextTileComponent.connected";
 import {EndOfRoundComponent} from "../EndOfRoundComponent/EndOfRoundComponent";
+import {EndOfGameComponent} from "../EndOfGameComponent/EndOfGameComponent";
 
 export class CurrentTurnComponent extends React.Component {
   render() {
-    const { moveNumber, endOfRound } = this.props;
+    const { moveNumber, roundNumber, endOfRound } = this.props;
     return (
       <div>
         {/* {this.renderUndoButton()} */}
         <p>Move number: {moveNumber}</p>
+        <p>Round number: {roundNumber}</p>
         {!endOfRound && this.renderRoleSpecificContent()}
         {endOfRound && this.renderEndOfRound()}
       </div>
@@ -44,7 +46,7 @@ export class CurrentTurnComponent extends React.Component {
         <h3>Order</h3>
         <p>Make a move or </p>
         <span>
-          <RaisedButton label="Pass" primary={true} onClick={pass} />
+          <RaisedButton label="Pass" primary={true} onClick={pass}/>
         </span>
       </div>
     );
@@ -52,11 +54,15 @@ export class CurrentTurnComponent extends React.Component {
 
   renderUndoButton() {
     const {back} = this.props;
-    return <RaisedButton label="Undo" primary={true} onClick={back} />;
+    return <RaisedButton label="Undo" primary={true} onClick={back}/>;
   }
 
   renderEndOfRound() {
-    const {startNextRound} = this.props;
-    return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
+    const {startNextRound, startNewGame, endOfGame, winner} = this.props;
+    if (endOfGame) {
+      return <EndOfGameComponent handleStartNewGame={startNewGame} winner={winner} />;
+    } else {
+      return <EndOfRoundComponent handleStartNextRound={startNextRound}/>;
+    }
   }
 }

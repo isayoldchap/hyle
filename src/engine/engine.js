@@ -9,17 +9,20 @@ export const Roles = {
     CHAOS: "Chaos"
 };
 
-const DEFAULT_GAME_OPTIONS = {
-    boardSize: 5
+const defaultGameConfig = {
+    boardSize: 5,
+    player1Name: 'Steve', // TODO make it so the enames  can be entered in the ew game dialog
+    player2Name: 'Kip',
+    liveScore: true
 };
 
-export const createEngine = (boardSize = 5) => {
-    let game = initializeGame(boardSize);
+export const createEngine = (config = defaultGameConfig) => {
+    let game = initializeGame(config);
 
     return ({
-        newGame: (options = DEFAULT_GAME_OPTIONS) => {
-            const {boardSize} = options;
-            game = initializeGame(boardSize);
+        newGame: (config = defaultGameConfig) => {
+            const mergedConfig = {...game.config, ...config};
+            game = initializeGame(mergedConfig);
             return game;
         },
         reset: () => {
@@ -31,12 +34,29 @@ export const createEngine = (boardSize = 5) => {
         playMove: move => {
             game = handleMove(game, move);
             return game;
+        },
+        advanceRound: () => {
+            game = advanceRound(game);
+            return game;
         }
     });
 }
 
 function reduxState(game) {
     return game;
+};
+
+function advanceRound(game) {
+    let {player1Score, player2Score, round, config} = game;
+    // if (game.roundInProgress) return game;
+
+    const updatedGame = initializeGame(config);
+    return {
+        ...updatedGame,
+        player1Score,
+        player2Score,
+        round: round + 1,
+    };
 };
 
 function handleMove(game, moveDefinition) {
@@ -76,7 +96,11 @@ function handleOrderMove(game, {pass = false, start, end}) {
 }
 
 function completeTurn(game, updatedBoard) {
+    const round = game.round;
     const newScore = computeScore(updatedBoard);
+    const scoreKey = (round === 1 ? 'player1Score' : 'player2Score');
+    game[scoreKey] = newScore;
+
     const turn = (game.turn === Roles.CHAOS) ? Roles.ORDER : Roles.CHAOS;
     const legalMoves = allLegalMoves(turn, updatedBoard);
 
@@ -124,27 +148,29 @@ const characterForCell = cell => {
     return cell.color ? cell.color.substring(0, 1) : " ";
 };
 
-const initializeGame = (boardSize = 5) => {
+const initializeGame = (config = defaultGameConfig) => {
+    const boardSize = config.boardSize;
     const colors = getGameColors(boardSize);
     const board = initializeEntropyBoard(boardSize);
-    const legalMoves = allLegalMoves(Roles.CHAOS, board);
     const pieceSequence = generateGamePieceSequence(colors);
     const remainingColorCounts = computeRemainingColorCounts(pieceSequence);
-
+    const legalMoves = allLegalMoves(Roles.CHAOS, board);
+    
     const game = {
+        config,
         round: 1,
         score: 0,
         turn: Roles.CHAOS,
         moveNumber: 1,
         roundInProgress: true,
-        player1: 'Player 1',
-        player2: 'Player 2',
+        player1Score: 0,
+        player2Score: 0,
         nextPiece: pieceSequence[0],
         remainingPieces: pieceSequence, 
         remainingColorCounts, 
         legalMoves: legalMoves,
         colors: colors,
-        board,
+        board
     };
 
     return game;

@@ -2,12 +2,17 @@ import { HistoryActionTypes } from "../actioncreators/historyActions";
 import { createEngine } from "../engine/engine";
 import { selectTurn } from "../selectors/gameSelector";
 
-const engine = createEngine(5);
+const engine = createEngine();
 
 export const newGame = options =>  dispatch => {
     engine.newGame(options);
     dispatch({type: 'UPDATE_GAME_STATE', payload: engine.getState()});
 };
+
+export const advanceRound = () => dispatch => {
+    engine.advanceRound();
+    dispatch({type: 'UPDATE_GAME_STATE', payload: engine.getState()});
+}
 
 export const handlePass = () => dispatch => {
     engine.playMove({pass: true});
@@ -35,9 +40,7 @@ export const handleClick = (x, y) => (dispatch, getState) => {
         } else {
             const legalEndMoves = legalMoves.map(move => move.end);
             if (isValid(legalEndMoves, clickLocation)) {
-                engine.playMove({start: state.orderHalfMove, end: clickLocation});
-                const updatedState = engine.getState();
-                dispatch({type: 'UPDATE_GAME_STATE', payload: updatedState});
+                playMove(engine, {start: state.orderHalfMove, end: clickLocation});
             } else {
                 dispatch({type: 'RESET_ORDER_HALF_MOVE', payload: clickLocation});
             }
@@ -45,11 +48,15 @@ export const handleClick = (x, y) => (dispatch, getState) => {
 
     } else if (turn === 'Chaos') {
         if (isValid(legalMoves, clickLocation)) {
-            engine.playMove(clickLocation);
-            const updatedState = engine.getState();
-            dispatch({type: 'UPDATE_GAME_STATE', payload: updatedState});
+            playMove(engine, clickLocation);
         }
     };
+
+    function playMove(engine, move) {
+        engine.playMove(move);
+        const updatedState = engine.getState();
+        dispatch({type: 'UPDATE_GAME_STATE', payload: updatedState});
+    }
     
 };
 

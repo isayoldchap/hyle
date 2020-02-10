@@ -13,9 +13,18 @@ export const renderPieceOnCanvas = (
   size,
   color,
   outline = false,
-  highlight = false,
+  selected = false,
   label = undefined
 ) => {
+  let originalX = x;
+  let originalY = y;
+  let originalSize = size;
+
+  if (selected) {
+    size = size + 6;
+    x = x - 3;
+    y = y - 3;
+  }
   const ctx = canvas.getContext("2d", { alpha: false });
   const pieceColor = color === undefined ? "white" : color;
   const width = size;
@@ -23,11 +32,11 @@ export const renderPieceOnCanvas = (
 
   ctx.imageSmoothingEnabled = true;
   ctx.fillStyle = "white";
-  ctx.fillRect(x, y, width, height);
+  ctx.fillRect(originalX, originalY, originalSize, originalSize);
 
   if (outline) {
     ctx.strokeStyle = "rgb(200,200,200)";
-    ctx.strokeRect(x, y, width, height);
+    ctx.strokeRect(originalX, originalY, originalSize, originalSize);
   }
 
   var grd = ctx.createRadialGradient(
@@ -38,8 +47,9 @@ export const renderPieceOnCanvas = (
     y,
     0
   );
-  grd.addColorStop(0, highlight ? "white" : pieceColor);
-  grd.addColorStop(1, highlight ? pieceColor : "white");
+
+  grd.addColorStop(0, pieceColor);
+  grd.addColorStop(1, "white");
 
   ctx.beginPath();
   ctx.moveTo(x, y);

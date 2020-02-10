@@ -1,7 +1,7 @@
 import React from "react";
 import BoardContainer from "../BoardContainer/BoardContainer.connected";
 import CurrentTurnComponent from "../CurrentTurnComponent/CurrentTurnComponent.connected";
-import MatchScoreComponent from "../MatchScoreComponent/MatchScoreComponent";
+import MatchScoreComponent from "../MatchScoreComponent/MatchScoreComponent.connected";
 import RemainingPiecesComponent from "../RemainingPiecesComponent/RemainingPiecesComponent.connected";
 import ScoreComponent from "../ScoreComponent/ScoreComponent.connected";
 

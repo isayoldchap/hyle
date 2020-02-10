@@ -5,7 +5,7 @@ import {
   
   import {
     initializeEntropyBoard
-  } from '../../src/entropy.js';
+  } from '../../src/engine/engine';
   
   import { assert } from "chai";
   

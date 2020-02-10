@@ -1,6 +1,6 @@
 import { App } from "./App";
 import { connect } from "react-redux";
-import { newGame } from "../../reducers/entropyReducer";
+import { newGame } from '../../ducks/entropyDuck';
 
 const mapStateToProps = state => state;
 
