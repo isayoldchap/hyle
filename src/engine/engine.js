@@ -96,7 +96,6 @@ function handleOrderMove(game, {pass = false, start, end}) {
 }
 
 function completeTurn(game, updatedBoard) {
-    console.log(game);
     const round = game.round;
     const newScore = computeScore(updatedBoard);
     const scoreKey = (round === 1 ? 'player1Score' : 'player2Score');
