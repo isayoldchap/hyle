@@ -1,6 +1,6 @@
 {
     "require": "@babel/register",
     "recursive": true,
-    "watch-files": ["test/**/*.test.js"],
+    "watch-files": ["test/**/*.test.js", "src/**/*.test.js"],
     "watch-ignore": ["node_modules"]
 }

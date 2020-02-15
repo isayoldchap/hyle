@@ -28,7 +28,5 @@ const initializeAllGamePieces = colors => {
   return allGamePieces;
 };
 
-const initChance = randomSeed => {
-  if (randomSeed) return new Chance(randomSeed);
-  else return new Chance();
-};
+const initChance = seed => new Chance(seed);
+

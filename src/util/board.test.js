@@ -1,16 +1,16 @@
 import {
   placeTileOnBoard,
-} from '../src/board.js';
+} from './board';
 
 import {
   allLegalMovesFromSquare,
   legalOrderMoveSelector,
   legalChaosMovesSelector
-} from '../src/util/boardUtils';
+} from './moveUtils';
 
 import {
   initializeEntropyBoard
-} from '../src/engine/engine';
+} from '../engine/engine';
 
 import { assert } from "chai";
 

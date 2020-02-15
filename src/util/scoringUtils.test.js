@@ -1,4 +1,4 @@
-import { scoreCombo, scoreSingle } from "../src/util/scorer.js";
+import { scoreCombo, scoreSingle } from "./scoringUtils";
 import { assert } from "chai";
 
 describe("A scorer", () => {

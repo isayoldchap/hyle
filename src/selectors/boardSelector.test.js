@@ -1,11 +1,11 @@
 import {
     squaresSelector,
     sizeSelector,
-  } from "../../src/selectors/boardSelector.js";
+  } from "./boardSelector.js";
   
   import {
     initializeEntropyBoard
-  } from '../../src/engine/engine';
+  } from '../engine/engine';
   
   import { assert } from "chai";
   

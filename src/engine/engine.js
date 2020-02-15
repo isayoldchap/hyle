@@ -1,6 +1,6 @@
-import { initializeBoard, placeTileOnBoard, moveTileOnBoard, allRowsAndColumns } from "../board";
-import { scoreCombo } from "../util/scorer";
-import { allLegalMoves } from "../util/boardUtils";
+import { initializeBoard, placeTileOnBoard, moveTileOnBoard, allRowsAndColumns } from "../util/board";
+import { scoreCombo } from "../util/scoringUtils";
+import { allLegalMoves } from "../util/moveUtils";
 import { computeRemainingColorCounts, getGameColors } from "../util/colorUtils";
 import { generateGamePieceSequence } from "../util/SequenceGenerator";
 

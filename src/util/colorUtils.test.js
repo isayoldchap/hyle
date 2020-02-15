@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { computeRemainingColorCounts } from "../../src/util/colorUtils";
+import { computeRemainingColorCounts } from "./colorUtils";
 
 describe("A color count utility", () => {
   const colors = ["red", "green", "blue", "blue", "red"];

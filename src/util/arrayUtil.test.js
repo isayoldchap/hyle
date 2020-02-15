@@ -1,7 +1,7 @@
 import {
     transformArrayElement,
     swapArrayElement
-  } from "../../src/util/arrayUtil";
+  } from "./arrayUtil";
   import { assert } from "chai";
   
   describe("Array utilities", () => {

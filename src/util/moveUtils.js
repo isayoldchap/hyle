@@ -1,4 +1,4 @@
-import { moveTileOnBoard, placeTileOnBoard, selectEmptySquares, selectOccupiedSquares, selectLegalMoves, allMovesFromLocation } from "../board";
+import { moveTileOnBoard, placeTileOnBoard, selectEmptySquares, selectOccupiedSquares, selectLegalMoves, allMovesFromLocation } from "./board";
 import { Roles } from '../engine/engine';
 
 export const moveTile = (board, startLocation, endLocation) => {
