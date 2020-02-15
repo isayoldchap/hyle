@@ -1,6 +1,6 @@
 import {
   placeTileOnBoard,
-} from './board';
+} from './boardUtils.test';
 
 import {
   allLegalMovesFromSquare,

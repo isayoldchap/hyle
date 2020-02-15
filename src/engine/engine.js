@@ -1,4 +1,4 @@
-import { initializeBoard, placeTileOnBoard, moveTileOnBoard, allRowsAndColumns } from "../util/board";
+import { initializeBoard, placeTileOnBoard, moveTileOnBoard, allRowsAndColumns } from "../util/boardUtils.test";
 import { scoreCombo } from "../util/scoringUtils";
 import { allLegalMoves } from "../util/moveUtils";
 import { computeRemainingColorCounts, getGameColors } from "../util/colorUtils";

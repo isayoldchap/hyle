@@ -1,4 +1,4 @@
-import { transformArrayElement, swapArrayElement, makeIntArrayOfSize } from "./arrayUtil.js";
+import { transformArrayElement, swapArrayElement, makeIntArrayOfSize } from "./arrayUtils";
 
 const up = cell => {
   return { x: cell.x, y: cell.y - 1 };
