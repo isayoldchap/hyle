@@ -1,180 +1,73 @@
-import { transformArrayElement, swapArrayElement, makeIntArrayOfSize } from "./arrayUtils";
+import {
+  placeTileOnBoard,
+} from './boardUtils';
 
-const up = cell => {
-  return { x: cell.x, y: cell.y - 1 };
-};
-const down = cell => {
-  return { x: cell.x, y: cell.y + 1 };
-};
-const left = cell => {
-  return { x: cell.x - 1, y: cell.y };
-};
-const right = cell => {
-  return { x: cell.x + 1, y: cell.y };
-};
+import {
+  allLegalMovesFromSquare,
+  legalOrderMoveSelector,
+  legalChaosMovesSelector
+} from './moveUtils';
 
-export const isOccupied = square => square && square.color !== undefined;
+import {
+  initializeEntropyBoard
+} from '../engine/engine';
 
-export const isEmpty = square => !isOccupied(square);
+import { assert } from "chai";
 
-const allDirections = [up, down, left, right];
+describe("Order Move Logic", () => {
+  const myBoard = [
+    [
+      { row: 1, col: 1, key: "1:1", color: "blue" },
+      { row: 1, col: 2, key: "1:2", color: undefined }
+    ],
+    [
+      { row: 2, col: 1, key: "2:1", color: undefined },
+      { row: 2, col: 2, key: "2:2", color: undefined }
+    ]
+  ];
 
-export const initializeBoard = (size, makeCell) => makeIntArrayOfSize(size).map(row => 
-    makeIntArrayOfSize(size).map(col => makeCell(row, col))
-);
+  it("should calc all the legal moves from the start square", () => {
+    const startSquare = { row: 1, col: 1 };
+    const legalMoves = allLegalMovesFromSquare(myBoard, startSquare);
+    assert.equal(legalMoves.length, 2);
+  });
+});
 
-export const getCell = (board, row, col) => {
-  return board[transformIndex(row)][transformIndex(col)];
-};
+describe("Chaos move logic", () => {
+  const myBoard = initializeEntropyBoard(3);
 
-function* generateLocationsInDirection(origin, applyDirection) {
-  let currentLocation = { x: origin.x, y: origin.y };
+  it("should allow placement at any empty board location", () => {
+    assert.equal(legalChaosMovesSelector(myBoard).length, 9);
+  });
 
-  while (true) {
-    currentLocation = applyDirection(currentLocation);
-    yield currentLocation;
-  }
-}
+  it("should allow one fewer moves after the first move has been made", () => {
+    const updatedBoard = placeTileOnBoard(myBoard, 1, 1, "red");
+    assert.equal(legalChaosMovesSelector(updatedBoard).length, 8);
+  });
+});
 
-export const transformSquareToLocation = square => {
-  return {
-    x: square.col,
-    y: square.row
-  };
-};
+describe("Order move logic on mini boards", () => {
+  const myBoard = initializeEntropyBoard(2);
 
-export const allRowsAndColumns = board => {
-  const rows = getRows(board);
-  const columns = getColumns(board);
-  return rows.concat(columns);
-};
+  it("should be no legal order moves until chaos has made a move", () => {
+    assert.equal(legalOrderMoveSelector(myBoard).length, 0);
+  });
 
-const getColumns = board => {
-  return makeIntArrayOfSize(board.length).map(col => getColumn(board, col));
-};
+  it("should be two legal order moves after chaos has made a move", () => {
+    const updatedBoard = placeTileOnBoard(myBoard, 1, 1, "red");
+    assert.equal(legalOrderMoveSelector(updatedBoard).length, 2);
+  });
 
-const getRows = board => board;
+  it("should be no legal moves once the board is full", () => {
+    const myBoard = initializeEntropyBoard(1);
+    const updatedBoard = placeTileOnBoard(myBoard, 1, 1, "red");
+    assert.equal(legalOrderMoveSelector(updatedBoard).length, 0);
+  });
+});
 
-export const getRow = (board, row) => board[transformIndex(row)];
-
-const getColumn = (board, col) => board.map(row => row[transformIndex(col)]);
-
-const transformIndex = boardIndex => boardIndex - 1;
-
-const cellWithColor = color => cell => {
-  return { ...cell, color };
-};
-
-const emptiedCell = cell => {
-  return { ...cell, showSelection: false, color: undefined };
-};
-
-const toLocation = cell => ({x: cell.col, y: cell.row});
-
-export const selectAllSquares = (board = []) => {
-  return board.reduce((allSquares, row) => allSquares.concat(row), []);
-};
-
-export const selectEmptySquares = board => {
-  return selectAllSquares(board).filter(isEmpty).map(toLocation);
-};
-
-export const selectOccupiedSquares = board => {
-  return selectAllSquares(board).filter(isOccupied);
-};
-
-export const moveTileOnBoard = (board, startLocation, endLocation) => {
-  const startRow = getRow(board, startLocation.y);
-  const endRow = getRow(board, endLocation.y);
-
-  const startSquareColor = startRow[startLocation.x - 1].color;
-
-  const updatedStartRow = transformArrayElement(
-    startRow,
-    startLocation.x - 1,
-    emptiedCell
-  );
-
-  const endRowToUpdate =
-    startLocation.y === endLocation.y ? updatedStartRow : endRow;
-
-  const updatedEndRow = transformArrayElement(
-    endRowToUpdate,
-    endLocation.x - 1,
-    cellWithColor(startSquareColor)
-  );
-
-  const updatedBoard = swapArrayElement(
-    board,
-    startLocation.y - 1,
-    updatedStartRow
-  );
-  const updatedBoard2 = swapArrayElement(
-    updatedBoard,
-    endLocation.y - 1,
-    updatedEndRow
-  );
-
-  return updatedBoard2;
-};
-
-export const placeTileOnBoard = (board, rowIndex, colIndex, color) => {
-  const rowToUpdate = getRow(board, rowIndex);
-
-  const updatedRow = transformArrayElement(
-    rowToUpdate,
-    colIndex - 1,
-    cellWithColor(color)
-  );
-  const updatedBoard = swapArrayElement(board, rowIndex - 1, updatedRow);
-
-  return updatedBoard;
-};
-
-export const selectLegalMoves = (board, startSquare) => {
-  const xyLocation = transformSquareToLocation(startSquare);
-  return allMovesFromLocation(xyLocation, board);
-};
-
-export const allMovesFromLocation = (startLocation, board) => {
-  const allFromSquare = allDirections.reduce((allMoves, direction) => {
-    const allMovesFromLocation = allMovesFromLocationInDirection(
-      startLocation,
-      direction,
-      board
-    );
-    return allMoves.concat(allMovesFromLocation);
-  }, []);
-
-  return allFromSquare;
-};
-
-export const allMovesFromLocationInDirection = (
-  startLocation,
-  direction,
-  board
-) => {
-  const pathGenerator = generateLocationsInDirection(startLocation, direction);
-  let allMovesInDirection = [];
-  let nextOnPath = pathGenerator.next().value;
-  let squareAtLocation = squareAtLocationSelector(board, nextOnPath);
-
-  while (squareAtLocation && squareAtLocation.color === undefined) {
-    allMovesInDirection = allMovesInDirection.concat({
-      start: startLocation,
-      end: nextOnPath
-    });
-    nextOnPath = pathGenerator.next().value;
-    squareAtLocation = squareAtLocationSelector(board, nextOnPath);
-  }
-
-  return allMovesInDirection;
-};
-
-export const squareAtLocationSelector = (board, location) => {
-  if (location.y < 1 || location.y > board.length) return undefined;
-  if (location.x < 1 || location.x > board.length) return undefined;
-
-  const squareAtLocation = getCell(board, location.y, location.x);
-  return squareAtLocation;
-};
+describe("Am empty board", () => {
+  it("should initialize to the size provided", () => {
+    const myBoard = initializeEntropyBoard(2);
+    assert.equal(myBoard.length, 2);
+  });
+});
