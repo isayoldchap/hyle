@@ -16,7 +16,7 @@ class Board extends React.Component {
     const { size, squareHeight, boardSquares, selectedSquare } = this.props;
 
     const squareContent = boardSquares.map(each => {
-      const isSquareSelected = selectedSquare
+      const isSelected = selectedSquare
         ? selectedSquare.x === each.col && selectedSquare.y === each.row
         : false;
       return (
@@ -25,7 +25,7 @@ class Board extends React.Component {
           key={each.key}
           width={squareHeight}
           height={squareHeight}
-          showSelection={isSquareSelected}
+          isSelected={isSelected}
         />
       );
     });

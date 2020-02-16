@@ -50,7 +50,7 @@ export const selectPlayer2Name = state => selectConfig(state).player2Name;
 
 export const selectTurn = state => state.turn;
 
-export const selecLegalMoves = state => state.legalMoves;
+export const selectLegalMoves = state => state.legalMoves;
 
 export const selectScore = state => state.score;
 

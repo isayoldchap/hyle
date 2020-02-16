@@ -19,12 +19,12 @@ export default class BoardSquare extends React.Component {
       height,
       color,
       canvasId = 'board',
-      showSelection
+      isSelected
     } = this.props;
     const x = col * width - width;
     const y = row * height - height;
     const boardCanvas = document.getElementById(canvasId);
-    renderPieceOnCanvas(boardCanvas, x, y, width, color, true, showSelection);
+    renderPieceOnCanvas(boardCanvas, x, y, width, color, true, isSelected);
   }
 
   render() {
@@ -39,5 +39,5 @@ BoardSquare.propTypes = {
   height: PropType.number.isRequired,
   color: PropType.string,
   canvasId: PropType.string,
-  showSelection: PropType.bool.isRequired
+  isSelected: PropType.bool.isRequired
 };
