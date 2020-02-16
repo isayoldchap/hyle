@@ -1,5 +1,9 @@
 import { createEngine } from '../engine/engine';
-import { selectTurn } from '../selectors/gameSelector';
+import {
+  selectTurn,
+  selectOrderHalfMove,
+  selectLegalMoves
+} from '../selectors/gameSelector';
 
 const UPDATE_GAME_STATE = 'UPDATE_GAME_STATE';
 const ORDER_HALF_MOVE = 'ORDER_HALF_MOVE';
@@ -37,8 +41,8 @@ export const handleClick = (x, y) => (dispatch, getState) => {
   const clickLocation = { x, y };
   const state = getState();
   const turn = selectTurn(state);
-  const halfMove = state.orderHalfMove;
-  const legalMoves = state.legalMoves;
+  const halfMove = selectOrderHalfMove(state);
+  const legalMoves = selectLegalMoves(state);
 
   if (turn === 'Order') {
     if (!halfMove) {
