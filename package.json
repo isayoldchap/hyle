@@ -16,6 +16,7 @@
   },
   "scripts": {
     "eslint": "node_modules/.bin/eslint src ",
+    "eslint:fix": "npm run eslint -- --fix",
     "start": "webpack-dev-server --config=config/webpack.dev.js",
     "build": "webpack --config=config/webpack.dev.js",
     "test": "mocha  \"src/**/*.test.js\"",

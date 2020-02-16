@@ -1,22 +1,24 @@
-import { createEngine } from "../engine/engine";
-import { selectTurn } from "../selectors/gameSelector";
+import { createEngine } from '../engine/engine';
+import { selectTurn } from '../selectors/gameSelector';
 
 const engine = createEngine();
 
+console.log('boo');
+
 export const newGame = options => dispatch => {
   engine.newGame(options);
-  dispatch({ type: "UPDATE_GAME_STATE", payload: engine.getState() });
+  dispatch({ type: 'UPDATE_GAME_STATE', payload: engine.getState() });
 };
 
 export const advanceRound = () => dispatch => {
   engine.advanceRound();
-  dispatch({ type: "UPDATE_GAME_STATE", payload: engine.getState() });
+  dispatch({ type: 'UPDATE_GAME_STATE', payload: engine.getState() });
 };
 
 export const handlePass = () => dispatch => {
   engine.playMove({ pass: true });
   const updatedState = engine.getState();
-  dispatch({ type: "UPDATE_GAME_STATE", payload: updatedState });
+  dispatch({ type: 'UPDATE_GAME_STATE', payload: updatedState });
 };
 
 function isValid(moves, move) {
@@ -30,21 +32,21 @@ export const handleClick = (x, y) => (dispatch, getState) => {
   const halfMove = state.orderHalfMove;
   const legalMoves = state.legalMoves;
 
-  if (turn === "Order") {
+  if (turn === 'Order') {
     if (!halfMove) {
       const legalStartMoves = legalMoves.map(move => move.start);
       if (isValid(legalStartMoves, clickLocation)) {
-        dispatch({ type: "ORDER_HALF_MOVE", payload: clickLocation });
+        dispatch({ type: 'ORDER_HALF_MOVE', payload: clickLocation });
       }
     } else {
       const legalEndMoves = legalMoves.map(move => move.end);
       if (isValid(legalEndMoves, clickLocation)) {
         playMove(engine, { start: state.orderHalfMove, end: clickLocation });
       } else {
-        dispatch({ type: "RESET_ORDER_HALF_MOVE", payload: clickLocation });
+        dispatch({ type: 'RESET_ORDER_HALF_MOVE', payload: clickLocation });
       }
     }
-  } else if (turn === "Chaos") {
+  } else if (turn === 'Chaos') {
     if (isValid(legalMoves, clickLocation)) {
       playMove(engine, clickLocation);
     }
@@ -53,25 +55,25 @@ export const handleClick = (x, y) => (dispatch, getState) => {
   function playMove(engine, move) {
     engine.playMove(move);
     const updatedState = engine.getState();
-    dispatch({ type: "UPDATE_GAME_STATE", payload: updatedState });
+    dispatch({ type: 'UPDATE_GAME_STATE', payload: updatedState });
   }
 };
 
 const gameReducer = (state = engine.getState(), action) => {
   const actionType = action.type;
 
-  if (actionType === "UPDATE_GAME_STATE") {
+  if (actionType === 'UPDATE_GAME_STATE') {
     return {
       ...state,
       ...action.payload,
       orderHalfMove: undefined
     };
-  } else if (actionType === "ORDER_HALF_MOVE") {
+  } else if (actionType === 'ORDER_HALF_MOVE') {
     return {
       ...state,
       orderHalfMove: action.payload
     };
-  } else if (actionType === "RESET_ORDER_HALF_MOVE") {
+  } else if (actionType === 'RESET_ORDER_HALF_MOVE') {
     return {
       ...state,
       orderHalfMove: undefined

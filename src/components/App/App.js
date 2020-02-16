@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-import React from "react";
-import NewGameDialog from "../NewGameDialog/NewGameDialog";
-import AppBar from "material-ui/AppBar";
-import FlatButton from "material-ui/FlatButton";
+import PropTypes from 'prop-types';
+import React from 'react';
+import NewGameDialog from '../NewGameDialog/NewGameDialog';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
 export class App extends React.Component {
   constructor(props) {

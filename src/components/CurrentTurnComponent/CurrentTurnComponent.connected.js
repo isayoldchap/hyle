@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
   selectMoveNumber,
   selectWinning,
@@ -6,11 +6,11 @@ import {
   selectIsEndOfRound,
   selectIsGameOver,
   selectRoundNumber
-} from "../../selectors/gameSelector";
-import { createBackAction } from "../../actioncreators/historyActions";
-import { advanceRound, newGame } from "../../ducks/entropyDuck";
-import { CurrentTurnComponent } from "./CurrentTurnComponent";
-import { handlePass } from "../../ducks/entropyDuck";
+} from '../../selectors/gameSelector';
+import { createBackAction } from '../../actioncreators/historyActions';
+import { advanceRound, newGame } from '../../ducks/entropyDuck';
+import { CurrentTurnComponent } from './CurrentTurnComponent';
+import { handlePass } from '../../ducks/entropyDuck';
 
 const mapStateToProps = state => ({
   roundNumber: selectRoundNumber(state),

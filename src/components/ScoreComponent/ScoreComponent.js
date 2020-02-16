@@ -1,5 +1,5 @@
-import React from "react";
-import PropType from "prop-types";
+import React from 'react';
+import PropType from 'prop-types';
 
 export class ScoreComponent extends React.PureComponent {
   render() {

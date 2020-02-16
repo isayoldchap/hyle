@@ -1,11 +1,11 @@
-import React from "react";
-import BoardSquare from "../BoardSquare/BoardSquare";
-import PropTypes from "prop-types";
+import React from 'react';
+import BoardSquare from '../BoardSquare/BoardSquare';
+import PropTypes from 'prop-types';
 
 class Board extends React.Component {
   componentDidMount() {
     const { squareHeight, squareClickHandler } = this.props;
-    document.getElementById("board").addEventListener("click", event => {
+    document.getElementById('board').addEventListener('click', event => {
       const row = Math.ceil(event.offsetY / squareHeight);
       const col = Math.ceil(event.offsetX / squareHeight);
       squareClickHandler(col, row);

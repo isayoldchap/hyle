@@ -1,11 +1,11 @@
-import PropType from "prop-types";
-import React from "react";
-import RaisedButton from "material-ui/RaisedButton";
+import PropType from 'prop-types';
+import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 
-import { Roles } from "../../engine/engine";
-import NextTileComponent from "../NextTileComponent/NextTileComponent.connected";
-import { EndOfRoundComponent } from "../EndOfRoundComponent/EndOfRoundComponent";
-import { EndOfGameComponent } from "../EndOfGameComponent/EndOfGameComponent";
+import { Roles } from '../../engine/engine';
+import NextTileComponent from '../NextTileComponent/NextTileComponent.connected';
+import { EndOfRoundComponent } from '../EndOfRoundComponent/EndOfRoundComponent';
+import { EndOfGameComponent } from '../EndOfGameComponent/EndOfGameComponent';
 
 export class CurrentTurnComponent extends React.Component {
   render() {

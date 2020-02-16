@@ -1,4 +1,4 @@
-import Chance from "chance";
+import Chance from 'chance';
 
 // The ability to reproduce sequences is important for replaying games
 export const generateGamePieceSequence = (colors, randomSeed) => {

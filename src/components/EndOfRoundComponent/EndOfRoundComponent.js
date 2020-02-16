@@ -1,6 +1,6 @@
-import React from "react";
-import PropType from "prop-types";
-import RaisedButton from "material-ui/RaisedButton";
+import React from 'react';
+import PropType from 'prop-types';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export class EndOfRoundComponent extends React.Component {
   render() {
@@ -10,8 +10,8 @@ export class EndOfRoundComponent extends React.Component {
         <p>End of round</p>
         <RaisedButton
           secondary={true}
-          value={"Start next round"}
-          label={"Continue"}
+          value={'Start next round'}
+          label={'Continue'}
           onClick={handleStartNextRound}
         />
       </div>

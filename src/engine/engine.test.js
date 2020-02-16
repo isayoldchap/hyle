@@ -1,7 +1,7 @@
-import { expect } from "chai";
-import { createEngine } from "./engine";
+import { expect } from 'chai';
+import { createEngine } from './engine';
 
-describe("Engine stuff", () => {
+describe('Engine stuff', () => {
   const engine = createEngine();
 
   engine.newGame();
@@ -11,7 +11,7 @@ describe("Engine stuff", () => {
   engine.playMove({ pass: true });
   engine.playMove({ x: 3, y: 1 });
 
-  it("something", () => {
+  it('something', () => {
     expect(1).to.be.equal(1);
   });
 });

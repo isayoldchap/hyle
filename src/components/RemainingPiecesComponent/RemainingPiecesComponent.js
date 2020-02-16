@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   renderPieceOnCanvas,
   renderBackground
-} from "../../util/pieceRenderingUtil";
+} from '../../util/pieceRenderingUtil';
 
 export class RemainingPiecesComponent extends React.Component {
   render() {
@@ -46,10 +46,10 @@ export class RemainingPiecesComponent extends React.Component {
 
   repaintRemainingComponents() {
     const { width, colorCounts, orientation } = this.props;
-    const canvas = document.getElementById("remaining pieces");
+    const canvas = document.getElementById('remaining pieces');
 
     const dimensions = this.dimensions();
-    renderBackground(canvas, dimensions.width, dimensions.height, "white");
+    renderBackground(canvas, dimensions.width, dimensions.height, 'white');
 
     colorCounts
       .filter(colorCount => colorCount.count > 0)
@@ -82,8 +82,8 @@ export class RemainingPiecesComponent extends React.Component {
 }
 
 export const RemainingPiecesComponentOrientation = {
-  HORIZONTAL: "horizontal",
-  VERTICAL: "vertical"
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical'
 };
 
 RemainingPiecesComponent.propTypes = {

@@ -1,10 +1,10 @@
-import React from "react";
-import FlatButton from "material-ui/FlatButton";
-import Dialog from "material-ui/Dialog";
-import Toggle from "material-ui/Toggle";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
-import PropType from "prop-types";
+import React from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+import Toggle from 'material-ui/Toggle';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import PropType from 'prop-types';
 
 class NewGameDialog extends React.Component {
   constructor(props) {
@@ -29,23 +29,23 @@ class NewGameDialog extends React.Component {
         maxWidth: 250
       },
       toggle: {
-        fontWeight: "normal",
+        fontWeight: 'normal',
         marginBottom: 16
       },
       thumbOff: {
-        backgroundColor: "#ffcccc"
+        backgroundColor: '#ffcccc'
       },
       trackOff: {
-        backgroundColor: "#ff9d9d"
+        backgroundColor: '#ff9d9d'
       },
       thumbSwitched: {
-        backgroundColor: "red"
+        backgroundColor: 'red'
       },
       trackSwitched: {
-        backgroundColor: "#ff9d9d"
+        backgroundColor: '#ff9d9d'
       },
       labelStyle: {
-        color: "red"
+        color: 'red'
       }
     };
 

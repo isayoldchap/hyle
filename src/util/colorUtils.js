@@ -1,16 +1,16 @@
 const ALL_COLORS = [
-  "Red",
-  "Green",
-  "Orange",
-  "Blue",
-  "Magenta",
-  "Cyan",
-  "Brown",
-  "Silver",
-  "Gray",
-  "Yellow",
-  "Navy",
-  "Black"
+  'Red',
+  'Green',
+  'Orange',
+  'Blue',
+  'Magenta',
+  'Cyan',
+  'Brown',
+  'Silver',
+  'Gray',
+  'Yellow',
+  'Navy',
+  'Black'
 ];
 
 export const getGameColors = count => ALL_COLORS.slice(0, count);

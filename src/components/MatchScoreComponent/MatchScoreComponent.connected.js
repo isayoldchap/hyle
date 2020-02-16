@@ -1,11 +1,11 @@
-import { MatchScoreComponent } from "./MatchScoreComponent";
-import { connect } from "react-redux";
+import { MatchScoreComponent } from './MatchScoreComponent';
+import { connect } from 'react-redux';
 import {
   selectPlayer1Name,
   selectPlayer1Score,
   selectPlayer2Name,
   selectPlayer2Score
-} from "../../selectors/gameSelector";
+} from '../../selectors/gameSelector';
 
 const mapStateToProps = state => {
   const player1Name = selectPlayer1Name(state);

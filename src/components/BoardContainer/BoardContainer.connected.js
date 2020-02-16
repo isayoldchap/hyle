@@ -1,7 +1,7 @@
-import { BoardContainer } from "./BoardContainer";
-import { squaresSelector, sizeSelector } from "../../selectors/boardSelector";
-import { handleClick } from "../../ducks/entropyDuck";
-import { connect } from "react-redux";
+import { BoardContainer } from './BoardContainer';
+import { squaresSelector, sizeSelector } from '../../selectors/boardSelector';
+import { handleClick } from '../../ducks/entropyDuck';
+import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   const newProps = {

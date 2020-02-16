@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export class MatchScoreComponent extends React.Component {
   render() {
@@ -29,9 +29,9 @@ export class MatchScoreComponent extends React.Component {
 }
 
 MatchScoreComponent.defaultProps = {
-  player1Name: "Player 1 ",
+  player1Name: 'Player 1 ',
   player1Score: 0,
-  player2Name: "Player 2 ",
+  player2Name: 'Player 2 ',
   player2Score: 0
 };
 

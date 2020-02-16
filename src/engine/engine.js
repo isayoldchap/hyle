@@ -3,21 +3,21 @@ import {
   placeTileOnBoard,
   moveTileOnBoard,
   allRowsAndColumns
-} from "../util/boardUtils";
-import { scoreCombo } from "../util/scoringUtils";
-import { allLegalMoves } from "../util/moveUtils";
-import { computeRemainingColorCounts, getGameColors } from "../util/colorUtils";
-import { generateGamePieceSequence } from "../util/SequenceGenerator";
+} from '../util/boardUtils';
+import { scoreCombo } from '../util/scoringUtils';
+import { allLegalMoves } from '../util/moveUtils';
+import { computeRemainingColorCounts, getGameColors } from '../util/colorUtils';
+import { generateGamePieceSequence } from '../util/SequenceGenerator';
 
 export const Roles = {
-  ORDER: "Order",
-  CHAOS: "Chaos"
+  ORDER: 'Order',
+  CHAOS: 'Chaos'
 };
 
 const defaultGameConfig = {
   boardSize: 5,
-  player1Name: "Steve", // TODO make it so the enames  can be entered in the ew game dialog
-  player2Name: "Kip",
+  player1Name: 'Steve', // TODO make it so the enames  can be entered in the ew game dialog
+  player2Name: 'Kip',
   liveScore: true
 };
 
@@ -103,7 +103,7 @@ function handleOrderMove(game, { pass = false, start, end }) {
 function completeTurn(game, updatedBoard) {
   const round = game.round;
   const newScore = computeScore(updatedBoard);
-  const scoreKey = round === 1 ? "player1Score" : "player2Score";
+  const scoreKey = round === 1 ? 'player1Score' : 'player2Score';
   game[scoreKey] = newScore;
 
   const turn = game.turn === Roles.CHAOS ? Roles.ORDER : Roles.CHAOS;
@@ -142,7 +142,7 @@ function computeScore(board) {
   const allScoreablePatterns = allRowsAndColumns(board);
 
   const combinedScore = allScoreablePatterns.reduce((score, sequence) => {
-    const patternToScore = sequence.map(characterForCell).join("");
+    const patternToScore = sequence.map(characterForCell).join('');
     return score + scoreCombo(patternToScore.trim());
   }, 0);
 
@@ -150,7 +150,7 @@ function computeScore(board) {
 }
 
 const characterForCell = cell => {
-  return cell.color ? cell.color.substring(0, 1) : " ";
+  return cell.color ? cell.color.substring(0, 1) : ' ';
 };
 
 const initializeGame = (config = defaultGameConfig) => {

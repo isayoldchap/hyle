@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import React from "react";
-import Board from "../Board/Board";
+import PropTypes from 'prop-types';
+import React from 'react';
+import Board from '../Board/Board';
 
 export class BoardContainer extends React.Component {
   render() {

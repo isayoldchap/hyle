@@ -1,6 +1,6 @@
-import React from "react";
-import PropType from "prop-types";
-import RaisedButton from "material-ui/RaisedButton";
+import React from 'react';
+import PropType from 'prop-types';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export class EndOfGameComponent extends React.Component {
   render() {
@@ -11,8 +11,8 @@ export class EndOfGameComponent extends React.Component {
         <p>{winner} won</p>
         <RaisedButton
           secondary={true}
-          value={"StartNewGame"}
-          label={"Start New Game"}
+          value={'StartNewGame'}
+          label={'Start New Game'}
           onClick={handleStartNewGame}
         />
       </div>

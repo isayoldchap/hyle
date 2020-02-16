@@ -1,6 +1,6 @@
-import PropType from "prop-types";
-import React from "react";
-import { renderPieceOnCanvas } from "../../util/pieceRenderingUtil";
+import PropType from 'prop-types';
+import React from 'react';
+import { renderPieceOnCanvas } from '../../util/pieceRenderingUtil';
 
 export default class BoardSquare extends React.Component {
   componentDidMount() {
@@ -18,7 +18,7 @@ export default class BoardSquare extends React.Component {
       width,
       height,
       color,
-      canvasId = "board",
+      canvasId = 'board',
       showSelection
     } = this.props;
     const x = col * width - width;

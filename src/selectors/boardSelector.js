@@ -1,4 +1,4 @@
-import { selectAllSquares } from "../util/boardUtils";
+import { selectAllSquares } from '../util/boardUtils';
 
 export const selectBoard = state => state.board;
 

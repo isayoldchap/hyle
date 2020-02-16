@@ -29,12 +29,12 @@ const isUnScorable = pattern => hasGaps(pattern) || tooSmall(pattern);
 
 const tooSmall = pattern => pattern.length < 2;
 
-const hasGaps = pattern => pattern.indexOf(" ") !== -1;
+const hasGaps = pattern => pattern.indexOf(' ') !== -1;
 
 const isPalindrome = pattern => pattern === reversePattern(pattern);
 
 const reversePattern = pattern =>
   pattern
-    .split("")
+    .split('')
     .reverse()
-    .join("");
+    .join('');

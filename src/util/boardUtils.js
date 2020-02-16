@@ -2,7 +2,7 @@ import {
   transformArrayElement,
   swapArrayElement,
   makeIntArrayOfSize
-} from "./arrayUtils";
+} from './arrayUtils';
 
 const up = cell =>
   cellTransform(
