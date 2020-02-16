@@ -6,6 +6,11 @@ import {
   renderBackground
 } from '../../util/pieceRenderingUtil';
 
+export const RemainingPiecesComponentOrientation = {
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical'
+};
+
 export class RemainingPiecesComponent extends React.Component {
   render() {
     const { width, colorCounts, orientation } = this.props;
@@ -80,11 +85,6 @@ export class RemainingPiecesComponent extends React.Component {
       });
   }
 }
-
-export const RemainingPiecesComponentOrientation = {
-  HORIZONTAL: 'horizontal',
-  VERTICAL: 'vertical'
-};
 
 RemainingPiecesComponent.propTypes = {
   width: PropTypes.number,

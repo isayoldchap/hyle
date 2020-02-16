@@ -25,6 +25,7 @@ module.exports = {
         "prettier"
     ],
     "rules": {
+        "no-use-before-define": ["error", { "functions": true, "classes": true }],
         "prettier/prettier": "error"
     }
 };

@@ -4,6 +4,11 @@ import {
   makeIntArrayOfSize
 } from './arrayUtils';
 
+const cellTransform = (cell, xDelta, yDelta) => ({
+  x: xDelta(cell.x),
+  y: yDelta(cell.y)
+});
+
 const up = cell =>
   cellTransform(
     cell,
@@ -31,10 +36,9 @@ const right = cell =>
 
 const allDirections = [up, down, left, right];
 
-const cellTransform = (cell, xDelta, yDelta) => ({
-  x: xDelta(cell.x),
-  y: yDelta(cell.y)
-});
+const getRows = board => board;
+
+const transformIndex = boardIndex => boardIndex - 1;
 
 export const isOccupied = square => square && square.color !== undefined;
 
@@ -65,23 +69,19 @@ export const transformSquareToLocation = square => {
   };
 };
 
+const getColumn = (board, col) => board.map(row => row[transformIndex(col)]);
+
+const getColumns = board => {
+  return makeIntArrayOfSize(board.length).map(col => getColumn(board, col));
+};
+
 export const allRowsAndColumns = board => {
   const rows = getRows(board);
   const columns = getColumns(board);
   return rows.concat(columns);
 };
 
-const getColumns = board => {
-  return makeIntArrayOfSize(board.length).map(col => getColumn(board, col));
-};
-
-const getRows = board => board;
-
 export const getRow = (board, row) => board[transformIndex(row)];
-
-const getColumn = (board, col) => board.map(row => row[transformIndex(col)]);
-
-const transformIndex = boardIndex => boardIndex - 1;
 
 const cellWithColor = color => cell => {
   return { ...cell, color };
@@ -142,6 +142,14 @@ export const moveTileOnBoard = (board, startLocation, endLocation) => {
   return updatedBoard2;
 };
 
+export const squareAtLocationSelector = (board, location) => {
+  if (location.y < 1 || location.y > board.length) return undefined;
+  if (location.x < 1 || location.x > board.length) return undefined;
+
+  const squareAtLocation = getCell(board, location.y, location.x);
+  return squareAtLocation;
+};
+
 export const placeTileOnBoard = (board, rowIndex, colIndex, color) => {
   const rowToUpdate = getRow(board, rowIndex);
 
@@ -153,24 +161,6 @@ export const placeTileOnBoard = (board, rowIndex, colIndex, color) => {
   const updatedBoard = swapArrayElement(board, rowIndex - 1, updatedRow);
 
   return updatedBoard;
-};
-
-export const selectLegalMoves = (board, startSquare) => {
-  const xyLocation = transformSquareToLocation(startSquare);
-  return allMovesFromLocation(xyLocation, board);
-};
-
-export const allMovesFromLocation = (startLocation, board) => {
-  const allFromSquare = allDirections.reduce((allMoves, direction) => {
-    const allMovesFromLocation = allMovesFromLocationInDirection(
-      startLocation,
-      direction,
-      board
-    );
-    return allMoves.concat(allMovesFromLocation);
-  }, []);
-
-  return allFromSquare;
 };
 
 export const allMovesFromLocationInDirection = (
@@ -195,10 +185,20 @@ export const allMovesFromLocationInDirection = (
   return allMovesInDirection;
 };
 
-export const squareAtLocationSelector = (board, location) => {
-  if (location.y < 1 || location.y > board.length) return undefined;
-  if (location.x < 1 || location.x > board.length) return undefined;
+export const allMovesFromLocation = (startLocation, board) => {
+  const allFromSquare = allDirections.reduce((allMoves, direction) => {
+    const allMovesFromLocation = allMovesFromLocationInDirection(
+      startLocation,
+      direction,
+      board
+    );
+    return allMoves.concat(allMovesFromLocation);
+  }, []);
 
-  const squareAtLocation = getCell(board, location.y, location.x);
-  return squareAtLocation;
+  return allFromSquare;
+};
+
+export const selectLegalMoves = (board, startSquare) => {
+  const xyLocation = transformSquareToLocation(startSquare);
+  return allMovesFromLocation(xyLocation, board);
 };

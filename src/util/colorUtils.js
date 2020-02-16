@@ -15,6 +15,16 @@ const ALL_COLORS = [
 
 export const getGameColors = count => ALL_COLORS.slice(0, count);
 
+const sortColorCounts = colorCounts => {
+  return Object.keys(colorCounts)
+    .map(color => {
+      return { color, count: colorCounts[color] };
+    })
+    .sort((a, b) => {
+      return b.count - a.count;
+    });
+};
+
 export const computeRemainingColorCounts = remainingColors => {
   const allCounts = remainingColors.reduce((colorCounts, color) => {
     if (!colorCounts[color]) {
@@ -26,14 +36,4 @@ export const computeRemainingColorCounts = remainingColors => {
     return colorCounts;
   }, {});
   return sortColorCounts(allCounts);
-};
-
-const sortColorCounts = colorCounts => {
-  return Object.keys(colorCounts)
-    .map(color => {
-      return { color, count: colorCounts[color] };
-    })
-    .sort((a, b) => {
-      return b.count - a.count;
-    });
 };

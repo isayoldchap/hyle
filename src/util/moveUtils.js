@@ -26,15 +26,15 @@ export const occupiedSquareSelector = board => {
   return selectOccupiedSquares(board);
 };
 
+export const allLegalMovesFromSquare = (board, startSquare) => {
+  return selectLegalMoves(board, startSquare);
+};
+
 export const legalOrderMoveSelector = board => {
   const occupiedSquares = selectOccupiedSquares(board);
   return occupiedSquares.reduce((allMoves, startSquare) => {
     return allMoves.concat(allLegalMovesFromSquare(board, startSquare));
   }, []);
-};
-
-export const allLegalMovesFromSquare = (board, startSquare) => {
-  return selectLegalMoves(board, startSquare);
 };
 
 export const allLegalMovesFromLocation = (board, location) => {

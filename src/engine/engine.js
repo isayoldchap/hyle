@@ -21,83 +21,57 @@ const defaultGameConfig = {
   liveScore: true
 };
 
-export const createEngine = (config = defaultGameConfig) => {
-  let game = initializeGame(config);
+const makeEntropyCell = (row, column, color = undefined) => ({
+  row: row,
+  col: column,
+  key: `${row}:${column}`,
+  color: color
+});
 
-  return {
-    newGame: (config = defaultGameConfig) => {
-      const mergedConfig = { ...game.config, ...config };
-      game = initializeGame(mergedConfig);
-      return game;
-    },
-    reset: () => {
-      return game;
-    },
-    getState: () => {
-      return reduxState(game);
-    },
-    playMove: move => {
-      game = handleMove(game, move);
-      return game;
-    },
-    advanceRound: () => {
-      game = advanceRound(game);
-      return game;
-    }
+export const initializeEntropyBoard = size =>
+  initializeBoard(size, makeEntropyCell);
+
+const initializeGame = (config = defaultGameConfig) => {
+  const boardSize = config.boardSize;
+  const colors = getGameColors(boardSize);
+  const board = initializeEntropyBoard(boardSize);
+  const pieceSequence = generateGamePieceSequence(colors);
+  const remainingColorCounts = computeRemainingColorCounts(pieceSequence);
+  const legalMoves = allLegalMoves(Roles.CHAOS, board);
+
+  const game = {
+    config,
+    round: 1,
+    score: 0,
+    turn: Roles.CHAOS,
+    moveNumber: 1,
+    roundInProgress: true,
+    player1Score: 0,
+    player2Score: 0,
+    nextPiece: pieceSequence[0],
+    remainingPieces: pieceSequence,
+    remainingColorCounts,
+    legalMoves: legalMoves,
+    colors: colors,
+    board
   };
+
+  return game;
 };
 
-function reduxState(game) {
-  return game;
-}
+const characterForCell = cell => {
+  return cell.color ? cell.color.substring(0, 1) : ' ';
+};
 
-function advanceRound(game) {
-  let { player1Score, player2Score, round, config } = game;
-  // if (game.roundInProgress) return game;
+function computeScore(board) {
+  const allScoreablePatterns = allRowsAndColumns(board);
 
-  const updatedGame = initializeGame(config);
-  return {
-    ...updatedGame,
-    player1Score,
-    player2Score,
-    round: round + 1
-  };
-}
+  const combinedScore = allScoreablePatterns.reduce((score, sequence) => {
+    const patternToScore = sequence.map(characterForCell).join('');
+    return score + scoreCombo(patternToScore.trim());
+  }, 0);
 
-function handleMove(game, moveDefinition) {
-  if (!game.roundInProgress) return game;
-
-  const { turn } = game;
-  if (turn === Roles.CHAOS) {
-    return handleChaosMove(game, moveDefinition);
-  } else if (turn === Roles.ORDER) {
-    return handleOrderMove(game, moveDefinition);
-  } else {
-    return game;
-  }
-}
-
-function handleChaosMove(game, { x, y }) {
-  const previousBoardState = game.board;
-  const nextPiece = game.nextPiece;
-
-  const updatedBoard = placeTileOnBoard(previousBoardState, y, x, nextPiece);
-  if (updatedBoard !== previousBoardState) {
-    return completeTurn(game, updatedBoard);
-  }
-  return game;
-}
-
-function handleOrderMove(game, { pass = false, start, end }) {
-  const boardState = game.board;
-  if (pass) return completeTurn(game, boardState); // optimize later
-
-  const updatedBoard = moveTileOnBoard(boardState, start, end);
-
-  if (updatedBoard !== boardState) {
-    return completeTurn(game, updatedBoard);
-  }
-  return game;
+  return combinedScore;
 }
 
 function completeTurn(game, updatedBoard) {
@@ -138,55 +112,81 @@ function completeTurn(game, updatedBoard) {
   };
 }
 
-function computeScore(board) {
-  const allScoreablePatterns = allRowsAndColumns(board);
-
-  const combinedScore = allScoreablePatterns.reduce((score, sequence) => {
-    const patternToScore = sequence.map(characterForCell).join('');
-    return score + scoreCombo(patternToScore.trim());
-  }, 0);
-
-  return combinedScore;
+function reduxState(game) {
+  return game;
 }
 
-const characterForCell = cell => {
-  return cell.color ? cell.color.substring(0, 1) : ' ';
-};
+function advanceRound(game) {
+  let { player1Score, player2Score, round, config } = game;
+  // if (game.roundInProgress) return game;
 
-const initializeGame = (config = defaultGameConfig) => {
-  const boardSize = config.boardSize;
-  const colors = getGameColors(boardSize);
-  const board = initializeEntropyBoard(boardSize);
-  const pieceSequence = generateGamePieceSequence(colors);
-  const remainingColorCounts = computeRemainingColorCounts(pieceSequence);
-  const legalMoves = allLegalMoves(Roles.CHAOS, board);
-
-  const game = {
-    config,
-    round: 1,
-    score: 0,
-    turn: Roles.CHAOS,
-    moveNumber: 1,
-    roundInProgress: true,
-    player1Score: 0,
-    player2Score: 0,
-    nextPiece: pieceSequence[0],
-    remainingPieces: pieceSequence,
-    remainingColorCounts,
-    legalMoves: legalMoves,
-    colors: colors,
-    board
+  const updatedGame = initializeGame(config);
+  return {
+    ...updatedGame,
+    player1Score,
+    player2Score,
+    round: round + 1
   };
+}
 
+function handleChaosMove(game, { x, y }) {
+  const previousBoardState = game.board;
+  const nextPiece = game.nextPiece;
+
+  const updatedBoard = placeTileOnBoard(previousBoardState, y, x, nextPiece);
+  if (updatedBoard !== previousBoardState) {
+    return completeTurn(game, updatedBoard);
+  }
   return game;
+}
+
+function handleOrderMove(game, { pass = false, start, end }) {
+  const boardState = game.board;
+  if (pass) return completeTurn(game, boardState); // optimize later
+
+  const updatedBoard = moveTileOnBoard(boardState, start, end);
+
+  if (updatedBoard !== boardState) {
+    return completeTurn(game, updatedBoard);
+  }
+  return game;
+}
+
+function handleMove(game, moveDefinition) {
+  if (!game.roundInProgress) return game;
+
+  const { turn } = game;
+  if (turn === Roles.CHAOS) {
+    return handleChaosMove(game, moveDefinition);
+  } else if (turn === Roles.ORDER) {
+    return handleOrderMove(game, moveDefinition);
+  } else {
+    return game;
+  }
+}
+
+export const createEngine = (config = defaultGameConfig) => {
+  let game = initializeGame(config);
+
+  return {
+    newGame: (config = defaultGameConfig) => {
+      const mergedConfig = { ...game.config, ...config };
+      game = initializeGame(mergedConfig);
+      return game;
+    },
+    reset: () => {
+      return game;
+    },
+    getState: () => {
+      return reduxState(game);
+    },
+    playMove: move => {
+      game = handleMove(game, move);
+      return game;
+    },
+    advanceRound: () => {
+      game = advanceRound(game);
+      return game;
+    }
+  };
 };
-
-const makeEntropyCell = (row, column, color = undefined) => ({
-  row: row,
-  col: column,
-  key: `${row}:${column}`,
-  color: color
-});
-
-export const initializeEntropyBoard = size =>
-  initializeBoard(size, makeEntropyCell);

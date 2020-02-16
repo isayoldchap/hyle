@@ -3,8 +3,6 @@ import { selectTurn } from '../selectors/gameSelector';
 
 const engine = createEngine();
 
-console.log('boo');
-
 export const newGame = options => dispatch => {
   engine.newGame(options);
   dispatch({ type: 'UPDATE_GAME_STATE', payload: engine.getState() });
@@ -26,6 +24,12 @@ function isValid(moves, move) {
 }
 
 export const handleClick = (x, y) => (dispatch, getState) => {
+  function playMove(engine, move) {
+    engine.playMove(move);
+    const updatedState = engine.getState();
+    dispatch({ type: 'UPDATE_GAME_STATE', payload: updatedState });
+  }
+
   const clickLocation = { x, y };
   const state = getState();
   const turn = selectTurn(state);
@@ -50,12 +54,6 @@ export const handleClick = (x, y) => (dispatch, getState) => {
     if (isValid(legalMoves, clickLocation)) {
       playMove(engine, clickLocation);
     }
-  }
-
-  function playMove(engine, move) {
-    engine.playMove(move);
-    const updatedState = engine.getState();
-    dispatch({ type: 'UPDATE_GAME_STATE', payload: updatedState });
   }
 };
 
