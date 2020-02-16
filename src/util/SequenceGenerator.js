@@ -29,4 +29,3 @@ const initializeAllGamePieces = colors => {
 };
 
 const initChance = seed => new Chance(seed);
-

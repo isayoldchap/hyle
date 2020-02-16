@@ -1,4 +1,3 @@
-
 const ALL_COLORS = [
   "Red",
   "Green",
@@ -38,4 +37,3 @@ const sortColorCounts = colorCounts => {
       return b.count - a.count;
     });
 };
-  

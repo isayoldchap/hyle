@@ -1,6 +1,4 @@
-import {
-  initializeEntropyBoard
-} from '../engine/engine';
+import { initializeEntropyBoard } from "../engine/engine";
 
 import { assert } from "chai";
 

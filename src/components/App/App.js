@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import NewGameDialog from "../NewGameDialog/NewGameDialog";
 import AppBar from "material-ui/AppBar";
@@ -51,3 +52,6 @@ export class App extends React.Component {
   }
 }
 
+App.propTypes = {
+  newGame: PropTypes.func.isRequired
+};

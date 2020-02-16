@@ -1,27 +1,49 @@
-import { transformArrayElement, swapArrayElement, makeIntArrayOfSize } from "./arrayUtils";
+import {
+  transformArrayElement,
+  swapArrayElement,
+  makeIntArrayOfSize
+} from "./arrayUtils";
 
-const up = cell => {
-  return { x: cell.x, y: cell.y - 1 };
-};
-const down = cell => {
-  return { x: cell.x, y: cell.y + 1 };
-};
-const left = cell => {
-  return { x: cell.x - 1, y: cell.y };
-};
-const right = cell => {
-  return { x: cell.x + 1, y: cell.y };
-};
+const up = cell =>
+  cellTransform(
+    cell,
+    x => x,
+    y => y - 1
+  );
+const down = cell =>
+  cellTransform(
+    cell,
+    x => x,
+    y => y + 1
+  );
+const left = cell =>
+  cellTransform(
+    cell,
+    x => x - 1,
+    y => y
+  );
+const right = cell =>
+  cellTransform(
+    cell,
+    x => x + 1,
+    y => y
+  );
+
+const allDirections = [up, down, left, right];
+
+const cellTransform = (cell, xDelta, yDelta) => ({
+  x: xDelta(cell.x),
+  y: yDelta(cell.y)
+});
 
 export const isOccupied = square => square && square.color !== undefined;
 
 export const isEmpty = square => !isOccupied(square);
 
-const allDirections = [up, down, left, right];
-
-export const initializeBoard = (size, makeCell) => makeIntArrayOfSize(size).map(row => 
+export const initializeBoard = (size, makeCell) =>
+  makeIntArrayOfSize(size).map(row =>
     makeIntArrayOfSize(size).map(col => makeCell(row, col))
-);
+  );
 
 export const getCell = (board, row, col) => {
   return board[transformIndex(row)][transformIndex(col)];
@@ -69,14 +91,16 @@ const emptiedCell = cell => {
   return { ...cell, showSelection: false, color: undefined };
 };
 
-const toLocation = cell => ({x: cell.col, y: cell.row});
+const toLocation = cell => ({ x: cell.col, y: cell.row });
 
 export const selectAllSquares = (board = []) => {
   return board.reduce((allSquares, row) => allSquares.concat(row), []);
 };
 
 export const selectEmptySquares = board => {
-  return selectAllSquares(board).filter(isEmpty).map(toLocation);
+  return selectAllSquares(board)
+    .filter(isEmpty)
+    .map(toLocation);
 };
 
 export const selectOccupiedSquares = board => {

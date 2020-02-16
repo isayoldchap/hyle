@@ -1,3 +1,4 @@
+import PropType from "prop-types";
 import React from "react";
 import { renderPieceOnCanvas } from "../../util/pieceRenderingUtil";
 
@@ -30,3 +31,13 @@ export default class BoardSquare extends React.Component {
     return null;
   }
 }
+
+BoardSquare.propTypes = {
+  col: PropType.number.isRequired,
+  row: PropType.number.isRequired,
+  width: PropType.number.isRequired,
+  height: PropType.number.isRequired,
+  color: PropType.string,
+  canvasId: PropType.string,
+  showSelection: PropType.bool.isRequired
+};

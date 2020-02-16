@@ -2,7 +2,7 @@ import React from "react";
 import { renderPieceOnCanvas } from "../../util/pieceRenderingUtil";
 import PropType from "prop-types";
 
-export class NextTileComponent extends React.Component { 
+export class NextTileComponent extends React.Component {
   render() {
     const { width, height } = this.props;
     return (
@@ -40,4 +40,3 @@ NextTileComponent.propTypes = {
   height: PropType.number,
   visibleSlots: PropType.number
 };
-

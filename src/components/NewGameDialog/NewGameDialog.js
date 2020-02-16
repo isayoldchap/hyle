@@ -11,7 +11,7 @@ class NewGameDialog extends React.Component {
     super(props);
 
     this.toggleGridLines = this.toggleGridLines.bind(this);
-    this.toggleLiveScore = this.toggleLiveScore.bind(this)
+    this.toggleLiveScore = this.toggleLiveScore.bind(this);
 
     this.state = {
       showLiveScore: true,
@@ -50,10 +50,16 @@ class NewGameDialog extends React.Component {
     };
 
     const actions = [
-      <FlatButton label="Cancel" primary={true} onClick={closeAction} />,
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={closeAction}
+        key="Cancel"
+      />,
 
       <FlatButton
         label="Ok"
+        key="Ok"
         primary={true}
         disabled={false}
         onClick={this.handleOk.bind(this)}
@@ -116,6 +122,8 @@ class NewGameDialog extends React.Component {
 }
 
 NewGameDialog.propTypes = {
+  closeAction: PropType.func.isRequired,
+  open: PropType.bool.isRequired,
   startAction: PropType.func.isRequired
 };
 

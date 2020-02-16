@@ -6,7 +6,6 @@ import {
   renderBackground
 } from "../../util/pieceRenderingUtil";
 
-
 export class RemainingPiecesComponent extends React.Component {
   render() {
     const { width, colorCounts, orientation } = this.props;
@@ -98,4 +97,3 @@ RemainingPiecesComponent.defaultProps = {
   colorCounts: [],
   orientation: RemainingPiecesComponentOrientation.HORIZONTAL
 };
-

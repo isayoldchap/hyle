@@ -25,5 +25,6 @@ EndOfGameComponent.defaultProps = {
 };
 
 EndOfGameComponent.propTypes = {
-  handleStartNewGame: PropType.func
+  handleStartNewGame: PropType.func,
+  winner: PropType.string.isRequired
 };

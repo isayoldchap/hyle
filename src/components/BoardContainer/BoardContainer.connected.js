@@ -1,19 +1,17 @@
-
 import { BoardContainer } from "./BoardContainer";
 import { squaresSelector, sizeSelector } from "../../selectors/boardSelector";
-import { handleClick } from '../../ducks/entropyDuck';
+import { handleClick } from "../../ducks/entropyDuck";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
-    const newProps = {
-      size: sizeSelector(state),
-      boardSquares: squaresSelector(state),
-      orderHalfMove: state.orderHalfMove
-    };
-    return newProps;
+  const newProps = {
+    size: sizeSelector(state),
+    boardSquares: squaresSelector(state),
+    orderHalfMove: state.orderHalfMove
   };
-  
-export default connect(
-    mapStateToProps,
-    { squareClickHandler: handleClick }
-)(BoardContainer);
+  return newProps;
+};
+
+export default connect(mapStateToProps, { squareClickHandler: handleClick })(
+  BoardContainer
+);

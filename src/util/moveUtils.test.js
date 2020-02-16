@@ -1,18 +1,14 @@
 import {
-    allLegalMovesFromSquare,
-    legalOrderMoveSelector,
-    legalChaosMovesSelector
-  } from './moveUtils';
+  allLegalMovesFromSquare,
+  legalOrderMoveSelector,
+  legalChaosMovesSelector
+} from "./moveUtils";
 
-import {
-    placeTileOnBoard
-} from './boardUtils';
+import { placeTileOnBoard } from "./boardUtils";
 
-  import {
-    initializeEntropyBoard
-  } from '../engine/engine';
+import { initializeEntropyBoard } from "../engine/engine";
 
-  import { assert } from "chai";
+import { assert } from "chai";
 
 describe("Order Move Logic", () => {
   const myBoard = [

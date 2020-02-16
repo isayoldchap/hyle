@@ -1,8 +1,15 @@
 import { connect } from "react-redux";
-import { selectMoveNumber, selectWinning, selectTurn, selectIsEndOfRound, selectIsGameOver, selectRoundNumber } from "../../selectors/gameSelector";
+import {
+  selectMoveNumber,
+  selectWinning,
+  selectTurn,
+  selectIsEndOfRound,
+  selectIsGameOver,
+  selectRoundNumber
+} from "../../selectors/gameSelector";
 import { createBackAction } from "../../actioncreators/historyActions";
 import { advanceRound, newGame } from "../../ducks/entropyDuck";
-import { CurrentTurnComponent} from "./CurrentTurnComponent";
+import { CurrentTurnComponent } from "./CurrentTurnComponent";
 import { handlePass } from "../../ducks/entropyDuck";
 
 const mapStateToProps = state => ({
@@ -13,13 +20,10 @@ const mapStateToProps = state => ({
   endOfGame: selectIsGameOver(state),
   winner: selectWinning(state)
 });
-  
-export default connect(
-  mapStateToProps,
-  { 
-    startNextRound: advanceRound, 
-    startNewGame: newGame,
-    back: createBackAction, 
-    pass: handlePass 
-  }
-)(CurrentTurnComponent);
+
+export default connect(mapStateToProps, {
+  startNextRound: advanceRound,
+  startNewGame: newGame,
+  back: createBackAction,
+  pass: handlePass
+})(CurrentTurnComponent);

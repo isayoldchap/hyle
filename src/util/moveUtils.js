@@ -1,5 +1,12 @@
-import { moveTileOnBoard, placeTileOnBoard, selectEmptySquares, selectOccupiedSquares, selectLegalMoves, allMovesFromLocation } from "./boardUtils";
-import { Roles } from '../engine/engine';
+import {
+  moveTileOnBoard,
+  placeTileOnBoard,
+  selectEmptySquares,
+  selectOccupiedSquares,
+  selectLegalMoves,
+  allMovesFromLocation
+} from "./boardUtils";
+import { Roles } from "../engine/engine";
 
 export const moveTile = (board, startLocation, endLocation) => {
   return moveTileOnBoard(board, startLocation, endLocation);
@@ -22,7 +29,7 @@ export const occupiedSquareSelector = board => {
 export const legalOrderMoveSelector = board => {
   const occupiedSquares = selectOccupiedSquares(board);
   return occupiedSquares.reduce((allMoves, startSquare) => {
-    return allMoves.concat(allLegalMovesFromSquare(board, startSquare))
+    return allMoves.concat(allLegalMovesFromSquare(board, startSquare));
   }, []);
 };
 
@@ -32,13 +39,13 @@ export const allLegalMovesFromSquare = (board, startSquare) => {
 
 export const allLegalMovesFromLocation = (board, location) => {
   return allMovesFromLocation(location, board);
-}
+};
 
 export const allLegalMoves = (turn, board) => {
-    if (turn === Roles.CHAOS) {
-        return legalChaosMovesSelector(board);
-    } else if (turn === Roles.ORDER) {
-        return legalOrderMoveSelector(board);
-    }
-    return [];
+  if (turn === Roles.CHAOS) {
+    return legalChaosMovesSelector(board);
+  } else if (turn === Roles.ORDER) {
+    return legalOrderMoveSelector(board);
+  }
+  return [];
 };
