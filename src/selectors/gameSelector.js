@@ -14,6 +14,10 @@ export const selectColors = state => {
   return getGameColors(size);
 };
 
+export const selectOrderHalfMove = state => {
+  return state.orderHalfMove;
+};
+
 export const selectRemainingPieces = state => {
   return state.remainingPieces;
 };
@@ -45,8 +49,6 @@ export const selectPlayer1Name = state => selectConfig(state).player1Name;
 export const selectPlayer2Name = state => selectConfig(state).player2Name;
 
 export const selectTurn = state => state.turn;
-
-export const selectOrderHalfMove = state => state.orderHalfMove;
 
 export const selecLegalMoves = state => state.legalMoves;
 
