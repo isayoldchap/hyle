@@ -10,9 +10,7 @@ describe('A color count utility', () => {
   });
 
   it('should have a count of two for color red', () => {
-    const redDetails = colorCounts.find(
-      colorCount => colorCount.color === 'red'
-    );
+    const redDetails = colorCounts.find(colorCount => colorCount.color === 'red');
     assert.equal(redDetails.count, 2);
   });
 });

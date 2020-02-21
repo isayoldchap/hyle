@@ -39,14 +39,7 @@ export const renderPieceOnCanvas = (
     ctx.strokeRect(originalX, originalY, originalSize, originalSize);
   }
 
-  var grd = ctx.createRadialGradient(
-    x + width / 2,
-    y + width / 2,
-    width,
-    x,
-    y,
-    0
-  );
+  var grd = ctx.createRadialGradient(x + width / 2, y + width / 2, width, x, y, 0);
 
   grd.addColorStop(0, pieceColor);
   grd.addColorStop(1, 'white');

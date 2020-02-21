@@ -1,9 +1,5 @@
 import { createEngine } from '../engine/engine';
-import {
-  selectTurn,
-  selectOrderHalfMove,
-  selectLegalMoves
-} from '../selectors/gameSelector';
+import { selectTurn, selectOrderHalfMove, selectLegalMoves } from '../selectors/gameSelector';
 
 const UPDATE_GAME_STATE = 'UPDATE_GAME_STATE';
 const ORDER_HALF_MOVE = 'ORDER_HALF_MOVE';

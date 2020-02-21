@@ -50,49 +50,24 @@ class NewGameDialog extends React.Component {
     };
 
     const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={closeAction}
-        key="Cancel"
-      />,
+      <FlatButton label="Cancel" primary={true} onClick={closeAction} key="Cancel" />,
 
-      <FlatButton
-        label="Ok"
-        key="Ok"
-        primary={true}
-        disabled={false}
-        onClick={this.handleOk.bind(this)}
-      />
+      <FlatButton label="Ok" key="Ok" primary={true} disabled={false} onClick={this.handleOk.bind(this)} />
     ];
 
     return (
       <Dialog open={open} actions={actions}>
         <p align="center">New Game Options</p>
 
-        <SelectField
-          value={boardSize}
-          onChange={this.handleChange.bind(this)}
-          floatingLabelText="Preferred Board Size"
-        >
+        <SelectField value={boardSize} onChange={this.handleChange.bind(this)} floatingLabelText="Preferred Board Size">
           <MenuItem value={3} label="3 x 3" primaryText="Small" />
           <MenuItem value={5} label="5 x 5" primaryText="Medium" />
           <MenuItem value={7} label="7 x 7" primaryText="Large" />
           <MenuItem value={9} label="9 x 9" primaryText="X-Large" />
         </SelectField>
 
-        <Toggle
-          label="Show Live Score"
-          toggled={showLiveScore}
-          onToggle={this.toggleLiveScore}
-          style={styles.toggle}
-        />
-        <Toggle
-          label="Show Grid Lines"
-          toggled={showGridLines}
-          onToggle={this.toggleGridLines}
-          style={styles.toggle}
-        />
+        <Toggle label="Show Live Score" toggled={showLiveScore} onToggle={this.toggleLiveScore} style={styles.toggle} />
+        <Toggle label="Show Grid Lines" toggled={showGridLines} onToggle={this.toggleGridLines} style={styles.toggle} />
       </Dialog>
     );
   }

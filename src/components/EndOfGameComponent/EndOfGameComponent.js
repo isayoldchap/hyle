@@ -9,12 +9,7 @@ export class EndOfGameComponent extends React.Component {
       <div>
         <p>Game Over!</p>
         <p>{winner} won</p>
-        <RaisedButton
-          secondary={true}
-          value={'StartNewGame'}
-          label={'Start New Game'}
-          onClick={handleStartNewGame}
-        />
+        <RaisedButton secondary={true} value={'StartNewGame'} label={'Start New Game'} onClick={handleStartNewGame} />
       </div>
     );
   }

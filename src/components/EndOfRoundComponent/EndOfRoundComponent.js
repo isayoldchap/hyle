@@ -8,12 +8,7 @@ export class EndOfRoundComponent extends React.Component {
     return (
       <div>
         <p>End of round</p>
-        <RaisedButton
-          secondary={true}
-          value={'Start next round'}
-          label={'Continue'}
-          onClick={handleStartNextRound}
-        />
+        <RaisedButton secondary={true} value={'Start next round'} label={'Continue'} onClick={handleStartNextRound} />
       </div>
     );
   }

@@ -61,9 +61,7 @@ export class CurrentTurnComponent extends React.Component {
   renderEndOfRound() {
     const { startNextRound, startNewGame, endOfGame, winner } = this.props;
     if (endOfGame) {
-      return (
-        <EndOfGameComponent handleStartNewGame={startNewGame} winner={winner} />
-      );
+      return <EndOfGameComponent handleStartNewGame={startNewGame} winner={winner} />;
     } else {
       return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
     }
