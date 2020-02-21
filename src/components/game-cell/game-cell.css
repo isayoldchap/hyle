@@ -1,0 +1,7 @@
+.game-cell {
+  height: 100%;
+  position: relative;
+  width: 100%;
+  background-color: #dfdfdf;
+  box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.25), inset -2px -2px 0 #b0b0b0;
+}

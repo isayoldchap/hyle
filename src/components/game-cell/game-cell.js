@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDrop } from 'react-dnd';
 import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
+import './game-cell.css';
 
 export const GameCell = props => {
   const { children, x, y, moveGamePiece, canMoveGamePiece } = props;
@@ -22,18 +23,8 @@ export const GameCell = props => {
   if (isOver && canDrop) backgroundColor = 'green';
 
   return (
-    <div
-      ref={drop}
-      style={{
-        height: '100%',
-        position: 'relative',
-        width: '100%',
-        backgroundColor: '#dfdfdf',
-        boxShadow: 'inset 2px 2px 0 rgba(255, 255, 255, 0.25), inset -2px -2px 0 #b0b0b0'
-      }}
-    >
+    <div ref={drop} className="game-cell">
       <div>{children}</div>
-
       {(isOver || (!isOver && canDrop)) && (
         <div
           style={{
