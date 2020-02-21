@@ -4,6 +4,7 @@ import { GamePiece } from '../game-piece/game-piece';
 import { GameCell } from '../game-cell/game-cell';
 import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
 import { GameBoardDragLayer } from './game-board-drag-layer/game-board-drag-layer';
+import PropTypes from 'prop-types';
 
 const GRID_SIZE = 7;
 
@@ -27,14 +28,13 @@ export class GameBoard extends Component {
     const currentY = gamePiecePosition[1];
 
     if (type === DND_ITEM_TYPES.CHAOS_PIECE && toX !== currentX && toY !== currentY) return true;
-    // TODO: Check for other pieces that are blocking here:
+    // TODO: Get list of valid cells from Redux:
     return toX === currentX || toY === currentY;
   }
 
   renderCell(i) {
     const x = i % GRID_SIZE;
     const y = Math.floor(i / GRID_SIZE);
-    // const widthHeightPercentage = `${100 / GRID_SIZE}%`;
     return (
       <GameCell key={i} x={x} y={y} moveGamePiece={this.moveGamePiece} canMoveGamePiece={this.canMoveGamePiece}>
         {this.renderGamePiece(x, y)}
@@ -43,8 +43,9 @@ export class GameBoard extends Component {
   }
 
   renderCells() {
+    const { size } = this.props;
     const cells = [];
-    for (let i = 0; i < GRID_SIZE * GRID_SIZE; i += 1) {
+    for (let i = 0; i < size * size; i += 1) {
       cells.push(this.renderCell(i));
     }
     return cells;
@@ -61,13 +62,24 @@ export class GameBoard extends Component {
   }
 
   render() {
+    const { size } = this.props;
+
     const cells = this.renderCells();
+    const className = `grid grid--${size}`;
 
     return (
-      <div id="wrapper">
-        <div id="grid">{cells}</div>
+      <div className="game-board-wrapper">
+        <div className={className}>{cells}</div>
         <GameBoardDragLayer />
       </div>
     );
   }
 }
+
+GameBoard.propTypes = {
+  size: PropTypes.number
+};
+
+GameBoard.defaultProps = {
+  size: null
+};
