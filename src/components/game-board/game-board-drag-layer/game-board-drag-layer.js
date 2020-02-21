@@ -60,7 +60,8 @@ export const GameBoardDragLayer = () => {
     switch (itemType) {
       case DND_ITEM_TYPES.GAME_PIECE:
       case DND_ITEM_TYPES.CHAOS_PIECE:
-        return <img alt="game piece" src={src} style={{ width: 134, height: 134 }} />;
+        // TODO: Get the game size piece from H.O.C.?
+        return <img alt="game piece" src={src} style={{ width: 120, height: 120 }} />;
       default:
         return null;
     }
