@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { squaresSelector, sizeSelector } from '../../ducks/boardDuck';
-import { createSquareClickAction } from '../../actioncreators/boardActions';
 import { GameBoard } from './game-board';
+import { squaresSelector, sizeSelector } from '../../selectors/boardSelector';
 
 export const mapStateToProps = state => {
   return {
@@ -11,8 +10,6 @@ export const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  squareClickHandler: createSquareClickAction
-};
+const mapDispatchToProps = undefined;
 
 export const ConnectedGameBoard = connect(mapStateToProps, mapDispatchToProps)(GameBoard);
