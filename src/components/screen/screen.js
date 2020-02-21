@@ -15,7 +15,7 @@ export const Screen = props => {
         overflow: 'auto',
         position: 'fixed',
         top: 0,
-        width: '100%'
+        width: '100%',
       }}
     >
       {children}

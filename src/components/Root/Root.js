@@ -12,16 +12,11 @@ class Root extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
-          {/* <Route path="/" component={ConnectedApp} /> */}
-          <div style={{ margin: 10 }}>
-            <Switch>
-              <Route exact path="/kip" component={GameScreen} />
-              <Route path="/currentGame" component={Game} />
-              <Route component={GameScreen} />
-            </Switch>
-          </div>
-        </div>
+            {/* <Switch> */}
+              <Route path="/" component={ConnectedApp} />
+              {/* <Route path="/" component={Game} /> */}
+              <Route path="/" component={GameScreen} />
+            {/* </Switch> */}
       </BrowserRouter>
     );
   }

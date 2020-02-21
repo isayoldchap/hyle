@@ -19,7 +19,8 @@ export const GameScreen = () => {
             minHeight: '480px',
             maxHeight: '960px',
             margin: '0 auto',
-            height: '65vh'
+            height: '65vh',
+            marginTop: 70
           }}
         >
           <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
