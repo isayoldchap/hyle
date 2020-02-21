@@ -1,28 +1,18 @@
 import React from 'react';
 import './game-screen.style.css';
 import { Screen } from '../screen/screen';
-import { GameBoard } from '../game-board/game-board';
 import { DndProvider } from 'react-dnd';
 import Backend from 'react-dnd-html5-backend';
 import { GamePiece } from '../game-piece/game-piece';
 import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
+import { ConnectedGameBoard } from '../game-board/gameboard.connected';
 
 export const GameScreen = () => {
   return (
     <DndProvider backend={Backend}>
       <Screen>
-        <div
-          style={{
-            width: '90vw',
-            minWidth: '360px',
-            maxWidth: '960px',
-            minHeight: '480px',
-            maxHeight: '960px',
-            margin: '0 auto',
-            height: '65vh',
-            marginTop: 70
-          }}
-        >
+        <div className="game-screen-wrapper">
+          {/*
           <div style={{ display: 'flex', flexDirection: 'row', margin: '1rem 0' }}>
             <div
               style={{ margin: '0 1rem', padding: '1rem', flex: 2, background: 'rgba(0,0,0,.05)', textAlign: 'center' }}
@@ -54,10 +44,14 @@ export const GameScreen = () => {
                 </div>
               </div>
               <h2 style={{ marginTop: '.5rem' }}>Order</h2>
-              <h4>{/* instructions here */}</h4>
+              <h4>instructions here</h4>
             </div>
           </div>
-          <GameBoard />
+          */}
+          <div style={{ maxWidth: '150px', maxHeight: '150px', margin: '0 auto' }}>
+            <GamePiece dndType={DND_ITEM_TYPES.CHAOS_PIECE} variant="pink" />
+          </div>
+          <ConnectedGameBoard />
         </div>
       </Screen>
     </DndProvider>

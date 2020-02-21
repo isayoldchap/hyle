@@ -88,12 +88,6 @@ html {
   overflow: hidden;
   padding: 0;
   width: 100%;
-
-  /* ::selection {
-    background: $color-primary;
-    color: $color-white;
-    text-shadow: none;
-  } */
 }
 
 body {
@@ -103,4 +97,8 @@ body {
   padding: 0;
   position: relative;
   width: 100%;
+}
+
+.game-screen-wrapper {
+  margin: 90px auto;
 }
