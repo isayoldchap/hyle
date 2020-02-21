@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class MatchScoreComponent extends React.Component {
+export class MatchScoreComponent extends React.Component {
   render() {
-    const { player1, player1Score, player2, player2Score } = this.props;
+    const { player1Name, player1Score, player2Name, player2Score } = this.props;
 
     return (
       <div className="grid">
         <div className="row">
           <div className="col-lg-6">
-            <p>{player1}</p>
+            <p>{player1Name}</p>
           </div>
           <div className="col-lg-6">
             <p>{player1Score}</p>
@@ -16,7 +17,7 @@ class MatchScoreComponent extends React.Component {
         </div>
         <div className="row">
           <div className="col-lg-6">
-            <p>{player2}</p>
+            <p>{player2Name}</p>
           </div>
           <div className="col-lg-6">
             <p>{player2Score}</p>
@@ -28,10 +29,15 @@ class MatchScoreComponent extends React.Component {
 }
 
 MatchScoreComponent.defaultProps = {
-  player1: "Player 1 ",
+  player1Name: 'Player 1 ',
   player1Score: 0,
-  player2: "Player 2 ",
+  player2Name: 'Player 2 ',
   player2Score: 0
 };
 
-export default MatchScoreComponent;
+MatchScoreComponent.propTypes = {
+  player1Name: PropTypes.string,
+  player1Score: PropTypes.number,
+  player2Name: PropTypes.string,
+  player2Score: PropTypes.number
+};

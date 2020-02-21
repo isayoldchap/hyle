@@ -1,17 +1,17 @@
-import React from "react";
-import FlatButton from "material-ui/FlatButton";
-import Dialog from "material-ui/Dialog";
-import Toggle from "material-ui/Toggle";
-import SelectField from "material-ui/SelectField";
-import MenuItem from "material-ui/MenuItem";
-import PropType from "prop-types";
+import React from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+import Toggle from 'material-ui/Toggle';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import PropType from 'prop-types';
 
 class NewGameDialog extends React.Component {
   constructor(props) {
     super(props);
 
     this.toggleGridLines = this.toggleGridLines.bind(this);
-    this.toggleLiveScore = this.toggleLiveScore.bind(this)
+    this.toggleLiveScore = this.toggleLiveScore.bind(this);
 
     this.state = {
       showLiveScore: true,
@@ -29,31 +29,37 @@ class NewGameDialog extends React.Component {
         maxWidth: 250
       },
       toggle: {
-        fontWeight: "normal",
+        fontWeight: 'normal',
         marginBottom: 16
       },
       thumbOff: {
-        backgroundColor: "#ffcccc"
+        backgroundColor: '#ffcccc'
       },
       trackOff: {
-        backgroundColor: "#ff9d9d"
+        backgroundColor: '#ff9d9d'
       },
       thumbSwitched: {
-        backgroundColor: "red"
+        backgroundColor: 'red'
       },
       trackSwitched: {
-        backgroundColor: "#ff9d9d"
+        backgroundColor: '#ff9d9d'
       },
       labelStyle: {
-        color: "red"
+        color: 'red'
       }
     };
 
     const actions = [
-      <FlatButton label="Cancel" primary={true} onClick={closeAction} />,
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={closeAction}
+        key="Cancel"
+      />,
 
       <FlatButton
         label="Ok"
+        key="Ok"
         primary={true}
         disabled={false}
         onClick={this.handleOk.bind(this)}
@@ -116,6 +122,8 @@ class NewGameDialog extends React.Component {
 }
 
 NewGameDialog.propTypes = {
+  closeAction: PropType.func.isRequired,
+  open: PropType.bool.isRequired,
   startAction: PropType.func.isRequired
 };
 

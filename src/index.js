@@ -1,16 +1,18 @@
-import "./css/index.css";
-import "./index.html";
+import './css/index.css';
+import './index.html';
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import Root from "./components/Root/Root";
-import gameReducer from "./reducers/gameReducer";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { entropyReducer } from './ducks/entropyDuck';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import Root from './components/Root/Root';
+import thunk from 'redux-thunk';
 
-const store = createStore(gameReducer, devToolsEnhancer());
+const middleware = composeWithDevTools(applyMiddleware(thunk));
+const store = createStore(entropyReducer, middleware);
 const root = document.getElementById('root');
 
 ReactDOM.render(

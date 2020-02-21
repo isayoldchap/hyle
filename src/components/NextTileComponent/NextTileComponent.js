@@ -1,8 +1,8 @@
-import React from "react";
-import { renderPieceOnCanvas } from "../../util/pieceRenderingUtil";
-import PropType from "prop-types";
+import React from 'react';
+import { renderPieceOnCanvas } from '../../util/pieceRenderingUtil';
+import PropType from 'prop-types';
 
-export class NextTileComponent extends React.Component { 
+export class NextTileComponent extends React.Component {
   render() {
     const { width, height } = this.props;
     return (
@@ -14,7 +14,7 @@ export class NextTileComponent extends React.Component {
   }
 
   paintContents() {
-    const canvas = document.getElementById("nextTile");
+    const canvas = document.getElementById('nextTile');
     const { width = 100, nextTile } = this.props;
     renderPieceOnCanvas(canvas, 0, 0, width, nextTile);
   }
@@ -40,4 +40,3 @@ NextTileComponent.propTypes = {
   height: PropType.number,
   visibleSlots: PropType.number
 };
-

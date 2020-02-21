@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
+import PropType from 'prop-types';
 
 export class ScoreComponent extends React.PureComponent {
   render() {
-    const { score } = this.props;
+    const { score = 0 } = this.props;
     return <p>Current Score: {score}</p>;
   }
 }
 
-ScoreComponent.defaultProps = {
-  score: 0
+ScoreComponent.propTypes = {
+  score: PropType.number
 };

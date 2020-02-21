@@ -1,5 +1,5 @@
 export const renderBackground = (canvas, width, height, color) => {
-  const ctx = canvas.getContext("2d", { alpha: false });
+  const ctx = canvas.getContext('2d', { alpha: false });
 
   ctx.imageSmoothingEnabled = true;
   ctx.fillStyle = color;
@@ -13,21 +13,30 @@ export const renderPieceOnCanvas = (
   size,
   color,
   outline = false,
-  highlight = false,
+  selected = false,
   label = undefined
 ) => {
-  const ctx = canvas.getContext("2d", { alpha: false });
-  const pieceColor = color === undefined ? "white" : color;
+  let originalX = x;
+  let originalY = y;
+  let originalSize = size;
+
+  if (selected) {
+    size = size + 6;
+    x = x - 3;
+    y = y - 3;
+  }
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const pieceColor = color === undefined ? 'white' : color;
   const width = size;
   const height = size;
 
   ctx.imageSmoothingEnabled = true;
-  ctx.fillStyle = "white";
-  ctx.fillRect(x, y, width, height);
+  ctx.fillStyle = 'white';
+  ctx.fillRect(originalX, originalY, originalSize, originalSize);
 
   if (outline) {
-    ctx.strokeStyle = "rgb(200,200,200)";
-    ctx.strokeRect(x, y, width, height);
+    ctx.strokeStyle = 'rgb(200,200,200)';
+    ctx.strokeRect(originalX, originalY, originalSize, originalSize);
   }
 
   var grd = ctx.createRadialGradient(
@@ -38,8 +47,9 @@ export const renderPieceOnCanvas = (
     y,
     0
   );
-  grd.addColorStop(0, highlight ? "white" : pieceColor);
-  grd.addColorStop(1, highlight ? pieceColor : "white");
+
+  grd.addColorStop(0, pieceColor);
+  grd.addColorStop(1, 'white');
 
   ctx.beginPath();
   ctx.moveTo(x, y);
@@ -49,8 +59,8 @@ export const renderPieceOnCanvas = (
   ctx.closePath();
 
   if (label !== undefined) {
-    ctx.font = "36px arial";
-    ctx.fillStyle = "white";
+    ctx.font = '36px arial';
+    ctx.fillStyle = 'white';
     const measurement = ctx.measureText(label);
     const txtWidth = measurement.width;
 

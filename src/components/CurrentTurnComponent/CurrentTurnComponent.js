@@ -1,16 +1,19 @@
-import React from "react";
-import RaisedButton from "material-ui/RaisedButton";
+import PropType from 'prop-types';
+import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 
-import { Roles } from "../../reducers/gameReducer";
-import NextTileComponent from "../NextTileComponent/NextTileComponent.connected";
-import {EndOfRoundComponent} from "../EndOfRoundComponent/EndOfRoundComponent";
+import { Roles } from '../../engine/engine';
+import NextTileComponent from '../NextTileComponent/NextTileComponent.connected';
+import { EndOfRoundComponent } from '../EndOfRoundComponent/EndOfRoundComponent';
+import { EndOfGameComponent } from '../EndOfGameComponent/EndOfGameComponent';
 
 export class CurrentTurnComponent extends React.Component {
   render() {
-    const { moveNumber, endOfRound } = this.props;
+    const { moveNumber, roundNumber, endOfRound } = this.props;
     return (
       <div>
-        {this.renderUndoButton()}
+        {/* {this.renderUndoButton()} */}
+        <p>Round number: {roundNumber}</p>
         <p>Move number: {moveNumber}</p>
         {!endOfRound && this.renderRoleSpecificContent()}
         {endOfRound && this.renderEndOfRound()}
@@ -21,9 +24,9 @@ export class CurrentTurnComponent extends React.Component {
   renderRoleSpecificContent() {
     const { turn } = this.props;
 
-    if (turn === Roles.Chaos) {
+    if (turn === Roles.CHAOS) {
       return this.renderChaos();
-    } else if (turn === Roles.Order) {
+    } else if (turn === Roles.ORDER) {
       return this.renderOrder();
     } else return undefined;
   }
@@ -51,12 +54,31 @@ export class CurrentTurnComponent extends React.Component {
   }
 
   renderUndoButton() {
-    const {back} = this.props;
+    const { back } = this.props;
     return <RaisedButton label="Undo" primary={true} onClick={back} />;
   }
 
   renderEndOfRound() {
-    const {startNextRound} = this.props;
-    return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
+    const { startNextRound, startNewGame, endOfGame, winner } = this.props;
+    if (endOfGame) {
+      return (
+        <EndOfGameComponent handleStartNewGame={startNewGame} winner={winner} />
+      );
+    } else {
+      return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
+    }
   }
 }
+
+CurrentTurnComponent.propTypes = {
+  back: PropType.func,
+  endOfGame: PropType.bool,
+  endOfRound: PropType.bool.isRequired,
+  moveNumber: PropType.number,
+  pass: PropType.func.isRequired,
+  roundNumber: PropType.number,
+  startNewGame: PropType.func.isRequired,
+  startNextRound: PropType.func.isRequired,
+  turn: PropType.string.isRequired,
+  winner: PropType.string
+};

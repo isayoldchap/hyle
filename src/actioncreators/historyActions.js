@@ -1,5 +1,5 @@
 export const HistoryActionTypes = Object.freeze({
-  BACK: "back"
+  BACK: 'back'
 });
 
 export const createBackAction = () => ({
