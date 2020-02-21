@@ -6,8 +6,6 @@ import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
 import { GameBoardDragLayer } from './game-board-drag-layer/game-board-drag-layer';
 import PropTypes from 'prop-types';
 
-const GRID_SIZE = 7;
-
 export class GameBoard extends Component {
   constructor(props) {
     super(props);
@@ -33,8 +31,9 @@ export class GameBoard extends Component {
   }
 
   renderCell(i) {
-    const x = i % GRID_SIZE;
-    const y = Math.floor(i / GRID_SIZE);
+    const { size } = this.props;
+    const x = i % size;
+    const y = Math.floor(i / size);
     return (
       <GameCell key={i} x={x} y={y} moveGamePiece={this.moveGamePiece} canMoveGamePiece={this.canMoveGamePiece}>
         {this.renderGamePiece(x, y)}
