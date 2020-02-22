@@ -100,5 +100,9 @@ body {
 }
 
 .game-screen-wrapper {
-  margin: 90px auto;
+  flex: 1;
+  height: 100%;
+  margin: 4rem auto 0;
+  padding-top: 2rem;
+  width: 100%;
 }
