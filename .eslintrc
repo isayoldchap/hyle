@@ -1,7 +1,8 @@
 {
     "env": {
       "browser": true,
-      "jest/globals": true
+      "jest/globals": true,
+      "mocha": true
     },
     "extends": [
       "airbnb",
@@ -9,10 +10,16 @@
       "plugin:prettier/recommended",
       "plugin:react/recommended"
     ],
-    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
     "plugins": [
-      "jest",
-      "react"
+      "react",
+      "prettier"
     ],
     "rules": {
       "comma-dangle": 0,
@@ -35,7 +42,8 @@
       "react/no-unused-prop-types": 1,
       "semi": ["error", "always"],
       "react/static-property-placement": 0,
-      "react/jsx-fragments": 0
+      "react/jsx-fragments": 0,
+      "no-use-before-define": ["error", { "functions": true, "classes": true }]
     }
   }
   
