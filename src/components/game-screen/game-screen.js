@@ -2,14 +2,14 @@ import React from 'react';
 import './game-screen.style.css';
 import { Screen } from '../screen/screen';
 import { DndProvider } from 'react-dnd';
-import Backend from 'react-dnd-html5-backend';
 import { GamePiece } from '../game-piece/game-piece';
 import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
 import { ConnectedGameBoard } from '../game-board/gameboard.connected';
+import TouchBackend from 'react-dnd-touch-backend';
 
 export const GameScreen = () => {
   return (
-    <DndProvider backend={Backend}>
+    <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
       <Screen>
         <div className="game-screen-wrapper">
           {/*
@@ -48,9 +48,6 @@ export const GameScreen = () => {
             </div>
           </div>
           */}
-          <div style={{ maxWidth: '150px', maxHeight: '150px', margin: '0 auto' }}>
-            <GamePiece dndType={DND_ITEM_TYPES.CHAOS_PIECE} variant="pink" />
-          </div>
           <ConnectedGameBoard />
         </div>
       </Screen>

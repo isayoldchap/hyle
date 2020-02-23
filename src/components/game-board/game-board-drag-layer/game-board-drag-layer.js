@@ -4,6 +4,7 @@ import { DND_ITEM_TYPES } from '../../../constants/dnd-item-types';
 import { snapToGrid } from '../../../util/game-board/snap-to-grid';
 import blueTriangleImage from '../game-pieces/game-piece-blue-triangle-600.png';
 import pinkDotImage from '../game-pieces/game-piece-pink-dot-600.png';
+import PropTypes from 'prop-types';
 
 const layerStyles = {
   position: 'fixed',
@@ -40,7 +41,8 @@ function getItemStyles(initialOffset, currentOffset, isSnapToGrid) {
   };
 }
 
-export const GameBoardDragLayer = () => {
+export const GameBoardDragLayer = props => {
+  const { cellSize } = props;
   const { currentOffset, initialOffset, isDragging, item, itemType } = useDragLayer(monitor => ({
     item: monitor.getItem(),
     itemType: monitor.getItemType(),
@@ -61,7 +63,7 @@ export const GameBoardDragLayer = () => {
       case DND_ITEM_TYPES.GAME_PIECE:
       case DND_ITEM_TYPES.CHAOS_PIECE:
         // TODO: Get the game size piece from H.O.C.?
-        return <img alt="game piece" src={src} style={{ width: 120, height: 120 }} />;
+        return <img alt="game piece" src={src} style={{ width: cellSize, height: cellSize }} />;
       default:
         return null;
     }
@@ -76,4 +78,12 @@ export const GameBoardDragLayer = () => {
       <div style={getItemStyles(initialOffset, currentOffset, false)}>{renderItem()}</div>
     </div>
   );
+};
+
+GameBoardDragLayer.propTypes = {
+  cellSize: PropTypes.number
+};
+
+GameBoardDragLayer.defaultProps = {
+  cellSize: null
 };

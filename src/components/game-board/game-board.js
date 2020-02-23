@@ -5,8 +5,21 @@ import { GameCell } from '../game-cell/game-cell';
 import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
 import { GameBoardDragLayer } from './game-board-drag-layer/game-board-drag-layer';
 import PropTypes from 'prop-types';
+import { withResizeDimensions } from '../with-resize-dimensions/with-resize-dimensions';
 
-export class GameBoard extends Component {
+export class GameBoardComponent extends Component {
+  static propTypes = {
+    height: PropTypes.number,
+    id: PropTypes.string,
+    size: PropTypes.number
+  };
+
+  static defaultProps = {
+    height: null,
+    id: null,
+    size: null
+  };
+
   constructor(props) {
     super(props);
     this.state = { gamePiecePosition: [0, 0] };
@@ -61,24 +74,25 @@ export class GameBoard extends Component {
   }
 
   render() {
-    const { size } = this.props;
+    const { height, id, size } = this.props;
+
+    const cellSize = height / size;
 
     const cells = this.renderCells();
     const className = `grid grid--${size}`;
 
     return (
-      <div className="game-board-wrapper">
-        <div className={className}>{cells}</div>
-        <GameBoardDragLayer />
-      </div>
+      <React.Fragment>
+        <div style={{ maxWidth: cellSize, maxHeight: cellSize, margin: '0 auto' }}>
+          <GamePiece dndType={DND_ITEM_TYPES.CHAOS_PIECE} variant="pink" />
+        </div>
+        <div className="game-board-wrapper" id={id}>
+          <div className={className}>{cells}</div>
+          <GameBoardDragLayer cellSize={cellSize} />
+        </div>
+      </React.Fragment>
     );
   }
 }
 
-GameBoard.propTypes = {
-  size: PropTypes.number
-};
-
-GameBoard.defaultProps = {
-  size: null
-};
+export const GameBoard = withResizeDimensions(GameBoardComponent);
