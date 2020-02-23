@@ -1,7 +1,6 @@
 {
     "env": {
       "browser": true,
-      "jest/globals": true,
       "mocha": true
     },
     "extends": [
@@ -10,6 +9,7 @@
       "plugin:prettier/recommended",
       "plugin:react/recommended"
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
       "ecmaFeatures": {
           "jsx": true
@@ -43,7 +43,8 @@
       "semi": ["error", "always"],
       "react/static-property-placement": 0,
       "react/jsx-fragments": 0,
-      "no-use-before-define": ["error", { "functions": true, "classes": true }]
+      "no-use-before-define": ["error", { "functions": true, "classes": true }],
+      "react/jsx-props-no-spreading": 0
     }
   }
   
