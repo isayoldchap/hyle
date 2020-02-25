@@ -6,89 +6,171 @@ import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
 import { GameBoardDragLayer } from './game-board-drag-layer/game-board-drag-layer';
 import PropTypes from 'prop-types';
 import { withResizeDimensions } from '../with-resize-dimensions/with-resize-dimensions';
+import { Roles } from '../../engine/engine';
+import { isEqual } from 'lodash';
 
 export class GameBoardComponent extends Component {
   static propTypes = {
+    cells: PropTypes.array,
+    endOfRound: PropTypes.bool,
     height: PropTypes.number,
     id: PropTypes.string,
-    size: PropTypes.number
+    legalMoves: PropTypes.array,
+    moveNumber: PropTypes.number,
+    movePiece: PropTypes.func,
+    nextTile: PropTypes.string,
+    pass: PropTypes.func,
+    roundNumber: PropTypes.number,
+    size: PropTypes.number,
+    turn: PropTypes.string
   };
 
   static defaultProps = {
+    cells: [],
+    endOfRound: false,
     height: null,
     id: null,
-    size: null
+    legalMoves: [],
+    moveNumber: null,
+    movePiece: () => {},
+    nextTile: null,
+    pass: () => {},
+    roundNumber: null,
+    size: null,
+    turn: null
   };
 
   constructor(props) {
     super(props);
-    this.state = { gamePiecePosition: [0, 0] };
 
     this.moveGamePiece = this.moveGamePiece.bind(this);
     this.canMoveGamePiece = this.canMoveGamePiece.bind(this);
   }
 
-  moveGamePiece(toX, toY, item) {
-    if (this.canMoveGamePiece(toX, toY, item)) this.setState({ gamePiecePosition: [toX, toY] });
+  moveGamePiece(toX, toY, gamePiece) {
+    const { movePiece } = this.props;
+
+    if (this.canMoveGamePiece(toX, toY, gamePiece)) {
+      const toCoordinate = { x: toX, y: toY };
+
+      const { fromX, fromY } = gamePiece;
+      const fromCoordinate = { x: fromX, y: fromY };
+      movePiece(toCoordinate, fromCoordinate);
+    }
   }
 
-  canMoveGamePiece(toX, toY, item = {}) {
-    const { gamePiecePosition } = this.state;
-    const { type } = item;
-    const currentX = gamePiecePosition[0];
-    const currentY = gamePiecePosition[1];
+  // TODO: Debounce this?
+  canMoveGamePiece(toX, toY, gamePiece) {
+    const { legalMoves, turn } = this.props;
 
-    if (type === DND_ITEM_TYPES.CHAOS_PIECE && toX !== currentX && toY !== currentY) return true;
-    // TODO: Get list of valid cells from Redux:
-    return toX === currentX || toY === currentY;
+    const toCoordinate = { x: toX, y: toY };
+
+    if (turn === Roles.ORDER && gamePiece) {
+      const fromCoordinate = { x: gamePiece.fromX, y: gamePiece.fromY };
+
+      const legalMovesFromCurrent = legalMoves.filter(legalMove => {
+        const { start } = legalMove;
+        return isEqual(start, fromCoordinate);
+      });
+
+      return Boolean(legalMovesFromCurrent.find(({ end }) => isEqual(end, toCoordinate)));
+    }
+
+    return Boolean(legalMoves.find(coordinate => isEqual(coordinate, toCoordinate)));
   }
 
-  renderCell(i) {
-    const { size } = this.props;
-    const x = i % size;
-    const y = Math.floor(i / size);
-    return (
-      <GameCell key={i} x={x} y={y} moveGamePiece={this.moveGamePiece} canMoveGamePiece={this.canMoveGamePiece}>
-        {this.renderGamePiece(x, y)}
-      </GameCell>
-    );
+  calculateCellSize() {
+    const { height, size } = this.props;
+    return height / size;
   }
 
   renderCells() {
-    const { size } = this.props;
-    const cells = [];
-    for (let i = 0; i < size * size; i += 1) {
-      cells.push(this.renderCell(i));
-    }
-    return cells;
+    const { cells, turn } = this.props;
+
+    const canDrag = () => {
+      return Boolean(turn === Roles.ORDER);
+    };
+
+    return cells.map(cell => {
+      const { row: y, col: x, key, color } = cell;
+      return (
+        <GameCell
+          key={key}
+          x={x}
+          y={y}
+          moveGamePiece={(toX, toY, item) => this.moveGamePiece(toX, toY, item)}
+          canMoveGamePiece={(toX, toY, item) => this.canMoveGamePiece(toX, toY, item)}
+        >
+          {color && <GamePiece color={color} x={x} y={y} canDrag={canDrag} />}
+        </GameCell>
+      );
+    });
   }
 
-  renderGamePiece(x, y) {
-    const { gamePiecePosition } = this.state;
-    const gamePieceX = gamePiecePosition[0];
-    const gamePieceY = gamePiecePosition[1];
-    if (x === gamePieceX && y === gamePieceY) {
-      return <GamePiece />;
-    }
-    return null;
+  renderRoleSpecificContent() {
+    const { turn } = this.props;
+    const cellSize = this.calculateCellSize();
+
+    let content = null;
+    if (turn === Roles.CHAOS) content = this.renderChaos();
+    if (turn === Roles.ORDER) content = this.renderOrder();
+
+    return (
+      <div
+        style={{
+          textAlign: 'center',
+          minHeight: cellSize,
+          maxHeight: cellSize
+        }}
+      >
+        {content}
+      </div>
+    );
+  }
+
+  renderChaos() {
+    const { nextTile } = this.props;
+    const cellSize = this.calculateCellSize();
+
+    return (
+      <div style={{ maxWidth: cellSize, maxHeight: cellSize, margin: '0 auto' }}>
+        <GamePiece dndType={DND_ITEM_TYPES.CHAOS_PIECE} color={nextTile} />
+      </div>
+    );
+  }
+
+  renderOrder() {
+    const { pass } = this.props;
+
+    return (
+      <div>
+        <p>Make a move or </p>
+        <button type="button" onClick={pass}>
+          Pass
+        </button>
+      </div>
+    );
   }
 
   render() {
-    const { height, id, size } = this.props;
+    const { id, size, roundNumber, moveNumber, endOfRound } = this.props;
 
-    const cellSize = height / size;
+    const cellSize = this.calculateCellSize();
 
     const cells = this.renderCells();
     const className = `grid grid--${size}`;
 
     return (
       <React.Fragment>
-        <div style={{ maxWidth: cellSize, maxHeight: cellSize, margin: '0 auto' }}>
-          <GamePiece dndType={DND_ITEM_TYPES.CHAOS_PIECE} variant="pink" />
-        </div>
+        {!endOfRound && this.renderRoleSpecificContent()}
         <div className="game-board-wrapper" id={id}>
           <div className={className}>{cells}</div>
           <GameBoardDragLayer cellSize={cellSize} />
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <p>Round number: {roundNumber}</p>
+          <p>Move number: {moveNumber}</p>
+          {endOfRound && this.renderEndOfRound()}
         </div>
       </React.Fragment>
     );

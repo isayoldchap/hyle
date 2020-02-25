@@ -8,7 +8,7 @@ export const GameCell = props => {
   const { children, x, y, moveGamePiece, canMoveGamePiece } = props;
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: [DND_ITEM_TYPES.GAME_PIECE, DND_ITEM_TYPES.CHAOS_PIECE],
+    accept: [DND_ITEM_TYPES.ORDER_PIECE, DND_ITEM_TYPES.CHAOS_PIECE],
     drop: item => moveGamePiece(x, y, item),
     canDrop: item => canMoveGamePiece(x, y, item),
     collect: monitor => ({

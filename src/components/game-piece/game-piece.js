@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import blueTriangleImage from '../game-board/game-pieces/game-piece-blue-triangle-600.png';
-import pinkDotImage from '../game-board/game-pieces/game-piece-pink-dot-600.png';
 import { useDrag } from 'react-dnd';
 import PropTypes from 'prop-types';
 import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import { getGamePieceSrc } from '../../util/game-board/get-game-piece-src/get-game-piece-src';
 
 export const GamePiece = props => {
-  const { dndType, variant } = props;
+  const { canDrag, color, dndType, x, y } = props;
 
   const [{ isDragging }, drag, preview] = useDrag({
-    item: { type: dndType, variant },
+    canDrag: () => canDrag(),
+    item: { type: dndType, color, fromX: x, fromY: y },
     collect: monitor => ({
       isDragging: !!monitor.isDragging()
     })
@@ -19,7 +19,7 @@ export const GamePiece = props => {
     preview(getEmptyImage(), { captureDraggingState: true });
   }, []);
 
-  const src = variant === 'blue' ? blueTriangleImage : pinkDotImage;
+  const src = getGamePieceSrc(color);
 
   return (
     <img
@@ -32,11 +32,17 @@ export const GamePiece = props => {
 };
 
 GamePiece.propTypes = {
+  canDrag: PropTypes.func,
+  color: PropTypes.string,
   dndType: PropTypes.oneOf(Object.values(DND_ITEM_TYPES)),
-  variant: PropTypes.string
+  x: PropTypes.number,
+  y: PropTypes.number
 };
 
 GamePiece.defaultProps = {
-  dndType: DND_ITEM_TYPES.GAME_PIECE,
-  variant: 'blue'
+  canDrag: () => true,
+  color: null,
+  dndType: DND_ITEM_TYPES.ORDER_PIECE,
+  x: null,
+  y: null
 };
