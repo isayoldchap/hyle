@@ -17,10 +17,10 @@ export const GameCell = props => {
     })
   });
 
-  let backgroundColor = 'transparent';
-  if (isOver && !canDrop) backgroundColor = 'red';
-  if (!isOver && canDrop) backgroundColor = 'yellow';
-  if (isOver && canDrop) backgroundColor = 'green';
+  let background = 'transparent';
+  if (isOver && !canDrop) background = 'red';
+  if (!isOver && canDrop) background = 'yellow';
+  if (isOver && canDrop) background = 'green';
 
   return (
     <div ref={drop} className="game-cell">
@@ -28,11 +28,12 @@ export const GameCell = props => {
       {(isOver || (!isOver && canDrop)) && (
         <div
           style={{
-            backgroundColor,
+            background,
             height: '100%',
             opacity: 0.15,
             position: 'absolute',
-            width: '100%'
+            width: '100%',
+            transition: 'background 500ms'
           }}
         />
       )}
