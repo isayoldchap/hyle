@@ -51,7 +51,6 @@ export const GameBoardDragLayer = props => {
   }));
 
   if (!item) return null;
-  // console.log('item', item);
 
   const { color } = item;
   const src = getGamePieceSrc(color);
@@ -60,7 +59,6 @@ export const GameBoardDragLayer = props => {
     switch (itemType) {
       case DND_ITEM_TYPES.ORDER_PIECE:
       case DND_ITEM_TYPES.CHAOS_PIECE:
-        // TODO: Get the game size piece from H.O.C.?
         return <img alt="game piece" src={src} style={{ width: cellSize, height: cellSize }} />;
       default:
         return null;
