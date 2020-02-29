@@ -20,13 +20,14 @@ export const GamePiece = props => {
   }, []);
 
   const src = getGamePieceSrc(color);
+  const cursor = canDrag() ? 'grab' : 'not-allowed';
 
   return (
     <img
       ref={drag}
       alt="game piece"
       src={src}
-      style={{ width: '100%', height: '100%', opacity: isDragging ? 0 : 1, cursor: 'move' }}
+      style={{ width: '100%', height: '100%', opacity: isDragging ? 0 : 1, cursor }}
     />
   );
 };
