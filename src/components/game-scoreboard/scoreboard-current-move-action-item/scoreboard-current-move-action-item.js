@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EndOfGameComponent } from '../../EndOfGameComponent/EndOfGameComponent';
-import { EndOfRoundComponent } from '../../EndOfRoundComponent/EndOfRoundComponent';
 import { Roles } from '../../../engine/engine';
 import { GamePiece } from '../../game-piece/game-piece';
 import { DND_ITEM_TYPES } from '../../../constants/dnd-item-types';
+import { ConnectedEndOfGameActionItem } from './end-of-game-action-item/end-of-game-action-item.connected';
+import { ConnectedEndOfRoundActionItem } from './end-of-round-action-item/end-of-round-action-item.connected';
 
 export class ScoreboardCurrentMoveActionItem extends Component {
   static propTypes = {
@@ -13,10 +13,7 @@ export class ScoreboardCurrentMoveActionItem extends Component {
     endOfRound: PropTypes.bool,
     nextTile: PropTypes.string,
     pass: PropTypes.func,
-    startNewGame: PropTypes.func,
-    startNextRound: PropTypes.func,
-    turn: PropTypes.oneOf(Object.values(Roles)),
-    winner: PropTypes.string
+    turn: PropTypes.oneOf(Object.values(Roles))
   };
 
   static defaultProps = {
@@ -25,10 +22,7 @@ export class ScoreboardCurrentMoveActionItem extends Component {
     endOfRound: false,
     nextTile: null,
     pass: () => {},
-    startNewGame: () => {},
-    startNextRound: () => {},
-    turn: null,
-    winner: null
+    turn: null
   };
 
   renderChaos() {
@@ -53,13 +47,12 @@ export class ScoreboardCurrentMoveActionItem extends Component {
             background: 'lightCoral',
             textTransform: 'uppercase',
             fontWeight: 200,
-            letterSpacing: 2,
+            fontSize: '.8rem',
             border: 'none',
             borderRadius: 3,
             color: 'white',
             display: 'flex',
             flex: 1,
-            fontSize: '1.2rem',
             margin: '0 1rem',
             padding: '.5rem 1rem',
             cursor: 'pointer'
@@ -91,19 +84,14 @@ export class ScoreboardCurrentMoveActionItem extends Component {
     );
   }
 
-  renderEndOfRound() {
-    const { startNextRound, startNewGame, endOfGame, winner } = this.props;
-
-    if (endOfGame) {
-      return <EndOfGameComponent handleStartNewGame={startNewGame} winner={winner} />;
-    }
-    return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
-  }
-
   render() {
-    const { cellSize, endOfRound } = this.props;
+    const { cellSize, endOfRound, endOfGame } = this.props;
 
-    const currentRoundContent = endOfRound ? this.renderEndOfRound() : this.renderRoleSpecificContent();
+    if (endOfGame) return <ConnectedEndOfGameActionItem cellSize={cellSize} />;
+
+    if (endOfRound) return <ConnectedEndOfRoundActionItem />;
+
+    const currentRoundContent = this.renderRoleSpecificContent();
 
     return <div style={{ width: cellSize, margin: '0 .5rem', borderRadius: 5 }}>{currentRoundContent}</div>;
   }
