@@ -107,7 +107,7 @@ export class GameBoardComponent extends Component {
 
     return (
       <React.Fragment>
-        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+        <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <ConnectedGameScoreboard cellSize={cellSize} />
         </div>
         <div className="game-board-wrapper" id={id}>
