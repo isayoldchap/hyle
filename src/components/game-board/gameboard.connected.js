@@ -1,43 +1,20 @@
 import { connect } from 'react-redux';
 import { GameBoard } from './game-board';
 import { squaresSelector, sizeSelector } from '../../selectors/boardSelector';
-import {
-  selectIsEndOfRound,
-  selectIsGameOver,
-  selectMoveNumber,
-  selectRoundNumber,
-  selectTurn,
-  selectWinning,
-  selectNextTile,
-  selectLegalMoves,
-  selectOrderHalfMove
-} from '../../selectors/gameSelector';
-import { advanceRound, newGame, handlePass, handleMovePiece } from '../../ducks/entropyDuck';
-import { createBackAction } from '../../actioncreators/historyActions';
+import { selectTurn, selectLegalMoves } from '../../selectors/gameSelector';
+import { handleMovePiece } from '../../ducks/entropyDuck';
 
 export const mapStateToProps = state => {
   return {
     cells: squaresSelector(state),
-    orderHalfMove: state.orderHalfMove,
-    size: sizeSelector(state),
-    roundNumber: selectRoundNumber(state),
-    turn: selectTurn(state),
-    moveNumber: selectMoveNumber(state),
-    endOfRound: selectIsEndOfRound(state),
-    endOfGame: selectIsGameOver(state),
-    winner: selectWinning(state),
-    nextTile: selectNextTile(state),
     legalMoves: selectLegalMoves(state),
-    selectedSquare: selectOrderHalfMove(state)
+    size: sizeSelector(state),
+    turn: selectTurn(state)
   };
 };
 
 const mapDispatchToProps = {
-  back: createBackAction,
-  movePiece: handleMovePiece,
-  pass: handlePass,
-  startNewGame: newGame,
-  startNextRound: advanceRound
+  movePiece: handleMovePiece
 };
 
 export const ConnectedGameBoard = connect(mapStateToProps, mapDispatchToProps)(GameBoard);

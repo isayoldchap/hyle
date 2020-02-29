@@ -2,40 +2,30 @@ import React, { Component } from 'react';
 import './game-board.css';
 import { GamePiece } from '../game-piece/game-piece';
 import { GameCell } from '../game-cell/game-cell';
-import { DND_ITEM_TYPES } from '../../constants/dnd-item-types';
 import { GameBoardDragLayer } from './game-board-drag-layer/game-board-drag-layer';
 import PropTypes from 'prop-types';
 import { withResizeDimensions } from '../with-resize-dimensions/with-resize-dimensions';
 import { Roles } from '../../engine/engine';
 import { isEqual } from 'lodash';
+import { ConnectedGameScoreboard } from '../game-scoreboard/game-scoreboard.connected';
 
 export class GameBoardComponent extends Component {
   static propTypes = {
     cells: PropTypes.array,
-    endOfRound: PropTypes.bool,
     height: PropTypes.number,
     id: PropTypes.string,
     legalMoves: PropTypes.array,
-    moveNumber: PropTypes.number,
     movePiece: PropTypes.func,
-    nextTile: PropTypes.string,
-    pass: PropTypes.func,
-    roundNumber: PropTypes.number,
     size: PropTypes.number,
     turn: PropTypes.string
   };
 
   static defaultProps = {
     cells: [],
-    endOfRound: false,
     height: null,
     id: null,
     legalMoves: [],
-    moveNumber: null,
     movePiece: () => {},
-    nextTile: null,
-    pass: () => {},
-    roundNumber: null,
     size: null,
     turn: null
   };
@@ -107,53 +97,8 @@ export class GameBoardComponent extends Component {
     });
   }
 
-  renderRoleSpecificContent() {
-    const { turn } = this.props;
-    const cellSize = this.calculateCellSize();
-
-    let content = null;
-    if (turn === Roles.CHAOS) content = this.renderChaos();
-    if (turn === Roles.ORDER) content = this.renderOrder();
-
-    return (
-      <div
-        style={{
-          textAlign: 'center',
-          minHeight: cellSize,
-          maxHeight: cellSize
-        }}
-      >
-        {content}
-      </div>
-    );
-  }
-
-  renderChaos() {
-    const { nextTile } = this.props;
-    const cellSize = this.calculateCellSize();
-
-    return (
-      <div style={{ maxWidth: cellSize, maxHeight: cellSize, margin: '0 auto' }}>
-        <GamePiece dndType={DND_ITEM_TYPES.CHAOS_PIECE} color={nextTile} />
-      </div>
-    );
-  }
-
-  renderOrder() {
-    const { pass } = this.props;
-
-    return (
-      <div>
-        <p>Make a move or </p>
-        <button type="button" onClick={pass}>
-          Pass
-        </button>
-      </div>
-    );
-  }
-
   render() {
-    const { id, size, roundNumber, moveNumber, endOfRound } = this.props;
+    const { id, size } = this.props;
 
     const cellSize = this.calculateCellSize();
 
@@ -162,15 +107,12 @@ export class GameBoardComponent extends Component {
 
     return (
       <React.Fragment>
-        {!endOfRound && this.renderRoleSpecificContent()}
+        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+          <ConnectedGameScoreboard cellSize={cellSize} />
+        </div>
         <div className="game-board-wrapper" id={id}>
           <div className={className}>{cells}</div>
           <GameBoardDragLayer cellSize={cellSize} />
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-          <p>Round number: {roundNumber}</p>
-          <p>Move number: {moveNumber}</p>
-          {endOfRound && this.renderEndOfRound()}
         </div>
       </React.Fragment>
     );
