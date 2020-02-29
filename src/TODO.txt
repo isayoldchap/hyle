@@ -22,4 +22,4 @@
 5. Get some decent fonts working
 6. Make a decision on whether to continue with material UI or do something else. Check with Rick
 7. Remove export defaults because they suck
-8.         
+8. Fix hot reloading      
