@@ -4,16 +4,18 @@ import { Screen } from '../screen/screen';
 import { DndProvider } from 'react-dnd';
 import { ConnectedGameBoard } from '../game-board/gameboard.connected';
 import TouchBackend from 'react-dnd-touch-backend';
-// import backgroundImage from '../../../assets/bg-light-wood.jpg';
 
 export const GameScreen = () => {
   return (
     <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
       <Screen>
-        {/* <div className="game-screen-wrapper" style={{ backgroundImage: `url(${backgroundImage})` }}> */}
+        {/* TODO: Set background styles with theme: */}
         <div
           className="game-screen-wrapper"
-          style={{ backgroundColor: '#0093E9', backgroundImage: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)' }}
+          style={{
+            backgroundImage:
+              'radial-gradient( circle farthest-corner at 10% 20%,  rgba(90,92,106,1) 0%, rgba(32,45,58,1) 81.3% )'
+          }}
         >
           <ConnectedGameBoard />
         </div>
