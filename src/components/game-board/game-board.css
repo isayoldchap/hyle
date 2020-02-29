@@ -1,15 +1,15 @@
 .game-board-wrapper {
-  position: relative;
-  width: 90vw;
+  border-left: 1px solid rgba(0,0,0,0.15);
+  border-top: 1px solid rgba(0,0,0,0.15);
   height: 90vw;
-  min-width: 360px;
-  min-height: 360px;
+  margin: 0 auto;
   max-height: 65vh;
   max-width: 65vh;
+  min-height: 360px;
+  min-width: 360px;
   overflow: hidden;
-  border-left: 1px solid rgba(0,0,0,0.05);
-  border-top: 1px solid rgba(0,0,0,0.05);
-  margin: 0 auto;
+  position: relative;
+  width: 90vw;
 }
 
 .grid {
