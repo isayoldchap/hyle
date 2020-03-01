@@ -1,8 +1,9 @@
 import React from 'react';
 import PropType from 'prop-types';
+import { ConnectedRemainingPieces } from '../remaining-pieces/remaining-pieces.connected';
 
 export const ScoreboardHeader = props => {
-  const { moveNumber, roundNumber, score, width } = props;
+  const { moveNumber, roundNumber, width } = props;
   return (
     <div
       style={{
@@ -16,8 +17,12 @@ export const ScoreboardHeader = props => {
     >
       <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
         <div style={{ flex: 1, textAlign: 'center' }}>Round: {roundNumber}</div>
+
+        <div style={{ flex: 2, textAlign: 'center' }}>
+          <ConnectedRemainingPieces />
+        </div>
+
         <div style={{ flex: 1, textAlign: 'center' }}>Move: {moveNumber}</div>
-        <div style={{ flex: 1, textAlign: 'center' }}>Live Score: {score}</div>
       </div>
     </div>
   );
@@ -26,13 +31,11 @@ export const ScoreboardHeader = props => {
 ScoreboardHeader.propTypes = {
   moveNumber: PropType.number,
   roundNumber: PropType.number,
-  score: PropType.number,
   width: PropType.number
 };
 
 ScoreboardHeader.defaultProps = {
   moveNumber: 0,
   roundNumber: 0,
-  score: 0,
   width: null
 };
