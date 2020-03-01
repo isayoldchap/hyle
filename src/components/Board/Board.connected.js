@@ -13,4 +13,6 @@ const mapStateToProps = state => {
   return newProps;
 };
 
-export default connect(mapStateToProps, { squareClickHandler: handleClick })(Board);
+export default connect(mapStateToProps, { squareClickHandler: handleClick })(
+  Board
+);
