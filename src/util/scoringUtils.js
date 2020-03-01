@@ -8,13 +8,18 @@ const dropHead = pattern => pattern.substring(1);
 
 const dropLast = pattern => pattern.substring(0, pattern.length - 1);
 
-const reversePattern = pattern =>
-  pattern
-    .split('')
-    .reverse()
-    .join('');
-
-const isPalindrome = pattern => pattern === reversePattern(pattern);
+const isPalindrome = pattern => {
+  let frontMarker = 0;
+  let endMarker = pattern.length - 1;
+  while (frontMarker < endMarker) {
+    if (pattern[frontMarker] !== pattern[endMarker]) {
+      return false;
+    }
+    frontMarker += 1;
+    endMarker -= 1;
+  }
+  return true;
+};
 
 export const scoreSingle = pattern => {
   if (isUnScorable(pattern)) {
