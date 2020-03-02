@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { renderPieceOnCanvas, renderBackground } from '../../util/pieceRenderingUtil';
+import {
+  renderPieceOnCanvas,
+  renderBackground
+} from '../../util/pieceRenderingUtil';
 
 export const RemainingPiecesComponentOrientation = {
   HORIZONTAL: 'horizontal',
@@ -13,9 +16,17 @@ export class RemainingPiecesComponent extends React.Component {
     const { width, colorCounts, orientation } = this.props;
     const canvasContent =
       orientation === RemainingPiecesComponentOrientation.VERTICAL ? (
-        <canvas id="remaining pieces" width={width} height={width * colorCounts.length} />
+        <canvas
+          id="remaining pieces"
+          width={width}
+          height={width * colorCounts.length}
+        />
       ) : (
-        <canvas id="remaining pieces" width={width * colorCounts.length} height={width} />
+        <canvas
+          id="remaining pieces"
+          width={width * colorCounts.length}
+          height={width}
+        />
       );
 
     return <div>{canvasContent}</div>;
@@ -49,9 +60,27 @@ export class RemainingPiecesComponent extends React.Component {
       .filter(colorCount => colorCount.count > 0)
       .forEach((colorCount, index) => {
         if (orientation === RemainingPiecesComponentOrientation.VERTICAL) {
-          renderPieceOnCanvas(canvas, 0, index * width, width, colorCount.color, false, false, colorCount.count);
+          renderPieceOnCanvas(
+            canvas,
+            0,
+            index * width,
+            width,
+            colorCount.color,
+            false,
+            false,
+            colorCount.count
+          );
         } else {
-          renderPieceOnCanvas(canvas, index * width, 0, width, colorCount.color, false, false, colorCount.count);
+          renderPieceOnCanvas(
+            canvas,
+            index * width,
+            0,
+            width,
+            colorCount.color,
+            false,
+            false,
+            colorCount.count
+          );
         }
       });
   }

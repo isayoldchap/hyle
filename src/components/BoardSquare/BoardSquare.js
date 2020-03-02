@@ -12,7 +12,15 @@ export default class BoardSquare extends React.Component {
   }
 
   updateSquare() {
-    const { col = 0, row = 0, width, height, color, canvasId = 'board', isSelected } = this.props;
+    const {
+      col = 0,
+      row = 0,
+      width,
+      height,
+      color,
+      canvasId = 'board',
+      isSelected
+    } = this.props;
     const x = col * width - width;
     const y = row * height - height;
     const boardCanvas = document.getElementById(canvasId);

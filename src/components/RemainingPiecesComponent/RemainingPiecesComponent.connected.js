@@ -1,6 +1,9 @@
 import { RemainingPiecesComponent } from './RemainingPiecesComponent';
 import { connect } from 'react-redux';
-import { selectRemainingColorCounts, selectColors } from '../../selectors/gameSelector';
+import {
+  selectRemainingColorCounts,
+  selectColors
+} from '../../selectors/gameSelector';
 
 const mapStateToProps = (state, oldProps) => {
   const theColors = selectColors(state);

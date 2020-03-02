@@ -1,4 +1,9 @@
-import { initializeBoard, placeTileOnBoard, moveTileOnBoard, allRowsAndColumns } from '../util/boardUtils';
+import {
+  initializeBoard,
+  placeTileOnBoard,
+  moveTileOnBoard,
+  allRowsAndColumns
+} from '../util/boardUtils';
 import { scoreCombo } from '../util/scoringUtils';
 import { allLegalMoves } from '../util/moveUtils';
 import { computeRemainingColorCounts, getGameColors } from '../util/colorUtils';
@@ -23,7 +28,8 @@ const makeEntropyCell = (row, column, color = undefined) => ({
   color: color
 });
 
-export const initializeEntropyBoard = size => initializeBoard(size, makeEntropyCell);
+export const initializeEntropyBoard = size =>
+  initializeBoard(size, makeEntropyCell);
 
 const initializeGame = (config = defaultGameConfig) => {
   const boardSize = config.boardSize;

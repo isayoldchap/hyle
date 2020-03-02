@@ -1,4 +1,8 @@
-import { transformArrayElement, swapArrayElement, makeIntArrayOfSize } from './arrayUtils';
+import {
+  transformArrayElement,
+  swapArrayElement,
+  makeIntArrayOfSize
+} from './arrayUtils';
 
 const cellTransform = (cell, xDelta, yDelta) => ({
   x: xDelta(cell.x),
@@ -41,7 +45,9 @@ export const isOccupied = square => square && square.color !== undefined;
 export const isEmpty = square => !isOccupied(square);
 
 export const initializeBoard = (size, makeCell) =>
-  makeIntArrayOfSize(size).map(row => makeIntArrayOfSize(size).map(col => makeCell(row, col)));
+  makeIntArrayOfSize(size).map(row =>
+    makeIntArrayOfSize(size).map(col => makeCell(row, col))
+  );
 
 export const getCell = (board, row, col) => {
   return board[transformIndex(row)][transformIndex(col)];
@@ -107,14 +113,31 @@ export const moveTileOnBoard = (board, startLocation, endLocation) => {
 
   const startSquareColor = startRow[startLocation.x - 1].color;
 
-  const updatedStartRow = transformArrayElement(startRow, startLocation.x - 1, emptiedCell);
+  const updatedStartRow = transformArrayElement(
+    startRow,
+    startLocation.x - 1,
+    emptiedCell
+  );
 
-  const endRowToUpdate = startLocation.y === endLocation.y ? updatedStartRow : endRow;
+  const endRowToUpdate =
+    startLocation.y === endLocation.y ? updatedStartRow : endRow;
 
-  const updatedEndRow = transformArrayElement(endRowToUpdate, endLocation.x - 1, cellWithColor(startSquareColor));
+  const updatedEndRow = transformArrayElement(
+    endRowToUpdate,
+    endLocation.x - 1,
+    cellWithColor(startSquareColor)
+  );
 
-  const updatedBoard = swapArrayElement(board, startLocation.y - 1, updatedStartRow);
-  const updatedBoard2 = swapArrayElement(updatedBoard, endLocation.y - 1, updatedEndRow);
+  const updatedBoard = swapArrayElement(
+    board,
+    startLocation.y - 1,
+    updatedStartRow
+  );
+  const updatedBoard2 = swapArrayElement(
+    updatedBoard,
+    endLocation.y - 1,
+    updatedEndRow
+  );
 
   return updatedBoard2;
 };
@@ -130,13 +153,21 @@ export const squareAtLocationSelector = (board, location) => {
 export const placeTileOnBoard = (board, rowIndex, colIndex, color) => {
   const rowToUpdate = getRow(board, rowIndex);
 
-  const updatedRow = transformArrayElement(rowToUpdate, colIndex - 1, cellWithColor(color));
+  const updatedRow = transformArrayElement(
+    rowToUpdate,
+    colIndex - 1,
+    cellWithColor(color)
+  );
   const updatedBoard = swapArrayElement(board, rowIndex - 1, updatedRow);
 
   return updatedBoard;
 };
 
-export const allMovesFromLocationInDirection = (startLocation, direction, board) => {
+export const allMovesFromLocationInDirection = (
+  startLocation,
+  direction,
+  board
+) => {
   const pathGenerator = generateLocationsInDirection(startLocation, direction);
   let allMovesInDirection = [];
   let nextOnPath = pathGenerator.next().value;
@@ -156,7 +187,11 @@ export const allMovesFromLocationInDirection = (startLocation, direction, board)
 
 export const allMovesFromLocation = (startLocation, board) => {
   const allFromSquare = allDirections.reduce((allMoves, direction) => {
-    const allMovesFromLocation = allMovesFromLocationInDirection(startLocation, direction, board);
+    const allMovesFromLocation = allMovesFromLocationInDirection(
+      startLocation,
+      direction,
+      board
+    );
     return allMoves.concat(allMovesFromLocation);
   }, []);
 
