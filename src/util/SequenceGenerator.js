@@ -15,17 +15,15 @@ const initializeAllGamePieces = colors => {
   return allGamePieces;
 };
 
+export const makeSequenceGenerator = seed => {
+  const chance = initChance(seed);
+  return colors => {
+    const allGamePieces = initializeAllGamePieces(colors);
+    return chance.shuffle(allGamePieces);
+  };
+};
+
 // The ability to reproduce sequences is important for replaying games
-export const generateGamePieceSequence = (colors, randomSeed) => {
-  const chance = initChance(randomSeed);
-  const allGamePieces = initializeAllGamePieces(colors);
-  const generatedSequence = [];
-
-  while (allGamePieces.length > 0) {
-    let nextIndex = chance.integer({ min: 0, max: allGamePieces.length - 1 });
-    let nextPiece = allGamePieces.splice(nextIndex, 1);
-    generatedSequence.push(nextPiece[0]);
-  }
-
-  return generatedSequence;
+export const generateGamePieceSequence = (colors, seed) => {
+  return makeSequenceGenerator(seed)(colors);
 };
