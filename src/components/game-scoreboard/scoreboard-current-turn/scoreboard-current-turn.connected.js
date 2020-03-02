@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 import {
-  selectRoundNumber,
-  selectTurn,
   selectPlayer1Name,
   selectPlayer1Score,
   selectPlayer2Name,
-  selectPlayer2Score
+  selectPlayer2Score,
+  selectRoundNumber,
+  selectTurn
 } from '../../../selectors/gameSelector';
-import { advanceRound, newGame, handlePass } from '../../../ducks/entropyDuck';
 import { ScoreboardCurrentTurn } from './scoreboard-current-turn';
 
 export const mapStateToProps = state => {
@@ -21,10 +20,4 @@ export const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  pass: handlePass,
-  startNewGame: newGame,
-  startNextRound: advanceRound
-};
-
-export const ConnectedScoreboardCurrentTurn = connect(mapStateToProps, mapDispatchToProps)(ScoreboardCurrentTurn);
+export const ConnectedScoreboardCurrentTurn = connect(mapStateToProps)(ScoreboardCurrentTurn);
