@@ -1,22 +1,26 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import ConnectedApp from '../App/App.connected';
-import Game from '../Game/Game';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ConnectedApp from "../App/App.connected";
+import Game from "../Game/Game";
+import { GameScreen } from "../game-screen/game-screen";
+
 // import "../../css/App.css";
 // import "../../css/bootstrap.css";
 // import "../../css/bootstrap-theme.css";
-import { GameScreen } from '../game-screen/game-screen';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class Root extends React.Component {
+class Root extends Component {
   render() {
     return (
       <BrowserRouter>
-        {/* <Switch> */}
-        <Route path="/" component={ConnectedApp} />
-        {/* <Route path="/" component={Game} /> */}
-        <Route path="/" component={GameScreen} />
-        {/* </Switch> */}
+        <div>
+          <div style={{ margin: 10 }}>
+            {/* <Switch> */}
+              <Route path="/currentGame" component={ConnectedApp} />
+              <Route path="/currentGame" component={Game} />
+              <Route path="/newUI" component={GameScreen} />
+            {/* </Switch> */}
+          </div>
+        </div>
       </BrowserRouter>
     );
   }
