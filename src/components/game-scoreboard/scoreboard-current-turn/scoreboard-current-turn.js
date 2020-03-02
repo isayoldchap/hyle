@@ -28,7 +28,7 @@ export const ScoreboardCurrentTurn = props => {
           />
         </div>
 
-        <div>
+        <div style={{ margin: '0 1rem' }}>
           <ConnectedScoreboardCurrentMoveActionItem cellSize={cellSize} />
         </div>
 
