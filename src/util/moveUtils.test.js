@@ -1,4 +1,8 @@
-import { allLegalMovesFromSquare, legalOrderMoveSelector, legalChaosMovesSelector } from './moveUtils';
+import {
+  allLegalMovesFromSquare,
+  legalOrderMoveSelector,
+  legalChaosMovesSelector
+} from './moveUtils';
 
 import { placeTileOnBoard } from './boardUtils';
 
