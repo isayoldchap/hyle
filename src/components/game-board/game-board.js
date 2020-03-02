@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { withResizeDimensions } from '../with-resize-dimensions/with-resize-dimensions';
 import { Roles } from '../../engine/engine';
 import { isEqual } from 'lodash';
-import { ConnectedGameScoreboard } from '../game-scoreboard/game-scoreboard.connected';
+import { GameScoreboard } from '../game-scoreboard/game-scoreboard';
 
 export class GameBoardComponent extends Component {
   static propTypes = {
@@ -108,7 +108,7 @@ export class GameBoardComponent extends Component {
     return (
       <React.Fragment>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          <ConnectedGameScoreboard cellSize={cellSize} />
+          <GameScoreboard cellSize={cellSize} />
         </div>
         <div className="game-board-wrapper" id={id}>
           <div className={className}>{cells}</div>
