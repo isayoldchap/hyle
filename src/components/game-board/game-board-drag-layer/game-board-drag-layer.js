@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDragLayer } from 'react-dnd';
 import { DND_ITEM_TYPES } from '../../../constants/dnd-item-types';
-import { snapToGrid } from '../../../util/game-board/snap-to-grid';
 import PropTypes from 'prop-types';
 import { getGamePieceSrc } from '../../../util/game-board/get-game-piece-src/get-game-piece-src';
 
@@ -15,22 +14,14 @@ const layerStyles = {
   height: '100%'
 };
 
-function getItemStyles(initialOffset, currentOffset, isSnapToGrid) {
+function getItemStyles(initialOffset, currentOffset) {
   if (!initialOffset || !currentOffset) {
     return {
       display: 'none'
     };
   }
 
-  let { x, y } = currentOffset;
-
-  if (isSnapToGrid) {
-    x -= initialOffset.x;
-    y -= initialOffset.y;
-    [x, y] = snapToGrid(x, y);
-    x += initialOffset.x;
-    y += initialOffset.y;
-  }
+  const { x, y } = currentOffset;
 
   const transform = `translate(${x}px, ${y}px)`;
 
