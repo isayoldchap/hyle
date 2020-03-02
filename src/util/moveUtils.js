@@ -1,51 +1,62 @@
 import {
-  moveTileOnBoard,
-  placeTileOnBoard,
-  selectEmptySquares,
-  selectOccupiedSquares,
-  selectLegalMoves,
-  allMovesFromLocation
-} from './boardUtils';
-import { Roles } from '../engine/engine';
+  allLegalMovesFromSquare,
+  legalOrderMoveSelector,
+  legalChaosMovesSelector
+} from './moveUtils';
 
-export const moveTile = (board, startLocation, endLocation) => {
-  return moveTileOnBoard(board, startLocation, endLocation);
-};
+import { placeTileOnBoard } from './boardUtils';
 
-export const placeTile = (board, rowIndex, colIndex, color) => {
-  return placeTileOnBoard(board, rowIndex, colIndex, color);
-};
+import { initializeEntropyBoard } from '../engine/engine';
 
-export const emptySquaresSelector = board => {
-  return selectEmptySquares(board);
-};
+import { assert } from 'chai';
 
-export const legalChaosMovesSelector = emptySquaresSelector;
+describe('Order Move Logic', () => {
+  const myBoard = [
+    [
+      { row: 1, col: 1, key: '1:1', color: 'blue' },
+      { row: 1, col: 2, key: '1:2', color: undefined }
+    ],
+    [
+      { row: 2, col: 1, key: '2:1', color: undefined },
+      { row: 2, col: 2, key: '2:2', color: undefined }
+    ]
+  ];
 
-export const occupiedSquareSelector = board => {
-  return selectOccupiedSquares(board);
-};
+  it('should calc all the legal moves from the start square', () => {
+    const startSquare = { row: 1, col: 1 };
+    const legalMoves = allLegalMovesFromSquare(myBoard, startSquare);
+    assert.equal(legalMoves.length, 2);
+  });
+});
 
-export const allLegalMovesFromSquare = (board, startSquare) => {
-  return selectLegalMoves(board, startSquare);
-};
+describe('Chaos move logic', () => {
+  const myBoard = initializeEntropyBoard(3);
 
-export const legalOrderMoveSelector = board => {
-  const occupiedSquares = selectOccupiedSquares(board);
-  return occupiedSquares.reduce((allMoves, startSquare) => {
-    return allMoves.concat(allLegalMovesFromSquare(board, startSquare));
-  }, []);
-};
+  it('should allow placement at any empty board location', () => {
+    assert.equal(legalChaosMovesSelector(myBoard).length, 9);
+  });
 
-export const allLegalMovesFromLocation = (board, location) => {
-  return allMovesFromLocation(location, board);
-};
+  it('should allow one fewer moves after the first move has been made', () => {
+    const updatedBoard = placeTileOnBoard(myBoard, 1, 1, 'red');
+    assert.equal(legalChaosMovesSelector(updatedBoard).length, 8);
+  });
+});
 
-export const allLegalMoves = (turn, board) => {
-  if (turn === Roles.CHAOS) {
-    return legalChaosMovesSelector(board);
-  } else if (turn === Roles.ORDER) {
-    return legalOrderMoveSelector(board);
-  }
-  return [];
-};
+describe('Order move logic on mini boards', () => {
+  const myBoard = initializeEntropyBoard(2);
+
+  it('should be no legal order moves until chaos has made a move', () => {
+    assert.equal(legalOrderMoveSelector(myBoard).length, 0);
+  });
+
+  it('should be two legal order moves after chaos has made a move', () => {
+    const updatedBoard = placeTileOnBoard(myBoard, 1, 1, 'red');
+    assert.equal(legalOrderMoveSelector(updatedBoard).length, 2);
+  });
+
+  it('should be no legal moves once the board is full', () => {
+    const myBoard = initializeEntropyBoard(1);
+    const updatedBoard = placeTileOnBoard(myBoard, 1, 1, 'red');
+    assert.equal(legalOrderMoveSelector(updatedBoard).length, 0);
+  });
+});
