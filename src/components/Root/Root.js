@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Route
-  // Switch,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ConnectedApp from '../App/App.connected';
 import Game from '../Game/Game';
 import { GameScreen } from '../game-screen/game-screen';
@@ -13,11 +9,20 @@ export const Root = () => {
     <BrowserRouter>
       <div>
         <div style={{ margin: 10 }}>
-          {/* <Switch> */}
-          <Route path="/currentGame" component={ConnectedApp} />
-          <Route path="/currentGame" component={Game} />
-          <Route path="/newUI" component={GameScreen} />
-          {/* </Switch> */}
+          <Switch>
+            <Route exact path="/" component={GameScreen} />
+            <Route
+              path="/currentGame"
+              component={() => {
+                return (
+                  <React.Fragment>
+                    <ConnectedApp />
+                    <Game />
+                  </React.Fragment>
+                );
+              }}
+            />
+          </Switch>
         </div>
       </div>
     </BrowserRouter>
