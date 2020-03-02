@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { GameBoard } from './game-board';
 import { squaresSelector, sizeSelector } from '../../selectors/boardSelector';
 import { selectTurn, selectLegalMoves } from '../../selectors/gameSelector';
-import { handleMovePiece } from '../../ducks/entropyDuck';
+import { handleMovePiece, newGame } from '../../ducks/entropyDuck';
 
 export const mapStateToProps = state => {
   return {
@@ -14,7 +14,8 @@ export const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  movePiece: handleMovePiece
+  movePiece: handleMovePiece,
+  newGame
 };
 
 export const ConnectedGameBoard = connect(mapStateToProps, mapDispatchToProps)(GameBoard);

@@ -8,6 +8,7 @@ import { withResizeDimensions } from '../with-resize-dimensions/with-resize-dime
 import { Roles } from '../../engine/engine';
 import { isEqual } from 'lodash';
 import { GameScoreboard } from '../game-scoreboard/game-scoreboard';
+import NewGameDialog from '../NewGameDialog/NewGameDialog';
 
 export class GameBoardComponent extends Component {
   static propTypes = {
@@ -16,6 +17,7 @@ export class GameBoardComponent extends Component {
     id: PropTypes.string,
     legalMoves: PropTypes.array,
     movePiece: PropTypes.func,
+    newGame: PropTypes.func,
     size: PropTypes.number,
     turn: PropTypes.string
   };
@@ -26,6 +28,7 @@ export class GameBoardComponent extends Component {
     id: null,
     legalMoves: [],
     movePiece: () => {},
+    newGame: () => {},
     size: null,
     turn: null
   };
@@ -33,8 +36,13 @@ export class GameBoardComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.moveGamePiece = this.moveGamePiece.bind(this);
+    this.state = { newGameModalActive: false };
+
     this.canMoveGamePiece = this.canMoveGamePiece.bind(this);
+    this.closeNewGameModal = this.closeNewGameModal.bind(this);
+    this.moveGamePiece = this.moveGamePiece.bind(this);
+    this.openNewGameModal = this.openNewGameModal.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
 
   moveGamePiece(toX, toY, gamePiece) {
@@ -74,6 +82,25 @@ export class GameBoardComponent extends Component {
     return height / size;
   }
 
+  closeNewGameModal() {
+    this.setState({
+      newGameModalActive: false
+    });
+  }
+
+  openNewGameModal() {
+    this.setState({
+      newGameModalActive: true
+    });
+  }
+
+  startGame(gameParams) {
+    const { newGame } = this.props;
+
+    this.closeNewGameModal();
+    newGame(gameParams);
+  }
+
   renderCells() {
     const { cells, turn } = this.props;
 
@@ -99,6 +126,7 @@ export class GameBoardComponent extends Component {
 
   render() {
     const { id, size } = this.props;
+    const { newGameModalActive } = this.state;
 
     const cellSize = this.calculateCellSize();
 
@@ -114,6 +142,28 @@ export class GameBoardComponent extends Component {
           <div className={className}>{cells}</div>
           <GameBoardDragLayer cellSize={cellSize} />
         </div>
+        <div style={{ width: 800, maxWidth: 800, margin: '1rem auto', textAlign: 'center' }}>
+          <button
+            type="button"
+            onClick={this.openNewGameModal}
+            style={{
+              background: 'lightCoral',
+              textTransform: 'uppercase',
+              fontWeight: 200,
+              fontSize: '.8rem',
+              border: 'none',
+              borderRadius: 3,
+              color: 'white',
+              flex: 1,
+              margin: '0 1rem',
+              padding: '.5rem 1rem',
+              cursor: 'pointer'
+            }}
+          >
+            <span>New Game</span>
+          </button>
+        </div>
+        <NewGameDialog open={newGameModalActive} startAction={this.startGame} closeAction={this.closeNewGameModal} />
       </React.Fragment>
     );
   }
