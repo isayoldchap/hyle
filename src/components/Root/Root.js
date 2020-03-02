@@ -1,9 +1,8 @@
 import React from 'react';
 import {
   BrowserRouter,
-  Route,
+  Route
   // Switch,
-  Redirect
 } from 'react-router-dom';
 import ConnectedApp from '../App/App.connected';
 import Game from '../Game/Game';
@@ -15,7 +14,6 @@ export const Root = () => {
       <div>
         <div style={{ margin: 10 }}>
           {/* <Switch> */}
-          <Redirect from="/" to="/newUI" />
           <Route path="/currentGame" component={ConnectedApp} />
           <Route path="/currentGame" component={Game} />
           <Route path="/newUI" component={GameScreen} />
