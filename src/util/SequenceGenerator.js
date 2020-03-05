@@ -1,6 +1,10 @@
 import Chance from 'chance';
 
-const initChance = seed => new Chance(seed);
+const initChance = seed => {
+  // chance constructor must be looking at length because a seed of null produces non-random behavior
+  if (seed) return new Chance(seed);
+  return new Chance();
+};
 
 // non-random - this works but what is a more functional way to do it?
 const initializeAllGamePieces = colors => {
