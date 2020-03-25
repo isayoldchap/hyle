@@ -1,0 +1,593 @@
+exports["<GameBoardComponent />/When it renders/should render correctly(0)"] = [
+  {
+    "type": "div",
+    "props": {
+      "style": {
+        "maxWidth": 800,
+        "margin": "0 auto"
+      }
+    },
+    "children": [
+      {
+        "type": "div",
+        "props": {
+          "style": {
+            "borderBottom": "1px solid rgba(0,0,0,0.5)",
+            "margin": "0 auto",
+            "marginBottom": "1rem",
+            "paddingBottom": ".5rem"
+          }
+        },
+        "children": [
+          {
+            "type": "div",
+            "props": {
+              "style": {
+                "display": "flex",
+                "flexDirection": "row",
+                "width": "100%"
+              }
+            },
+            "children": [
+              {
+                "type": "div",
+                "props": {
+                  "style": {
+                    "flex": 1,
+                    "textAlign": "center"
+                  }
+                },
+                "children": [
+                  "Round: ",
+                  "1"
+                ]
+              },
+              {
+                "type": "div",
+                "props": {
+                  "style": {
+                    "flex": 2,
+                    "textAlign": "center"
+                  }
+                },
+                "children": [
+                  {
+                    "type": "div",
+                    "props": {},
+                    "children": [
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "padding": "0 .5rem",
+                            "display": "inline-block"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "img",
+                            "props": {
+                              "align": "left",
+                              "alt": "remaining piece",
+                              "src": {},
+                              "style": {
+                                "width": "2rem",
+                                "height": "2rem"
+                              }
+                            }
+                          },
+                          {
+                            "type": "span",
+                            "props": {
+                              "style": {
+                                "lineHeight": "2rem"
+                              }
+                            },
+                            "children": [
+                              "5"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "padding": "0 .5rem",
+                            "display": "inline-block"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "img",
+                            "props": {
+                              "align": "left",
+                              "alt": "remaining piece",
+                              "src": {},
+                              "style": {
+                                "width": "2rem",
+                                "height": "2rem"
+                              }
+                            }
+                          },
+                          {
+                            "type": "span",
+                            "props": {
+                              "style": {
+                                "lineHeight": "2rem"
+                              }
+                            },
+                            "children": [
+                              "5"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "padding": "0 .5rem",
+                            "display": "inline-block"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "img",
+                            "props": {
+                              "align": "left",
+                              "alt": "remaining piece",
+                              "src": {},
+                              "style": {
+                                "width": "2rem",
+                                "height": "2rem"
+                              }
+                            }
+                          },
+                          {
+                            "type": "span",
+                            "props": {
+                              "style": {
+                                "lineHeight": "2rem"
+                              }
+                            },
+                            "children": [
+                              "5"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "padding": "0 .5rem",
+                            "display": "inline-block"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "img",
+                            "props": {
+                              "align": "left",
+                              "alt": "remaining piece",
+                              "src": {},
+                              "style": {
+                                "width": "2rem",
+                                "height": "2rem"
+                              }
+                            }
+                          },
+                          {
+                            "type": "span",
+                            "props": {
+                              "style": {
+                                "lineHeight": "2rem"
+                              }
+                            },
+                            "children": [
+                              "5"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "padding": "0 .5rem",
+                            "display": "inline-block"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "img",
+                            "props": {
+                              "align": "left",
+                              "alt": "remaining piece",
+                              "src": {},
+                              "style": {
+                                "width": "2rem",
+                                "height": "2rem"
+                              }
+                            }
+                          },
+                          {
+                            "type": "span",
+                            "props": {
+                              "style": {
+                                "lineHeight": "2rem"
+                              }
+                            },
+                            "children": [
+                              "5"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "div",
+                "props": {
+                  "style": {
+                    "flex": 1,
+                    "textAlign": "center"
+                  }
+                },
+                "children": [
+                  "Move: ",
+                  "1"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "div",
+        "props": {
+          "style": {
+            "margin": "0 auto 1rem"
+          }
+        },
+        "children": [
+          {
+            "type": "div",
+            "props": {
+              "style": {
+                "width": "100%",
+                "display": "flex"
+              }
+            },
+            "children": [
+              {
+                "type": "div",
+                "props": {
+                  "style": {
+                    "flex": 1
+                  }
+                },
+                "children": [
+                  {
+                    "type": "div",
+                    "props": {
+                      "style": {
+                        "border": "1px solid rgba(0,0,0,0.5)",
+                        "borderRadius": 5,
+                        "flex": 2,
+                        "padding": "1rem",
+                        "textAlign": "center",
+                        "background": "rgba(255,255,255,0.15)",
+                        "opacity": 1,
+                        "cursor": "not-allowed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "display": "flex",
+                            "background": "rgba(0,0,0,0.25)"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "div",
+                            "props": {
+                              "style": {
+                                "flex": 1,
+                                "border": "1px solid #bbb",
+                                "borderRight": 0
+                              }
+                            },
+                            "children": [
+                              {
+                                "type": "h3",
+                                "props": {},
+                                "children": [
+                                  "Steve"
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "div",
+                            "props": {
+                              "style": {
+                                "flex": 1,
+                                "border": "1px solid #bbb"
+                              }
+                            },
+                            "children": [
+                              {
+                                "type": "h3",
+                                "props": {},
+                                "children": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "div",
+                        "props": {},
+                        "children": [
+                          {
+                            "type": "h4",
+                            "props": {
+                              "style": {
+                                "marginTop": ".5rem"
+                              }
+                            },
+                            "children": [
+                              "CHAOS ",
+                              {
+                                "type": "small",
+                                "props": {
+                                  "style": {
+                                    "fontWeight": 200
+                                  }
+                                },
+                                "children": [
+                                  "Place the next piece"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "div",
+                "props": {
+                  "style": {
+                    "margin": "0 1rem"
+                  }
+                },
+                "children": [
+                  {
+                    "type": "div",
+                    "props": {
+                      "style": {
+                        "width": null,
+                        "margin": "0 .5rem",
+                        "borderRadius": 5
+                      }
+                    },
+                    "children": [
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "textAlign": "center",
+                            "minHeight": null,
+                            "maxHeight": null
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "div",
+                            "props": {
+                              "style": {
+                                "maxWidth": null,
+                                "maxHeight": null,
+                                "margin": "0 auto"
+                              }
+                            },
+                            "children": [
+                              {
+                                "type": "img",
+                                "props": {
+                                  "alt": "game piece",
+                                  "src": {},
+                                  "style": {
+                                    "width": "100%",
+                                    "height": "100%",
+                                    "opacity": 1,
+                                    "cursor": "grab"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "div",
+                "props": {
+                  "style": {
+                    "flex": 1
+                  }
+                },
+                "children": [
+                  {
+                    "type": "div",
+                    "props": {
+                      "style": {
+                        "border": "1px solid rgba(0,0,0,0.5)",
+                        "borderRadius": 5,
+                        "flex": 2,
+                        "padding": "1rem",
+                        "textAlign": "center",
+                        "background": "rgba(0,0,0,0.5)",
+                        "opacity": 0.35
+                      }
+                    },
+                    "children": [
+                      {
+                        "type": "div",
+                        "props": {
+                          "style": {
+                            "display": "flex",
+                            "background": "rgba(0,0,0,0.25)"
+                          }
+                        },
+                        "children": [
+                          {
+                            "type": "div",
+                            "props": {
+                              "style": {
+                                "flex": 1,
+                                "border": "1px solid #bbb",
+                                "borderRight": 0
+                              }
+                            },
+                            "children": [
+                              {
+                                "type": "h3",
+                                "props": {},
+                                "children": [
+                                  "Kip"
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "div",
+                            "props": {
+                              "style": {
+                                "flex": 1,
+                                "border": "1px solid #bbb"
+                              }
+                            },
+                            "children": [
+                              {
+                                "type": "h3",
+                                "props": {},
+                                "children": [
+                                  "0"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "div",
+                        "props": {},
+                        "children": [
+                          {
+                            "type": "h4",
+                            "props": {
+                              "style": {
+                                "marginTop": ".5rem"
+                              }
+                            },
+                            "children": [
+                              "ORDER ",
+                              {
+                                "type": "small",
+                                "props": {
+                                  "style": {
+                                    "fontWeight": 200
+                                  }
+                                },
+                                "children": [
+                                  "Make a move or pass"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "div",
+    "props": {
+      "className": "game-board-wrapper"
+    },
+    "children": [
+      {
+        "type": "div",
+        "props": {
+          "className": "grid grid--null"
+        }
+      }
+    ]
+  },
+  {
+    "type": "div",
+    "props": {
+      "style": {
+        "width": 800,
+        "maxWidth": 800,
+        "margin": "1rem auto",
+        "textAlign": "center"
+      }
+    },
+    "children": [
+      {
+        "type": "button",
+        "props": {
+          "type": "button",
+          "onClick": "bound openNewGameModal",
+          "style": {
+            "background": "lightCoral",
+            "textTransform": "uppercase",
+            "fontWeight": 200,
+            "fontSize": ".8rem",
+            "border": "none",
+            "borderRadius": 3,
+            "color": "white",
+            "flex": 1,
+            "margin": "0 1rem",
+            "padding": ".5rem 1rem",
+            "cursor": "pointer"
+          }
+        },
+        "children": [
+          {
+            "type": "span",
+            "props": {},
+            "children": [
+              "New Game"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+

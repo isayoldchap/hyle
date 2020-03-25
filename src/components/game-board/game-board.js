@@ -46,15 +46,14 @@ export class GameBoardComponent extends Component {
   }
 
   moveGamePiece(toX, toY, gamePiece) {
+    if (!this.canMoveGamePiece(toX, toY, gamePiece)) return;
+
     const { movePiece } = this.props;
+    const toCoordinate = { x: toX, y: toY };
 
-    if (this.canMoveGamePiece(toX, toY, gamePiece)) {
-      const toCoordinate = { x: toX, y: toY };
-
-      const { fromX, fromY } = gamePiece;
-      const fromCoordinate = { x: fromX, y: fromY };
-      movePiece(toCoordinate, fromCoordinate);
-    }
+    const { fromX, fromY } = gamePiece;
+    const fromCoordinate = { x: fromX, y: fromY };
+    movePiece(toCoordinate, fromCoordinate);
   }
 
   // TODO: Debounce this?
