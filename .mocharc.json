@@ -1,6 +1,6 @@
 {
-    "require": "@babel/register",
+    "require": ["@babel/register", "mocha-snapshots", "ignore-styles", "./test-setup.js"],
     "recursive": true,
     "watch-files": ["test/**/*.test.js", "src/**/*.test.js"],
-    "watch-ignore": ["node_modules"]
+    "watch-ignore": ["node_modules", "*.css"]
 }

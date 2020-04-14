@@ -1,0 +1,46 @@
+.game-board-wrapper {
+  border-left: 1px solid rgba(255,255,255,0.5);
+  border-top: 1px solid rgba(255,255,255,0.5);
+  height: 90vw;
+  margin: 0 auto;
+  max-height: 65vh;
+  max-width: 65vh;
+  min-height: 360px;
+  min-width: 360px;
+  overflow: hidden;
+  position: relative;
+  width: 90vw;
+}
+
+.grid {
+  display: grid;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.grid--3 {
+  /* 5x5 grid: */
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-template-rows: 33.3% 33.3% 33.3%;
+}
+
+.grid--5 {
+  /* 5x5 grid: */
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+}
+
+.grid--7 {
+  /* 7x7 grid: */
+  grid-template-columns: 14.29% 14.29% 14.29% 14.29% 14.29% 14.29% 14.29%;
+  grid-template-rows: 14.29% 14.29% 14.29% 14.29% 14.29% 14.29% 14.29%;
+}
+
+.grid--9 {
+  /* 9x9 grid: */
+  grid-template-columns: 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% ;
+  grid-template-rows: 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% 11.11% ;
+}

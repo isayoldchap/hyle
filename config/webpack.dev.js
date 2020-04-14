@@ -14,7 +14,8 @@ module.exports = {
     },
     devServer: {
         contentBase: "dist",
-        overlay: true
+        overlay: true,
+        historyApiFallback: true
     }, 
     module: {
         rules: [
@@ -70,7 +71,13 @@ module.exports = {
                     }
                   }
                 ]
-              }
+            },
+            {
+                test: /\.(jpg|png)$/,
+                use: {
+                  loader: 'url-loader',
+                },
+            }
         ]
     }
 };

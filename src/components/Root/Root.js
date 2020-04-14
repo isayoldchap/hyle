@@ -2,27 +2,29 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ConnectedApp from '../App/App.connected';
 import Game from '../Game/Game';
+import { GameScreen } from '../game-screen/game-screen';
 
-import '../../css/App.css';
-import '../../css/bootstrap.css';
-import '../../css/bootstrap-theme.css';
-
-class Root extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <div>
-          <Route path="/" component={ConnectedApp} />
-          <div style={{ margin: 10 }}>
-            <Switch>
-              <Route path="/currentGame" component={Game} />
-              <Route component={Game} />
-            </Switch>
-          </div>
+export const Root = () => {
+  return (
+    <BrowserRouter>
+      <div>
+        <div style={{ margin: 10 }}>
+          <Switch>
+            <Route exact path="/" component={GameScreen} />
+            <Route
+              path="/currentGame"
+              component={() => {
+                return (
+                  <React.Fragment>
+                    <ConnectedApp />
+                    <Game />
+                  </React.Fragment>
+                );
+              }}
+            />
+          </Switch>
         </div>
-      </BrowserRouter>
-    );
-  }
-}
-
-export default Root;
+      </div>
+    </BrowserRouter>
+  );
+};

@@ -1,9 +1,5 @@
-import { createEngine } from '../engine/engine';
-import {
-  selectTurn,
-  selectOrderHalfMove,
-  selectLegalMoves
-} from '../selectors/gameSelector';
+import { createEngine, Roles } from '../engine/engine';
+import { selectTurn, selectOrderHalfMove, selectLegalMoves } from '../selectors/gameSelector';
 
 const UPDATE_GAME_STATE = 'UPDATE_GAME_STATE';
 const ORDER_HALF_MOVE = 'ORDER_HALF_MOVE';
@@ -30,6 +26,31 @@ export const handlePass = () => dispatch => {
 function isValid(moves, move) {
   return moves.some(each => each.x === move.x && each.y === move.y);
 }
+
+export const handleMovePiece = (toCoordinate = {}, fromCoordinate = {}) => (dispatch, getState) => {
+  function playMove(engine, move) {
+    engine.playMove(move);
+    const updatedState = engine.getState();
+    dispatch({ type: UPDATE_GAME_STATE, payload: updatedState });
+  }
+
+  const state = getState();
+  const turn = selectTurn(state);
+  const legalMoves = selectLegalMoves(state);
+
+  if (turn === Roles.ORDER) {
+    const legalEndMoves = legalMoves.map(move => move.end);
+    if (isValid(legalEndMoves, toCoordinate)) {
+      playMove(engine, { start: fromCoordinate, end: toCoordinate });
+    } else {
+      dispatch({ type: RESET_ORDER_HALF_MOVE, payload: toCoordinate });
+    }
+  } else if (turn === Roles.CHAOS) {
+    if (isValid(legalMoves, toCoordinate)) {
+      playMove(engine, toCoordinate);
+    }
+  }
+};
 
 export const handleClick = (x, y) => (dispatch, getState) => {
   function playMove(engine, move) {

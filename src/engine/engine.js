@@ -77,7 +77,7 @@ function computeScore(board) {
 function completeTurn(game, updatedBoard) {
   const round = game.round;
   const newScore = computeScore(updatedBoard);
-  const scoreKey = round === 1 ? 'player1Score' : 'player2Score';
+  const scoreKey = round === 1 ? 'player2Score' : 'player1Score';
   game[scoreKey] = newScore;
 
   const turn = game.turn === Roles.CHAOS ? Roles.ORDER : Roles.CHAOS;
