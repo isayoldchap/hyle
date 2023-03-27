@@ -309,7 +309,7 @@ exports["<GameBoardComponent />/When it renders/should render correctly(0)"] = [
                                 "type": "h3",
                                 "props": {},
                                 "children": [
-                                  "Steve"
+                                  "Player 1"
                                 ]
                               }
                             ]
@@ -470,7 +470,7 @@ exports["<GameBoardComponent />/When it renders/should render correctly(0)"] = [
                                 "type": "h3",
                                 "props": {},
                                 "children": [
-                                  "Kip"
+                                  "Player 2"
                                 ]
                               }
                             ]

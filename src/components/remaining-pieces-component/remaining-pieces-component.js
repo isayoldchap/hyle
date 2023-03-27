@@ -11,22 +11,15 @@ export const RemainingPiecesComponentOrientation = {
   VERTICAL: 'vertical'
 };
 
-export class RemainingPiecesComponent extends React.Component {
+export class RemainingPiecesComponent {
+
   render() {
     const { width, colorCounts, orientation } = this.props;
     const canvasContent =
       orientation === RemainingPiecesComponentOrientation.VERTICAL ? (
-        <canvas
-          id="remaining pieces"
-          width={width}
-          height={width * colorCounts.length}
-        />
+        <canvas id="remaining pieces" width={width} height={width * colorCounts.length} />
       ) : (
-        <canvas
-          id="remaining pieces"
-          width={width * colorCounts.length}
-          height={width}
-        />
+        <canvas id="remaining pieces" width={width * colorCounts.length} height={width} />
       );
 
     return <div>{canvasContent}</div>;
@@ -43,10 +36,12 @@ export class RemainingPiecesComponent extends React.Component {
   dimensions() {
     const { width, colorCounts, orientation } = this.props;
     if (orientation === RemainingPiecesComponentOrientation.VERTICAL) {
-      return { width: width, height: width * colorCounts.length };
-    } else if (orientation === RemainingPiecesComponentOrientation.HORIZONTAL) {
+      return { width, height: width * colorCounts.length };
+    } 
+    if (orientation === RemainingPiecesComponentOrientation.HORIZONTAL) {
       return { width: width * colorCounts.length, height: width };
-    }
+    } 
+    return null;
   }
 
   repaintRemainingComponents() {
@@ -60,27 +55,9 @@ export class RemainingPiecesComponent extends React.Component {
       .filter(colorCount => colorCount.count > 0)
       .forEach((colorCount, index) => {
         if (orientation === RemainingPiecesComponentOrientation.VERTICAL) {
-          renderPieceOnCanvas(
-            canvas,
-            0,
-            index * width,
-            width,
-            colorCount.color,
-            false,
-            false,
-            colorCount.count
-          );
+          renderPieceOnCanvas(canvas, 0, index * width, width, colorCount.color, false, false, colorCount.count);
         } else {
-          renderPieceOnCanvas(
-            canvas,
-            index * width,
-            0,
-            width,
-            colorCount.color,
-            false,
-            false,
-            colorCount.count
-          );
+          renderPieceOnCanvas(canvas, index * width, 0, width, colorCount.color, false, false, colorCount.count);
         }
       });
   }

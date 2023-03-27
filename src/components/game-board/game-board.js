@@ -8,7 +8,7 @@ import { withResizeDimensions } from '../with-resize-dimensions/with-resize-dime
 import { Roles } from '../../engine/engine';
 import { isEqual } from 'lodash';
 import { GameScoreboard } from '../game-scoreboard/game-scoreboard';
-import NewGameDialog from '../NewGameDialog/NewGameDialog';
+import NewGameDialog from '../new-game-dialog/new-game-dialog';
 
 export class GameBoardComponent extends Component {
   static propTypes = {

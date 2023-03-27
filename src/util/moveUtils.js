@@ -41,10 +41,13 @@ export const allLegalMovesFromLocation = (board, location) => {
   return allMovesFromLocation(location, board);
 };
 
+
+// to do this module should not know about roles - circular dependency was found here
 export const allLegalMoves = (turn, board) => {
   if (turn === Roles.CHAOS) {
     return legalChaosMovesSelector(board);
-  } else if (turn === Roles.ORDER) {
+  }
+  if (turn === Roles.ORDER) {
     return legalOrderMoveSelector(board);
   }
   return [];

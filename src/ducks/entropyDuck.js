@@ -110,30 +110,4 @@ const gameReducer = (state = engine.getState(), action) => {
   return state;
 };
 
-//const withHistory = reducer => (state, action) => {
-//  const oldState = state || {};
-//
-//  if (action.type === HistoryActionTypes.BACK) {
-//    const stateHistory = oldState.history || [];
-//    if (stateHistory.length === 1) {
-//      return oldState;
-//    }
-//
-//    const previousState = stateHistory[stateHistory.length - 1];
-//    return previousState;
-//  }
-//
-//  const newState = reducer(state, action);
-//
-//  if (state === newState) return state;
-//
-//  const previousHistory = oldState.history || [];
-//  const stateWithHistory = Object.assign({}, newState, {
-//    history: previousHistory.concat(oldState)
-//  });
-//
-//  return stateWithHistory;
-//};
-
-//  export const entropyReducer = withHistory(gameReducer);
 export const entropyReducer = gameReducer;

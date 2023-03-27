@@ -3,32 +3,21 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { Roles } from '../../engine/engine';
-import NextTileComponent from '../NextTileComponent/NextTileComponent.connected';
-import { EndOfRoundComponent } from '../EndOfRoundComponent/EndOfRoundComponent';
-import { EndOfGameComponent } from '../EndOfGameComponent/EndOfGameComponent';
+import NextTileComponent from '../next-tile-component/next-tile-component.connected';
+import { EndOfRoundComponent } from '../end-of-round-component/end-of-round-component';
+import { EndOfGameComponent } from '../end-of-game-component/end-of-game-component';
 
 export class CurrentTurnComponent extends React.Component {
-  render() {
-    const { moveNumber, roundNumber, endOfRound } = this.props;
-    return (
-      <div>
-        {/* {this.renderUndoButton()} */}
-        <p>Round number: {roundNumber}</p>
-        <p>Move number: {moveNumber}</p>
-        {!endOfRound && this.renderRoleSpecificContent()}
-        {endOfRound && this.renderEndOfRound()}
-      </div>
-    );
-  }
-
   renderRoleSpecificContent() {
     const { turn } = this.props;
 
     if (turn === Roles.CHAOS) {
       return this.renderChaos();
-    } else if (turn === Roles.ORDER) {
+    }
+    if (turn === Roles.ORDER) {
       return this.renderOrder();
-    } else return undefined;
+    }
+    return undefined;
   }
 
   renderChaos() {
@@ -47,7 +36,7 @@ export class CurrentTurnComponent extends React.Component {
         <h3>Order</h3>
         <p>Make a move or </p>
         <span>
-          <RaisedButton label="Pass" primary={true} onClick={pass} />
+          <RaisedButton label="Pass" primary onClick={pass} />
         </span>
       </div>
     );
@@ -55,18 +44,27 @@ export class CurrentTurnComponent extends React.Component {
 
   renderUndoButton() {
     const { back } = this.props;
-    return <RaisedButton label="Undo" primary={true} onClick={back} />;
+    return <RaisedButton label="Undo" primary onClick={back} />;
   }
 
   renderEndOfRound() {
     const { startNextRound, startNewGame, endOfGame, winner } = this.props;
     if (endOfGame) {
-      return (
-        <EndOfGameComponent handleStartNewGame={startNewGame} winner={winner} />
-      );
-    } else {
-      return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
+      return <EndOfGameComponent handleStartNewGame={startNewGame} winner={winner} />;
     }
+    return <EndOfRoundComponent handleStartNextRound={startNextRound} />;
+  }
+
+  render() {
+    const { moveNumber, roundNumber, endOfRound } = this.props;
+    return (
+      <div>
+        <p>Round number: {roundNumber}</p>
+        <p>Move number: {moveNumber}</p>
+        {!endOfRound && this.renderRoleSpecificContent()}
+        {endOfRound && this.renderEndOfRound()}
+      </div>
+    );
   }
 }
 

@@ -24,7 +24,8 @@ const isPalindrome = pattern => {
 export const scoreSingle = pattern => {
   if (isUnScorable(pattern)) {
     return 0;
-  } else if (isPalindrome(pattern)) {
+  }
+  if (isPalindrome(pattern)) {
     return pattern.length;
   }
   return 0;
@@ -37,9 +38,5 @@ const scoreRight = pattern => {
 
 export const scoreCombo = pattern => {
   if (tooSmall(pattern)) return 0;
-  return (
-    scoreSingle(pattern) +
-    scoreRight(dropLast(pattern)) +
-    scoreCombo(dropHead(pattern))
-  );
+  return scoreSingle(pattern) + scoreRight(dropLast(pattern)) + scoreCombo(dropHead(pattern));
 };

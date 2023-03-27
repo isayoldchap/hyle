@@ -11,9 +11,9 @@ const initializeAllGamePieces = colors => {
   const numberOfColors = colors.length;
   const allGamePieces = new Array(numberOfColors * numberOfColors);
 
-  for (let i = 0; i < numberOfColors; i++) {
-    let nextColor = colors[i];
-    let offset = i * numberOfColors;
+  for (let i = 0; i < numberOfColors; i += 1) {
+    const nextColor = colors[i];
+    const offset = i * numberOfColors;
     allGamePieces.fill(nextColor, offset, offset + numberOfColors);
   }
   return allGamePieces;

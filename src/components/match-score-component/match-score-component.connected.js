@@ -1,4 +1,4 @@
-import { MatchScoreComponent } from './MatchScoreComponent';
+import { MatchScoreComponent } from './match-score-component';
 import { connect } from 'react-redux';
 import {
   selectPlayer1Name,

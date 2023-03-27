@@ -1,4 +1,4 @@
-import { RemainingPiecesComponent } from './RemainingPiecesComponent';
+import { RemainingPiecesComponent } from './remaining-pieces-component';
 import { connect } from 'react-redux';
 import {
   selectRemainingColorCounts,

@@ -1,5 +1,5 @@
 import { getGameColors } from '../util/colorUtils';
-import { sizeSelector } from '../selectors/boardSelector';
+import { sizeSelector } from './boardSelector';
 
 export const selectRemainingColorCounts = state => {
   return state.remainingColorCounts;
@@ -63,11 +63,11 @@ export const selectWinning = state => {
   const player2Score = selectPlayer2Score(state);
   if (player1Score > player2Score) {
     return selectPlayer1Name(state);
-  } else if (player2Score > player1Score) {
-    return selectPlayer2Name(state);
-  } else {
-    return 'Nobody';
   }
+  if (player2Score > player1Score) {
+    return selectPlayer2Name(state);
+  }
+  return 'Nobody';
 };
 
 export const selectIsGameOver = state => {

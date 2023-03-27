@@ -1,9 +1,4 @@
-import {
-  initializeBoard,
-  placeTileOnBoard,
-  moveTileOnBoard,
-  allRowsAndColumns
-} from '../util/boardUtils';
+import { initializeBoard, placeTileOnBoard, moveTileOnBoard, allRowsAndColumns } from '../util/boardUtils';
 import { scoreCombo } from '../util/scoringUtils';
 import { allLegalMoves } from '../util/moveUtils';
 import { computeRemainingColorCounts, getGameColors } from '../util/colorUtils';
@@ -16,23 +11,22 @@ export const Roles = {
 
 const defaultGameConfig = {
   boardSize: 5,
-  player1Name: 'Steve', // TODO make it so the enames  can be entered in the ew game dialog
-  player2Name: 'Kip',
+  player1Name: 'Player 1',
+  player2Name: 'Player 2',
   liveScore: true
 };
 
 const makeEntropyCell = (row, column, color = undefined) => ({
-  row: row,
+  row,
   col: column,
   key: `${row}:${column}`,
-  color: color
+  color
 });
 
-export const initializeEntropyBoard = size =>
-  initializeBoard(size, makeEntropyCell);
+export const initializeEntropyBoard = size => initializeBoard(size, makeEntropyCell);
 
 const initializeGame = (config = defaultGameConfig) => {
-  const boardSize = config.boardSize;
+  const { boardSize } = config;
   const colors = getGameColors(boardSize);
   const board = initializeEntropyBoard(boardSize);
   const pieceSequence = generateGamePieceSequence(colors);
@@ -51,8 +45,8 @@ const initializeGame = (config = defaultGameConfig) => {
     nextPiece: pieceSequence[0],
     remainingPieces: pieceSequence,
     remainingColorCounts,
-    legalMoves: legalMoves,
-    colors: colors,
+    legalMoves,
+    colors,
     board
   };
 
@@ -75,31 +69,28 @@ function computeScore(board) {
 }
 
 function completeTurn(game, updatedBoard) {
-  const round = game.round;
   const newScore = computeScore(updatedBoard);
-  const scoreKey = round === 1 ? 'player2Score' : 'player1Score';
-  game[scoreKey] = newScore;
 
   const turn = game.turn === Roles.CHAOS ? Roles.ORDER : Roles.CHAOS;
   const legalMoves = allLegalMoves(turn, updatedBoard);
 
-  let remainingColorCounts = game.remainingColorCounts;
-  let remainingPieces = game.remainingPieces;
-  let nextPiece = game.nextPiece;
-  let roundInProgress = game.roundInProgress;
-  let moveNumber = game.moveNumber;
+  const { round } = game;
+  let { moveNumber, remainingColorCounts, remainingPieces } = game;
+  let nextPiece;
 
   if (turn === Roles.CHAOS) {
-    nextPiece = remainingPieces[0];
+    [nextPiece] = remainingPieces;
   } else {
     remainingPieces = remainingPieces.slice(1);
     remainingColorCounts = computeRemainingColorCounts(remainingPieces);
-    moveNumber = moveNumber + 1;
-    nextPiece = undefined;
+    moveNumber += 1;
   }
+
+  const scoreKey = round === 1 ? 'player2Score' : 'player1Score';
 
   return {
     ...game,
+    [scoreKey]: newScore,
     turn,
     board: updatedBoard,
     legalMoves,
@@ -107,8 +98,7 @@ function completeTurn(game, updatedBoard) {
     moveNumber,
     nextPiece,
     remainingPieces,
-    remainingColorCounts,
-    roundInProgress
+    remainingColorCounts
   };
 }
 
@@ -117,8 +107,7 @@ function reduxState(game) {
 }
 
 function advanceRound(game) {
-  let { player1Score, player2Score, round, config } = game;
-  // if (game.roundInProgress) return game;
+  const { player1Score, player2Score, round, config } = game;
 
   const updatedGame = initializeGame(config);
   return {
@@ -131,7 +120,7 @@ function advanceRound(game) {
 
 function handleChaosMove(game, { x, y }) {
   const previousBoardState = game.board;
-  const nextPiece = game.nextPiece;
+  const { nextPiece } = game;
 
   const updatedBoard = placeTileOnBoard(previousBoardState, y, x, nextPiece);
   if (updatedBoard !== previousBoardState) {
@@ -158,19 +147,19 @@ function handleMove(game, moveDefinition) {
   const { turn } = game;
   if (turn === Roles.CHAOS) {
     return handleChaosMove(game, moveDefinition);
-  } else if (turn === Roles.ORDER) {
-    return handleOrderMove(game, moveDefinition);
-  } else {
-    return game;
   }
+  if (turn === Roles.ORDER) {
+    return handleOrderMove(game, moveDefinition);
+  }
+  return game;
 }
 
 export const createEngine = (config = defaultGameConfig) => {
   let game = initializeGame(config);
 
   return {
-    newGame: (config = defaultGameConfig) => {
-      const mergedConfig = { ...game.config, ...config };
+    newGame: (newGameConfig = defaultGameConfig) => {
+      const mergedConfig = { ...game.config, ...newGameConfig };
       game = initializeGame(mergedConfig);
       return game;
     },

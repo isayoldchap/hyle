@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import NewGameDialog from '../NewGameDialog/NewGameDialog';
+import NewGameDialog from '../new-game-dialog/new-game-dialog';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 

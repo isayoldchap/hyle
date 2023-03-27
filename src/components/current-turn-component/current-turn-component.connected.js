@@ -8,9 +8,9 @@ import {
   selectRoundNumber
 } from '../../selectors/gameSelector';
 import { createBackAction } from '../../actioncreators/historyActions';
-import { advanceRound, newGame } from '../../ducks/entropyDuck';
-import { CurrentTurnComponent } from './CurrentTurnComponent';
-import { handlePass } from '../../ducks/entropyDuck';
+import { advanceRound, newGame , handlePass } from '../../ducks/entropyDuck';
+import { CurrentTurnComponent } from './current-turn-component';
+
 
 const mapStateToProps = state => ({
   roundNumber: selectRoundNumber(state),
