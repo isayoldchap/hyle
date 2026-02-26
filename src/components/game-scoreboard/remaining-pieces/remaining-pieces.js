@@ -9,13 +9,17 @@ export const RemainingPieces = props => {
 
     const src = getGamePieceSrc(color);
     return (
-      <div key={color} style={{ padding: '0 .5rem', display: 'inline-block' }}>
-        <img align="left" alt="remaining piece" src={src} style={{ width: '2rem', height: '2rem' }} />
-        <span style={{ lineHeight: '2rem' }}>{count}</span>
+      <div key={color} style={{ padding: '0 0.3rem', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+        <img alt="remaining piece" src={src} style={{ width: '1.6rem', height: '1.6rem' }} />
+        <span style={{ fontSize: '0.82rem', fontWeight: 500 }}>{count}</span>
       </div>
     );
   });
-  return <div>{remainingPieces}</div>;
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+      {remainingPieces}
+    </div>
+  );
 };
 
 RemainingPieces.propTypes = {

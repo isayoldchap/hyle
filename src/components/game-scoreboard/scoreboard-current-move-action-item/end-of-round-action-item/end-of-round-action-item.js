@@ -6,26 +6,9 @@ export const EndOfRoundActionItem = props => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <p style={{ marginBottom: '.5rem' }}>End of Round</p>
-      <button
-        type="button"
-        onClick={startNextRound}
-        style={{
-          background: 'lightCoral',
-          border: 'none',
-          borderRadius: 3,
-          color: 'white',
-          cursor: 'pointer',
-          display: 'flex',
-          flex: 1,
-          fontSize: '.8rem',
-          fontWeight: 200,
-          margin: '0 1rem',
-          padding: '.5rem 1rem',
-          textTransform: 'uppercase'
-        }}
-      >
-        <span style={{ flex: 1, alignSelf: 'center' }}>Continue</span>
+      <p style={{ marginBottom: '0.6rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>End of Round</p>
+      <button type="button" onClick={startNextRound} className="btn">
+        Continue
       </button>
     </div>
   );

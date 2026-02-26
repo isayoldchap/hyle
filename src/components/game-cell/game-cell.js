@@ -17,24 +17,17 @@ export const GameCell = props => {
     })
   });
 
-  let background;
-  if (!isOver && canDrop) background = 'rgba(255,255,255,0.07)'; // white
-  if (isOver && canDrop) background = 'rgba(114,191,68,0.35)'; // green
+  let overlayClassName = 'game-cell-overlay';
+  if (isOver && canDrop) {
+    overlayClassName += ' game-cell-overlay--hover';
+  } else if (canDrop) {
+    overlayClassName += ' game-cell-overlay--legal';
+  }
 
   return (
     <div ref={drop} className="game-cell">
       <div>{children}</div>
-      {(isOver || (!isOver && canDrop)) && (
-        <div
-          style={{
-            background,
-            height: '100%',
-            position: 'absolute',
-            width: '100%',
-            transition: 'background 500ms ease'
-          }}
-        />
-      )}
+      <div className={overlayClassName} />
     </div>
   );
 };

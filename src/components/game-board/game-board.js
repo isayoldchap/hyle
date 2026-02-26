@@ -141,27 +141,13 @@ export class GameBoardComponent extends Component {
           <div className={className}>{cells}</div>
           <GameBoardDragLayer cellSize={cellSize} />
         </div>
-        <div style={{ width: 800, maxWidth: 800, margin: '1rem auto', textAlign: 'center' }}>
-          <button
-            type="button"
-            onClick={this.openNewGameModal}
-            style={{
-              background: 'lightCoral',
-              textTransform: 'uppercase',
-              fontWeight: 200,
-              fontSize: '.8rem',
-              border: 'none',
-              borderRadius: 3,
-              color: 'white',
-              flex: 1,
-              margin: '0 1rem',
-              padding: '.5rem 1rem',
-              cursor: 'pointer'
-            }}
-          >
-            <span>New Game</span>
-          </button>
-        </div>
+        {!this.props.cells.some(c => c.color) && (
+          <div style={{ maxWidth: 800, margin: '1.25rem auto', textAlign: 'center' }}>
+            <button type="button" onClick={this.openNewGameModal} className="btn">
+              New Game
+            </button>
+          </div>
+        )}
         <NewGameDialog open={newGameModalActive} startAction={this.startGame} closeAction={this.closeNewGameModal} />
       </React.Fragment>
     );

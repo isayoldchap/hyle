@@ -7,22 +7,46 @@ export const ScoreboardHeader = props => {
   return (
     <div
       style={{
-        borderBottom: '1px solid rgba(0,0,0,0.5)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         margin: '0 auto',
         marginBottom: '1rem',
         maxWidth: width,
-        paddingBottom: '.5rem',
+        paddingBottom: '0.75rem',
         width
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-        <div style={{ flex: 1, textAlign: 'center' }}>Round: {roundNumber}</div>
+      <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center' }}>
+        <div style={{ flex: 1, textAlign: 'center' }}>
+          <div style={{
+            color: 'rgba(255, 255, 255, 0.4)',
+            fontSize: '0.55rem',
+            fontWeight: 500,
+            letterSpacing: '0.14em',
+            marginBottom: '0.2rem',
+            textTransform: 'uppercase'
+          }}>
+            Round
+          </div>
+          <div style={{ fontSize: '1.1rem', fontWeight: 600, lineHeight: 1 }}>{roundNumber}</div>
+        </div>
 
         <div style={{ flex: 2, textAlign: 'center' }}>
           <ConnectedRemainingPieces />
         </div>
 
-        <div style={{ flex: 1, textAlign: 'center' }}>Move: {moveNumber}</div>
+        <div style={{ flex: 1, textAlign: 'center' }}>
+          <div style={{
+            color: 'rgba(255, 255, 255, 0.4)',
+            fontSize: '0.55rem',
+            fontWeight: 500,
+            letterSpacing: '0.14em',
+            marginBottom: '0.2rem',
+            textTransform: 'uppercase'
+          }}>
+            Move
+          </div>
+          <div style={{ fontSize: '1.1rem', fontWeight: 600, lineHeight: 1 }}>{moveNumber}</div>
+        </div>
       </div>
     </div>
   );

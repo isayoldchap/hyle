@@ -40,25 +40,8 @@ export class ScoreboardCurrentMoveActionItem extends Component {
 
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: cellSize }}>
-        <button
-          type="button"
-          onClick={pass}
-          style={{
-            background: 'lightCoral',
-            textTransform: 'uppercase',
-            fontWeight: 200,
-            fontSize: '.8rem',
-            border: 'none',
-            borderRadius: 3,
-            color: 'white',
-            display: 'flex',
-            flex: 1,
-            margin: '0 1rem',
-            padding: '.5rem 1rem',
-            cursor: 'pointer'
-          }}
-        >
-          <span style={{ flex: 1, alignSelf: 'center' }}>Pass</span>
+        <button type="button" onClick={pass} className="btn">
+          Pass
         </button>
       </div>
     );
