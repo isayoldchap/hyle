@@ -1,26 +1,75 @@
 import { createEngine, Roles } from '../engine/engine';
-import { selectTurn, selectOrderHalfMove, selectLegalMoves } from '../selectors/gameSelector';
+import { selectTurn, selectOrderHalfMove, selectLegalMoves, selectIsEndOfRound, selectIsGameOver } from '../selectors/gameSelector';
+import { getBestOrderMove } from '../ai/orderAI';
+import { getBestChaosMove } from '../ai/chaosAI';
 
 const UPDATE_GAME_STATE = 'UPDATE_GAME_STATE';
 const ORDER_HALF_MOVE = 'ORDER_HALF_MOVE';
 const RESET_ORDER_HALF_MOVE = 'RESET_ORDER_HALF_MOVE';
+const SET_AI_CONFIG = 'SET_AI_CONFIG';
 
 const engine = createEngine();
+
+const isAITurn = state => {
+  const { turn, round, aiConfig } = state;
+  const { player1IsAI = false, player2IsAI = false } = aiConfig || {};
+
+  // Round 1: Player 1 = Chaos, Player 2 = Order
+  // Round 2: Player 1 = Order, Player 2 = Chaos
+  return (
+    (turn === Roles.CHAOS && round === 1 && player1IsAI) ||
+    (turn === Roles.ORDER && round === 1 && player2IsAI) ||
+    (turn === Roles.CHAOS && round === 2 && player2IsAI) ||
+    (turn === Roles.ORDER && round === 2 && player1IsAI)
+  );
+};
+
+export const triggerAIMove = () => (dispatch, getState) => {
+  const state = getState();
+  if (selectIsEndOfRound(state) || selectIsGameOver(state)) return;
+  if (!isAITurn(state)) return;
+
+  setTimeout(() => {
+    const currentState = getState();
+    if (selectIsEndOfRound(currentState) || selectIsGameOver(currentState)) return;
+
+    const { turn, board, nextPiece } = currentState;
+
+    if (turn === Roles.ORDER) {
+      const move = getBestOrderMove(board);
+      if (move.pass) {
+        dispatch(handlePass());
+      } else {
+        dispatch(handleMovePiece(move.end, move.start));
+      }
+    } else {
+      const cell = getBestChaosMove(board, nextPiece);
+      if (cell) {
+        dispatch(handleMovePiece(cell));
+      }
+    }
+  }, 600);
+};
 
 export const newGame = options => dispatch => {
   engine.newGame(options);
   dispatch({ type: UPDATE_GAME_STATE, payload: engine.getState() });
+  dispatch({ type: SET_AI_CONFIG, payload: { player2IsAI: !!options.playAgainstAI } });
+  dispatch(triggerAIMove());
 };
 
 export const advanceRound = () => dispatch => {
   engine.advanceRound();
   dispatch({ type: UPDATE_GAME_STATE, payload: engine.getState() });
+  dispatch(triggerAIMove());
 };
 
-export const handlePass = () => dispatch => {
+export const handlePass = () => (dispatch, getState) => {
+  if (selectIsEndOfRound(getState())) return;
   engine.playMove({ pass: true });
   const updatedState = engine.getState();
   dispatch({ type: UPDATE_GAME_STATE, payload: updatedState });
+  dispatch(triggerAIMove());
 };
 
 function isValid(moves, move) {
@@ -28,16 +77,16 @@ function isValid(moves, move) {
 }
 
 export const handleMovePiece = (toCoordinate = {}, fromCoordinate = {}) => (dispatch, getState) => {
-  function playMove(engine, move) {
-    engine.playMove(move);
-    const updatedState = engine.getState();
+  function playMove(eng, move) {
+    eng.playMove(move);
+    const updatedState = eng.getState();
     dispatch({ type: UPDATE_GAME_STATE, payload: updatedState });
+    dispatch(triggerAIMove());
   }
 
   const state = getState();
   const turn = selectTurn(state);
   const legalMoves = selectLegalMoves(state);
-
   if (turn === Roles.ORDER) {
     const legalEndMoves = legalMoves.map(move => move.end);
     if (isValid(legalEndMoves, toCoordinate)) {
@@ -53,10 +102,11 @@ export const handleMovePiece = (toCoordinate = {}, fromCoordinate = {}) => (disp
 };
 
 export const handleClick = (x, y) => (dispatch, getState) => {
-  function playMove(engine, move) {
-    engine.playMove(move);
-    const updatedState = engine.getState();
+  function playMove(eng, move) {
+    eng.playMove(move);
+    const updatedState = eng.getState();
     dispatch({ type: UPDATE_GAME_STATE, payload: updatedState });
+    dispatch(triggerAIMove());
   }
 
   const clickLocation = { x, y };
@@ -86,7 +136,12 @@ export const handleClick = (x, y) => (dispatch, getState) => {
   }
 };
 
-const gameReducer = (state = engine.getState(), action) => {
+const initialState = {
+  ...engine.getState(),
+  aiConfig: { player1IsAI: false, player2IsAI: false }
+};
+
+const gameReducer = (state = initialState, action) => {
   const actionType = action.type;
 
   if (actionType === UPDATE_GAME_STATE) {
@@ -104,6 +159,11 @@ const gameReducer = (state = engine.getState(), action) => {
     return {
       ...state,
       orderHalfMove: undefined
+    };
+  } else if (actionType === SET_AI_CONFIG) {
+    return {
+      ...state,
+      aiConfig: action.payload
     };
   }
 

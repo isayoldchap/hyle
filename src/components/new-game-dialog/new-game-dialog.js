@@ -12,17 +12,19 @@ class NewGameDialog extends React.Component {
 
     this.toggleGridLines = this.toggleGridLines.bind(this);
     this.toggleLiveScore = this.toggleLiveScore.bind(this);
+    this.togglePlayAgainstAI = this.togglePlayAgainstAI.bind(this);
 
     this.state = {
       showLiveScore: true,
       showGridLines: true,
-      boardSize: 5
+      boardSize: 5,
+      playAgainstAI: false
     };
   }
 
   render() {
     const { closeAction, open } = this.props;
-    const { showLiveScore, showGridLines, boardSize } = this.state;
+    const { showLiveScore, showGridLines, boardSize, playAgainstAI } = this.state;
 
     const styles = {
       block: {
@@ -93,6 +95,12 @@ class NewGameDialog extends React.Component {
           onToggle={this.toggleGridLines}
           style={styles.toggle}
         />
+        <Toggle
+          label="Play against AI"
+          toggled={playAgainstAI}
+          onToggle={this.togglePlayAgainstAI}
+          style={styles.toggle}
+        />
       </Dialog>
     );
   }
@@ -111,6 +119,12 @@ class NewGameDialog extends React.Component {
   toggleGridLines(event, value) {
     this.setState({
       showGridLines: value
+    });
+  }
+
+  togglePlayAgainstAI(event, value) {
+    this.setState({
+      playAgainstAI: value
     });
   }
 
