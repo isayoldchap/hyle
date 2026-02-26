@@ -1,7 +1,6 @@
 import { createEngine, Roles } from '../engine/engine';
 import { selectTurn, selectOrderHalfMove, selectLegalMoves, selectIsEndOfRound, selectIsGameOver } from '../selectors/gameSelector';
-import { getBestOrderMove } from '../ai/orderAI';
-import { getBestChaosMove } from '../ai/chaosAI';
+import { isAITurn, getAIMove } from '../ai/aiOrchestrator';
 
 const UPDATE_GAME_STATE = 'UPDATE_GAME_STATE';
 const ORDER_HALF_MOVE = 'ORDER_HALF_MOVE';
@@ -9,20 +8,6 @@ const RESET_ORDER_HALF_MOVE = 'RESET_ORDER_HALF_MOVE';
 const SET_AI_CONFIG = 'SET_AI_CONFIG';
 
 const engine = createEngine();
-
-const isAITurn = state => {
-  const { turn, round, aiConfig } = state;
-  const { player1IsAI = false, player2IsAI = false } = aiConfig || {};
-
-  // Round 1: Player 1 = Chaos, Player 2 = Order
-  // Round 2: Player 1 = Order, Player 2 = Chaos
-  return (
-    (turn === Roles.CHAOS && round === 1 && player1IsAI) ||
-    (turn === Roles.ORDER && round === 1 && player2IsAI) ||
-    (turn === Roles.CHAOS && round === 2 && player2IsAI) ||
-    (turn === Roles.ORDER && round === 2 && player1IsAI)
-  );
-};
 
 export const triggerAIMove = () => (dispatch, getState) => {
   const state = getState();
@@ -33,20 +18,15 @@ export const triggerAIMove = () => (dispatch, getState) => {
     const currentState = getState();
     if (selectIsEndOfRound(currentState) || selectIsGameOver(currentState)) return;
 
-    const { turn, board, nextPiece } = currentState;
+    const { board, turn, nextPiece } = currentState;
+    const move = getAIMove(board, turn, nextPiece);
 
-    if (turn === Roles.ORDER) {
-      const move = getBestOrderMove(board);
-      if (move.pass) {
-        dispatch(handlePass());
-      } else {
-        dispatch(handleMovePiece(move.end, move.start));
-      }
+    if (move.pass) {
+      dispatch(handlePass());
+    } else if (move.cell) {
+      dispatch(handleMovePiece(move.cell));
     } else {
-      const cell = getBestChaosMove(board, nextPiece);
-      if (cell) {
-        dispatch(handleMovePiece(cell));
-      }
+      dispatch(handleMovePiece(move.end, move.start));
     }
   }, 600);
 };
