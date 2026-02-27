@@ -11,10 +11,12 @@ const minimax = (board, depth, isOrderTurn, alpha, beta, nextPiece) => {
 
   if (isOrderTurn) {
     const moves = legalOrderMoveSelector(board);
-    // Passing is always legal for Order — seed best with its eval
-    let best = evalBoard(board, null);
-    if (moves.length === 0) return best;
-    alpha = Math.max(alpha, best);
+
+    // Pass is always legal. Evaluate it by letting Chaos move on the
+    // current board — same depth accounting as any real move.
+    const passVal = minimax(board, depth - 1, false, alpha, beta, nextPiece);
+    let best = passVal;
+    alpha = Math.max(alpha, passVal);
     if (beta <= alpha) return best;
 
     for (const move of moves) {

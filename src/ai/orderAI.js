@@ -28,7 +28,7 @@ const edgeScore = (end, boardSize) => {
 
 // Combined evaluation: actual score dominates, then potential, then edge position.
 const ACTUAL_WEIGHT = 1000;
-const POTENTIAL_WEIGHT = 10;
+const POTENTIAL_WEIGHT = 150;
 const EDGE_WEIGHT = 1;
 
 export const evalBoard = (board, end) => {

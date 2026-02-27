@@ -62,7 +62,7 @@ export const GameBoardDragLayer = props => {
 
   return (
     <div style={layerStyles}>
-      <div style={getItemStyles(initialOffset, currentOffset, false)}>{renderItem()}</div>
+      <div style={{ ...getItemStyles(initialOffset, currentOffset, false), pointerEvents: 'none' }}>{renderItem()}</div>
     </div>
   );
 };
