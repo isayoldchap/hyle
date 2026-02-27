@@ -25,7 +25,8 @@
 
 .game-cell-overlay--hover {
   animation: none;
-  background: rgba(114, 191, 68, 0.18);
+  background: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
   opacity: 1;
 }
 

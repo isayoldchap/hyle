@@ -2,7 +2,7 @@ import { evalBoard } from './orderAI';
 import { legalOrderMoveSelector, legalChaosMovesSelector } from '../util/moveUtils';
 import { moveTileOnBoard, placeTileOnBoard } from '../util/boardUtils';
 
-export const DEFAULT_DEPTH = 4;
+export const DEFAULT_DEPTH = 5;
 
 // Alpha-beta minimax. Returns an eval score from Order's perspective
 // (higher = better for Order, lower = better for Chaos).
