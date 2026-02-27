@@ -7,6 +7,7 @@ import {
   selectRoundNumber,
   selectTurn
 } from '../../../selectors/gameSelector';
+import { handleResign } from '../../../ducks/entropyDuck';
 import { ScoreboardCurrentTurn } from './scoreboard-current-turn';
 
 export const mapStateToProps = state => {
@@ -20,4 +21,8 @@ export const mapStateToProps = state => {
   };
 };
 
-export const ConnectedScoreboardCurrentTurn = connect(mapStateToProps)(ScoreboardCurrentTurn);
+const mapDispatchToProps = {
+  resign: handleResign
+};
+
+export const ConnectedScoreboardCurrentTurn = connect(mapStateToProps, mapDispatchToProps)(ScoreboardCurrentTurn);

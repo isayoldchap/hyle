@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const ScoreboardPlayerStatusIndicator = props => {
-  const { isChaos, isCurrentTurn, playerName, playerScore } = props;
+  const { isChaos, isCurrentTurn, playerName, playerScore, resign } = props;
 
   const cardStyle = {
     background: isCurrentTurn ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.3)',
@@ -53,22 +53,31 @@ export const ScoreboardPlayerStatusIndicator = props => {
       </div>
 
       <div style={{ padding: '0.4rem 0.75rem 0.5rem' }}>
-        <span style={{
-          color: roleColor,
-          fontSize: '0.62rem',
-          fontWeight: 700,
-          letterSpacing: '0.14em',
-          textTransform: 'uppercase',
-        }}>
-          {isChaos ? 'Chaos' : 'Order'}
-        </span>
-        <span style={{
-          color: 'rgba(255, 255, 255, 0.35)',
-          fontSize: '0.62rem',
-          marginLeft: '0.4rem',
-        }}>
-          {isChaos ? 'Place the next piece' : 'Make a move or pass'}
-        </span>
+        <div>
+          <span style={{
+            color: roleColor,
+            fontSize: '0.62rem',
+            fontWeight: 700,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+          }}>
+            {isChaos ? 'Chaos' : 'Order'}
+          </span>
+          <span style={{
+            color: 'rgba(255, 255, 255, 0.35)',
+            fontSize: '0.62rem',
+            marginLeft: '0.4rem',
+          }}>
+            {isChaos ? 'Place the next piece' : 'Make a move or pass'}
+          </span>
+        </div>
+        {resign && (
+          <div style={{ marginTop: '0.4rem', visibility: isCurrentTurn ? 'visible' : 'hidden' }}>
+            <button type="button" onClick={resign} className="btn btn--resign">
+              Resign
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -78,12 +87,14 @@ ScoreboardPlayerStatusIndicator.propTypes = {
   isChaos: PropTypes.bool,
   isCurrentTurn: PropTypes.bool,
   playerName: PropTypes.string,
-  playerScore: PropTypes.number
+  playerScore: PropTypes.number,
+  resign: PropTypes.func
 };
 
 ScoreboardPlayerStatusIndicator.defaultProps = {
   isChaos: false,
   isCurrentTurn: false,
   playerName: null,
-  playerScore: null
+  playerScore: null,
+  resign: null
 };

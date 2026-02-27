@@ -58,7 +58,15 @@ export const selectIsEndOfRound = state => {
   return selectRemainingPieces(state).length === 0;
 };
 
+export const selectResignedPlayer = state => state.resignedPlayer;
+
 export const selectWinning = state => {
+  const resigned = selectResignedPlayer(state);
+  if (resigned) {
+    const player1Name = selectPlayer1Name(state);
+    const player2Name = selectPlayer2Name(state);
+    return resigned === player1Name ? player2Name : player1Name;
+  }
   const player1Score = selectPlayer1Score(state);
   const player2Score = selectPlayer2Score(state);
   if (player1Score > player2Score) {
@@ -71,6 +79,7 @@ export const selectWinning = state => {
 };
 
 export const selectIsGameOver = state => {
+  if (selectResignedPlayer(state)) return true;
   const round = selectRoundNumber(state);
   const endOfRound = selectIsEndOfRound(state);
   return endOfRound && round === 2;

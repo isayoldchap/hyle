@@ -5,7 +5,7 @@ import { ScoreboardPlayerStatusIndicator } from '../scoreboard-player-status-ind
 import { ConnectedScoreboardCurrentMoveActionItem } from '../scoreboard-current-move-action-item/scoreboard-current-move-action-item.connected';
 
 export const ScoreboardCurrentTurn = props => {
-  const { cellSize, player1Name, player1Score, player2Name, player2Score, roundNumber, turn, width } = props;
+  const { cellSize, player1Name, player1Score, player2Name, player2Score, resign, roundNumber, turn, width } = props;
 
   const currentTurnIsChaos = turn === Roles.CHAOS;
 
@@ -25,6 +25,7 @@ export const ScoreboardCurrentTurn = props => {
             playerScore={player1Score}
             isChaos={player1IsCurrentChaos}
             isCurrentTurn={isPlayer1Turn}
+            resign={resign}
           />
         </div>
 
@@ -38,6 +39,7 @@ export const ScoreboardCurrentTurn = props => {
             playerScore={player2Score}
             isChaos={player2IsCurrentChaos}
             isCurrentTurn={isPlayer2Turn}
+            resign={resign}
           />
         </div>
       </div>
@@ -51,6 +53,7 @@ ScoreboardCurrentTurn.propTypes = {
   player1Score: PropTypes.number,
   player2Name: PropTypes.string,
   player2Score: PropTypes.number,
+  resign: PropTypes.func,
   roundNumber: PropTypes.number,
   turn: PropTypes.string,
   width: PropTypes.number
@@ -62,6 +65,7 @@ ScoreboardCurrentTurn.defaultProps = {
   player1Score: null,
   player2Name: null,
   player2Score: null,
+  resign: null,
   roundNumber: null,
   turn: null,
   width: null

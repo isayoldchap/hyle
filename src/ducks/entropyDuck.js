@@ -6,6 +6,7 @@ const UPDATE_GAME_STATE = 'UPDATE_GAME_STATE';
 const ORDER_HALF_MOVE = 'ORDER_HALF_MOVE';
 const RESET_ORDER_HALF_MOVE = 'RESET_ORDER_HALF_MOVE';
 const SET_AI_CONFIG = 'SET_AI_CONFIG';
+const RESIGN = 'RESIGN';
 
 const engine = createEngine();
 
@@ -18,8 +19,11 @@ export const triggerAIMove = () => (dispatch, getState) => {
     const currentState = getState();
     if (selectIsEndOfRound(currentState) || selectIsGameOver(currentState)) return;
 
-    const { board, turn, nextPiece } = currentState;
-    const move = getAIMove(board, turn, nextPiece);
+    const { board, turn, nextPiece, remainingPieces } = currentState;
+    // nextPiece is undefined when it's Order's turn (the engine only sets it for Chaos).
+    // Use remainingPieces[0] instead so the minimax lookahead uses a real piece for Chaos nodes.
+    const aiNextPiece = nextPiece ?? remainingPieces?.[0];
+    const move = getAIMove(board, turn, aiNextPiece);
 
     if (move.pass) {
       dispatch(handlePass());
@@ -31,7 +35,7 @@ export const triggerAIMove = () => (dispatch, getState) => {
   }, 600);
 };
 
-export const newGame = options => dispatch => {
+export const newGame = (options = {}) => dispatch => {
   engine.newGame(options);
   dispatch({ type: UPDATE_GAME_STATE, payload: engine.getState() });
   dispatch({ type: SET_AI_CONFIG, payload: { player2IsAI: !!options.playAgainstAI } });
@@ -50,6 +54,17 @@ export const handlePass = () => (dispatch, getState) => {
   const updatedState = engine.getState();
   dispatch({ type: UPDATE_GAME_STATE, payload: updatedState });
   dispatch(triggerAIMove());
+};
+
+export const handleResign = () => (dispatch, getState) => {
+  const { turn, round, config } = getState();
+  // Round 1: Player 1 = Chaos, Player 2 = Order
+  // Round 2: Player 1 = Order, Player 2 = Chaos
+  const resigningPlayer =
+    (round === 1 && turn === Roles.CHAOS) || (round === 2 && turn === Roles.ORDER)
+      ? config.player1Name
+      : config.player2Name;
+  dispatch({ type: RESIGN, payload: resigningPlayer });
 };
 
 function isValid(moves, move) {
@@ -128,7 +143,13 @@ const gameReducer = (state = initialState, action) => {
     return {
       ...state,
       ...action.payload,
-      orderHalfMove: undefined
+      orderHalfMove: undefined,
+      resignedPlayer: undefined
+    };
+  } else if (actionType === RESIGN) {
+    return {
+      ...state,
+      resignedPlayer: action.payload
     };
   } else if (actionType === ORDER_HALF_MOVE) {
     return {

@@ -153,6 +153,19 @@ body {
   transform: translateY(0);
 }
 
+.btn--resign {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.65rem;
+  padding: 0.3rem 1rem;
+}
+
+.btn--resign:hover {
+  background: rgba(201, 69, 69, 0.12);
+  border-color: rgba(201, 69, 69, 0.5);
+  color: rgba(255, 100, 100, 0.85);
+}
+
 .stat-label {
   color: var(--text-muted);
   font-size: 0.55rem;
