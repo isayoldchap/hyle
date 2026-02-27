@@ -15,24 +15,28 @@ export const triggerAIMove = () => (dispatch, getState) => {
   if (selectIsEndOfRound(state) || selectIsGameOver(state)) return;
   if (!isAITurn(state)) return;
 
-  setTimeout(() => {
-    const currentState = getState();
-    if (selectIsEndOfRound(currentState) || selectIsGameOver(currentState)) return;
+  // Use requestAnimationFrame so the board renders the human's move first,
+  // then compute the AI move on the next tick to avoid blocking the paint.
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const currentState = getState();
+      if (selectIsEndOfRound(currentState) || selectIsGameOver(currentState)) return;
 
-    const { board, turn, nextPiece, remainingPieces } = currentState;
-    // nextPiece is undefined when it's Order's turn (the engine only sets it for Chaos).
-    // Use remainingPieces[0] instead so the minimax lookahead uses a real piece for Chaos nodes.
-    const aiNextPiece = nextPiece ?? remainingPieces?.[0];
-    const move = getAIMove(board, turn, aiNextPiece);
+      const { board, turn, nextPiece, remainingPieces } = currentState;
+      // nextPiece is undefined when it's Order's turn (the engine only sets it for Chaos).
+      // Use remainingPieces[0] instead so the minimax lookahead uses a real piece for Chaos nodes.
+      const aiNextPiece = nextPiece ?? remainingPieces?.[0];
+      const move = getAIMove(board, turn, aiNextPiece);
 
-    if (move.pass) {
-      dispatch(handlePass());
-    } else if (move.cell) {
-      dispatch(handleMovePiece(move.cell));
-    } else {
-      dispatch(handleMovePiece(move.end, move.start));
-    }
-  }, 600);
+      if (move.pass) {
+        dispatch(handlePass());
+      } else if (move.cell) {
+        dispatch(handleMovePiece(move.cell));
+      } else {
+        dispatch(handleMovePiece(move.end, move.start));
+      }
+    }, 0);
+  });
 };
 
 export const newGame = (options = {}) => dispatch => {
