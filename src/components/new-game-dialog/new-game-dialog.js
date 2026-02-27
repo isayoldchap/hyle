@@ -14,11 +14,12 @@ class NewGameDialog extends React.Component {
     this.toggleLiveScore = this.toggleLiveScore.bind(this);
     this.togglePlayAgainstAI = this.togglePlayAgainstAI.bind(this);
 
+    const { initialValues = {} } = props;
     this.state = {
-      showLiveScore: true,
-      showGridLines: true,
-      boardSize: 5,
-      playAgainstAI: false
+      showLiveScore: initialValues.showLiveScore !== undefined ? initialValues.showLiveScore : true,
+      showGridLines: initialValues.showGridLines !== undefined ? initialValues.showGridLines : true,
+      boardSize: initialValues.boardSize || 5,
+      playAgainstAI: !!initialValues.playAgainstAI
     };
   }
 
@@ -138,7 +139,17 @@ class NewGameDialog extends React.Component {
 NewGameDialog.propTypes = {
   closeAction: PropType.func.isRequired,
   open: PropType.bool.isRequired,
-  startAction: PropType.func.isRequired
+  startAction: PropType.func.isRequired,
+  initialValues: PropType.shape({
+    showLiveScore: PropType.bool,
+    showGridLines: PropType.bool,
+    boardSize: PropType.number,
+    playAgainstAI: PropType.bool
+  })
+};
+
+NewGameDialog.defaultProps = {
+  initialValues: {}
 };
 
 export default NewGameDialog;
