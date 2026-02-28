@@ -1,30 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import ConnectedApp from '../App/App.connected';
-import Game from '../Game/Game';
+import { ConnectedLobby } from '../lobby/lobby.connected';
 import { GameScreen } from '../game-screen/game-screen';
 
 export const Root = () => {
   return (
     <BrowserRouter>
-      <div>
-        <div style={{ margin: 10 }}>
-          <Switch>
-            <Route exact path="/" component={GameScreen} />
-            <Route
-              path="/currentGame"
-              component={() => {
-                return (
-                  <React.Fragment>
-                    <ConnectedApp />
-                    <Game />
-                  </React.Fragment>
-                );
-              }}
-            />
-          </Switch>
-        </div>
-      </div>
+      <Switch>
+        <Route exact path="/" component={ConnectedLobby} />
+        <Route path="/game" component={GameScreen} />
+      </Switch>
     </BrowserRouter>
   );
 };
