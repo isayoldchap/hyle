@@ -38,6 +38,7 @@ function buildMovePayload(room, move) {
     player1Score: state.player1Score,
     player2Score: state.player2Score,
     remainingPieces: state.remainingPieces,
+    remainingColorCounts: state.remainingColorCounts,
     moveNumber: state.moveNumber,
     isEndOfRound: room.isEndOfRound(),
     isGameOver: room.isGameOver(),
@@ -270,6 +271,7 @@ io.on('connection', socket => {
       player1Score: state.player1Score,
       player2Score: state.player2Score,
       remainingPieces: state.remainingPieces,
+      remainingColorCounts: state.remainingColorCounts,
       moveNumber: state.moveNumber,
     });
 
