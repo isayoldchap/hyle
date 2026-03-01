@@ -192,6 +192,48 @@
   padding: 0.75rem 0;
 }
 
+/* ── Invite hint (joiner view) ────────────────────────────── */
+.lobby-invite-hint {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+/* ── Share link row ───────────────────────────────────────── */
+.lobby-share-row {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.lobby-share-url {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.55);
+  flex: 1;
+  font-size: 0.65rem;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  padding: 0.55rem 0.65rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lobby-btn--copy {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  padding: 0.55rem 0.85rem;
+}
+
+.lobby-btn--copied {
+  background: rgba(114, 191, 68, 0.15);
+  border-color: rgba(114, 191, 68, 0.45);
+}
+
 /* ── Waiting-for-opponent view ────────────────────────────── */
 .lobby-waiting {
   text-align: center;

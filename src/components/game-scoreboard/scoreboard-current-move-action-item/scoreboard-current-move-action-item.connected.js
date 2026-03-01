@@ -1,6 +1,6 @@
 import { ScoreboardCurrentMoveActionItem } from './scoreboard-current-move-action-item';
 import { connect } from 'react-redux';
-import { selectIsEndOfRound, selectIsGameOver, selectNextTile, selectTurn } from '../../../selectors/gameSelector';
+import { selectIsEndOfRound, selectIsGameOver, selectNextTile, selectTurn, selectRoundNumber } from '../../../selectors/gameSelector';
 import { handlePass } from '../../../ducks/entropyDuck';
 
 export const mapStateToProps = state => {
@@ -8,7 +8,9 @@ export const mapStateToProps = state => {
     endOfGame: selectIsGameOver(state),
     endOfRound: selectIsEndOfRound(state),
     nextTile: selectNextTile(state),
-    turn: selectTurn(state)
+    turn: selectTurn(state),
+    myRole: state.myRole || null,
+    round: selectRoundNumber(state),
   };
 };
 

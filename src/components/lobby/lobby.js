@@ -10,13 +10,19 @@ export const Lobby = ({ myRole, waitingForOpponent, joinCode, lobbyGames, create
   const [joinCodeInput, setJoinCodeInput] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  // Navigate to game screen when the game starts (GAME_STARTED received).
-  // myRole is non-null once GAME_STARTED has been processed.
+  // For AI games, GAME_STARTED arrives immediately — go straight to the board.
   useEffect(() => {
     if (myRole && !waitingForOpponent) {
       history.push('/game');
     }
   }, [myRole, waitingForOpponent, history]);
+
+  // For H vs H, navigate to the game room URL so the creator can share it.
+  useEffect(() => {
+    if (waitingForOpponent && joinCode) {
+      history.push(`/games/${joinCode}`);
+    }
+  }, [waitingForOpponent, joinCode, history]);
 
   // Refresh open games on mount and every 5 s.
   useEffect(() => {
@@ -45,32 +51,6 @@ export const Lobby = ({ myRole, waitingForOpponent, joinCode, lobbyGames, create
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleJoinGame();
   };
-
-  // ── Waiting-for-opponent view ──────────────────────────────────────────────
-  if (waitingForOpponent) {
-    return (
-      <div className="lobby-page">
-        <div className="lobby-card">
-          <div className="lobby-waiting">
-            <p className="lobby-waiting-title">Waiting for opponent…</p>
-
-            <p className="lobby-label">Share this code</p>
-            <div className="lobby-code-display">{joinCode}</div>
-
-            <p className="lobby-waiting-hint">
-              Your friend enters this code to join the game.
-            </p>
-
-            <div className="lobby-spinner">
-              <span className="lobby-spinner-dot" />
-              <span className="lobby-spinner-dot" />
-              <span className="lobby-spinner-dot" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // ── Main lobby view ────────────────────────────────────────────────────────
   return (

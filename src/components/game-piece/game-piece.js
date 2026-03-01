@@ -24,8 +24,9 @@ export const GamePiece = props => {
 
   return (
     <img
-      ref={drag}
+      ref={canDrag() ? drag : null}
       alt="game piece"
+      draggable={false}
       src={src}
       style={{ width: '100%', height: '100%', opacity: isDragging ? 0 : 1, cursor }}
     />

@@ -23,3 +23,12 @@ body {
 	padding: 0px 10px;
 	/* flex: 1; */
 }
+
+@keyframes waiting-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.waiting-indicator {
+  animation: waiting-pulse 2s ease-in-out infinite;
+}

@@ -17,7 +17,9 @@ export class GameBoardComponent extends Component {
     id: PropTypes.string,
     legalMoves: PropTypes.array,
     movePiece: PropTypes.func,
+    myRole: PropTypes.string,
     newGame: PropTypes.func,
+    round: PropTypes.number,
     size: PropTypes.number,
     turn: PropTypes.string
   };
@@ -28,7 +30,9 @@ export class GameBoardComponent extends Component {
     id: null,
     legalMoves: [],
     movePiece: () => {},
+    myRole: null,
     newGame: () => {},
+    round: 1,
     size: null,
     turn: null
   };
@@ -56,9 +60,27 @@ export class GameBoardComponent extends Component {
     movePiece(toCoordinate, fromCoordinate);
   }
 
+  // Returns false when playing online and it is the opponent's turn.
+  // Returns true for local games (myRole is null) so local co-op still works.
+  isMyTurn() {
+    const { myRole, round, turn } = this.props;
+    if (!myRole) return true;
+    // Round 1: player1 = Chaos, player2 = Order
+    // Round 2: player1 = Order, player2 = Chaos
+    if (myRole === 'player1') {
+      return (round === 1 && turn === Roles.CHAOS) || (round === 2 && turn === Roles.ORDER);
+    }
+    if (myRole === 'player2') {
+      return (round === 1 && turn === Roles.ORDER) || (round === 2 && turn === Roles.CHAOS);
+    }
+    return false; // watcher
+  }
+
   // TODO: Debounce this?
   canMoveGamePiece(toX, toY, gamePiece) {
     const { legalMoves, turn } = this.props;
+
+    if (!this.isMyTurn()) return false;
 
     const toCoordinate = { x: toX, y: toY };
 
@@ -104,7 +126,7 @@ export class GameBoardComponent extends Component {
     const { cells, turn } = this.props;
 
     const canDrag = () => {
-      return Boolean(turn === Roles.ORDER);
+      return this.isMyTurn() && Boolean(turn === Roles.ORDER);
     };
 
     return cells.map(cell => {
